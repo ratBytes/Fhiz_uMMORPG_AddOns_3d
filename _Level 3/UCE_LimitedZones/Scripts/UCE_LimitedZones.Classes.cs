@@ -1,11 +1,11 @@
 // =======================================================================================
-// Created and maintained by Fhiz
+// Created and maintained by iMMO
 // Usable for both personal and commercial projects, but no sharing or re-sale
 // * Discord Support Server.............: https://discord.gg/YkMbDHs
 // * Public downloads website...........: https://www.indie-mmo.net
 // * Pledge on Patreon for VIP AddOns...: https://www.patreon.com/IndieMMO
+// * Instructions.......................: https://indie-mmo.net/knowledge-base/
 // =======================================================================================
-
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -122,15 +122,7 @@ public class UCE_LimitedZonesEntry
         if (index == -1)
             index = 0;
 
-        List<UCE_LimitedZonesEntry> instancesAvailable = sharedInstanceManager.getAvailableSharedInstances(this, instanceCategory);
-
-        UCE_PlayerGroupLocations locations = instancesAvailable[instanceIndex].targetArea.playerGroupLocation[index];
-
-        if (locations.teleportPosition.Length == 0) return;
-
-        index = UnityEngine.Random.Range(0, locations.teleportPosition.Length - 1);
-
-        player.Cmd_UCE_teleportPlayerToInstance(index, instanceCategory, instanceIndex, locations.teleportPosition[index].position);
+        player.Cmd_UCE_teleportPlayerToInstance(index, instanceCategory, instanceIndex);
     }
 
     // ================================= UI FUNCTIONS ====================================

@@ -1,11 +1,11 @@
 // =======================================================================================
-// Created and maintained by Fhiz
+// Created and maintained by iMMO
 // Usable for both personal and commercial projects, but no sharing or re-sale
 // * Discord Support Server.............: https://discord.gg/YkMbDHs
 // * Public downloads website...........: https://www.indie-mmo.net
 // * Pledge on Patreon for VIP AddOns...: https://www.patreon.com/IndieMMO
+// * Instructions.......................: https://indie-mmo.net/knowledge-base/
 // =======================================================================================
-
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -21,7 +21,7 @@ public partial class Player
     // Cmd_UCE_teleportPlayerToInstance
     // @Client -> @Server
     // -----------------------------------------------------------------------------------
-    public void Cmd_UCE_teleportPlayerToInstance(int index, int instanceCategory, int instanceIndex, Vector3 pos)
+    public void Cmd_UCE_teleportPlayerToInstance(int index, int instanceCategory, int instanceIndex)
     {
         if (!sharedInstanceManager)
             sharedInstanceManager = FindObjectOfType<UCE_LimitedZonesManager>();
@@ -29,17 +29,14 @@ public partial class Player
         List<UCE_LimitedZonesEntry> instancesAvailable = sharedInstanceManager.getAvailableSharedInstances(this, instanceCategory);
 
         instancesAvailable[instanceIndex].payEntranceCost(this);
-        /*
-        if (index == -1)
-            index = 0;
 
         UCE_PlayerGroupLocations locations = instancesAvailable[instanceIndex].targetArea.playerGroupLocation[index];
 
         if (locations.teleportPosition.Length == 0) return;
 
         index = UnityEngine.Random.Range(0, locations.teleportPosition.Length - 1);
-        */
-        agent.Warp(pos);
+
+        agent.Warp(locations.teleportPosition[index].position);
     }
 }
 
