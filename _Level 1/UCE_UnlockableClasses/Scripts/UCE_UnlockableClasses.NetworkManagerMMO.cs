@@ -48,15 +48,15 @@ public partial class NetworkManagerMMO
     }
 
     // -----------------------------------------------------------------------------------
-    // OnServerLogin_UCE_UnlockableClasses
+    // OnServerConnect_UCE_UnlockableClasses
     // @Server
     // -----------------------------------------------------------------------------------
     [DevExtMethods("OnServerConnect")]
-    private void OnServerConnect_UCE_UnlockableClasses(NetworkConnection conn, LoginMsg netMsg)
+    private void OnServerConnect_UCE_UnlockableClasses(NetworkConnection conn, string account)
     {
         if (!defaultUnlockedClasses) return;
 
-        List<string> unlockedClasses = Database.singleton.UCE_GetUnlockedClasses(netMsg.account);
+        List<string> unlockedClasses = Database.singleton.UCE_GetUnlockedClasses(account);
         ClassesAvailableMsg message = new ClassesAvailableMsg { unlockedClasses = unlockedClasses.ToArray() };
 
         conn.Send(message);
