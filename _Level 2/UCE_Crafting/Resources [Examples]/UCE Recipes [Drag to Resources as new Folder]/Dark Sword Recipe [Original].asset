@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   category: Dark Swords
   image: {fileID: 21300000, guid: 7170e3d22d3a445b3b69cc80b5c50d22, type: 3}
-  requiredCraft: {fileID: 11400000, guid: 7d57e98ba155a4c7bb2d00c651676d55, type: 2}
+  requiredCraft: {fileID: 11400000, guid: dc981b9b455a15346998294764ced34d, type: 2}
   minSkillLevel: 1
   ProfessionExperienceRewardMin: 0
   ProfessionExperienceRewardMax: 2

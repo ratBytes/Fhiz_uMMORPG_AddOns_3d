@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   category: Health Potions
   image: {fileID: 21300000, guid: 07a54f0fd6b6f4f2bb63a7f654dbfeb5, type: 3}
-  requiredCraft: {fileID: 11400000, guid: 92a3efb39b4ca49268a8239403ddf237, type: 2}
+  requiredCraft: {fileID: 11400000, guid: 0dcb20c4822b3424f8b82f9a8346b4a1, type: 2}
   minSkillLevel: 1
   ProfessionExperienceRewardMin: 0
   ProfessionExperienceRewardMax: 2
