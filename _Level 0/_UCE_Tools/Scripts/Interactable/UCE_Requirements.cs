@@ -46,10 +46,8 @@ public partial class UCE_Requirements
     [Header("[TIME]")]
     [Tooltip("[Optional] To access, must be this day or later in the month (0 to disable)"), Range(0, 31)]
     public int dayStart = 0;
-
     [Tooltip("[Optional] To access, must be this day or earlier in the month (0 to disable)"), Range(0, 31)]
     public int dayEnd = 0;
-
     [Tooltip("[Optional]  To access, must be this month (0 to disable)"), Range(0, 12)]
     public int activeMonth = 0;
 
@@ -91,13 +89,11 @@ public partial class UCE_Requirements
     public bool requiresAllItems;
 
 #if _iMMOPRESTIGECLASSES
-
     [Header("[UCE PRESTIGE CLASSES REQUIREMENTS]")]
     public UCE_PrestigeClassTemplate[] allowedPrestigeClasses;
 #endif
 
 #if _iMMOATTRIBUTES
-
     [Header("[UCE ATTRIBUTES REQUIREMENTS]")]
     public UCE_AttributeRequirement[] requiredAttributes;
     public bool requiresAllAttributes;
@@ -126,7 +122,6 @@ public partial class UCE_Requirements
 #endif
 
 #if _iMMOFACTIONS
-
     [Header("[UCE FACTIONS REQUIREMENTS]")]
     [Tooltip("[Optional] Faction Requirements")]
     public UCE_FactionRequirement[] factionRequirements;
@@ -134,14 +129,12 @@ public partial class UCE_Requirements
 #endif
 
 #if _iMMOHARVESTING
-
     [Header("[UCE HARVESTING REQUIREMENTS]")]
     public UCE_HarvestingProfessionRequirement[] harvestProfessionRequirements;
     public bool requiresAllHarvestingProfessions;
 #endif
 
 #if _iMMOCRAFTING
-
     [Header("[UCE CRAFTING REQUIREMENTS]")]
     public UCE_CraftingProfessionRequirement[] craftProfessionRequirements;
     public bool requiresAllCraftingProfessions;
@@ -157,36 +150,30 @@ public partial class UCE_Requirements
 #endif
 
 #if _iMMOTRAVEL
-
-    [Header("[UCE TRAVELROUTE REQUIREMENTS]")]
-    public string requiredTravelrouteName;
+	[Header("[UCE TRAVELROUTE REQUIREMENTS]")]
+	public string requiredTravelrouteName;
 #endif
 
 #if _iMMOWORLDEVENTS
-
-    [Header("[UCE WORLD EVENT REQUIREMENTS]")]
-    [Tooltip("[Optional] This world event will be checked")]
-    public UCE_WorldEventTemplate worldEvent;
-
-    [Tooltip("[Optional] Min count the world event has been completed (0 to disable)")]
-    public int minEventCount;
-
-    [Tooltip("[Optional] Max count the world event has been completed (0 to disable)")]
-    public int maxEventCount;
+	[Header("[UCE WORLD EVENT REQUIREMENTS]")]
+	[Tooltip("[Optional] This world event will be checked")]
+	public UCE_WorldEventTemplate worldEvent;
+	[Tooltip("[Optional] Min count the world event has been completed (0 to disable)")]
+	public int minEventCount;
+	[Tooltip("[Optional] Max count the world event has been completed (0 to disable)")]
+	public int maxEventCount;
 #endif
 
 #if _iMMOGUILDUPGRADES
-
-    [Header("[UCE GUILD UPGRADES]")]
-    [Tooltip("[Optional] Players guild has to be of this level (player has to be in a guild)")]
-    public int minGuildLevel;
+	[Header("[UCE GUILD UPGRADES]")]
+	[Tooltip("[Optional] Players guild has to be of this level (player has to be in a guild)")]
+	public int minGuildLevel;
 #endif
 
 #if _iMMOACCOUNTUNLOCKABLES
-
-    [Header("[UCE ACCOUNT UNLOCKABLES]")]
-    [Tooltip("[Optional] This must be unlocked on the account (empty to disable)")]
-    public string accountUnlockable;
+	[Header("[UCE ACCOUNT UNLOCKABLES]")]
+	[Tooltip("[Optional] This must be unlocked on the account (empty to disable)")]
+	public string accountUnlockable;
 #endif
 
     // -----------------------------------------------------------------------------------
@@ -257,21 +244,21 @@ public partial class UCE_Requirements
 #endif
 
 #if _iMMOTRAVEL
-        valid = string.IsNullOrWhiteSpace(requiredTravelrouteName) || (!string.IsNullOrWhiteSpace(requiredTravelrouteName) && player.UCE_travelroutes.Any(t => t.name == requiredTravelrouteName)) ? valid : false;
+		valid = string.IsNullOrWhiteSpace(requiredTravelrouteName) || (!string.IsNullOrWhiteSpace(requiredTravelrouteName) && player.UCE_travelroutes.Any(t => t.name == requiredTravelrouteName)) ? valid : false;
 #endif
 
 #if _iMMOWORLDEVENTS
-        valid = player.UCE_CheckWorldEvent(worldEvent, minEventCount, maxEventCount) ? valid : false;
+		valid = player.UCE_CheckWorldEvent(worldEvent, minEventCount, maxEventCount) ? valid : false;
 #endif
 
 #if _iMMOGUILDUPGRADES
-        if (minGuildLevel > 0)
-            valid = player.InGuild() && player.guildLevel >= minGuildLevel ? valid : false;
+		if (minGuildLevel > 0)
+			valid = player.InGuild() && player.guildLevel >= minGuildLevel ? valid : false;
 #endif
 
 #if _iMMOACCOUNTUNLOCKABLES
-        if (!string.IsNullOrWhiteSpace(accountUnlockable))
-            valid = player.UCE_HasAccountUnlock(accountUnlockable) ? valid : false;
+		if (!string.IsNullOrWhiteSpace(accountUnlockable))
+			valid = player.UCE_HasAccountUnlock(accountUnlockable) ? valid : false;
 #endif
 
         return valid;
@@ -390,13 +377,13 @@ public partial class UCE_Requirements
                 || factionRequirements.Length > 0
 #endif
 #if _iMMOTRAVEL
-                || !string.IsNullOrWhiteSpace(requiredTravelrouteName)
+				|| !string.IsNullOrWhiteSpace(requiredTravelrouteName)
 #endif
 #if _iMMOWORLDEVENTS
-                || worldEvent != null && (minEventCount != 0 || maxEventCount != 0)
+				|| worldEvent != null && (minEventCount != 0 || maxEventCount != 0)
 #endif
 #if _iMMOGUILDUPGRADES
-                || minGuildLevel > 0
+				|| minGuildLevel > 0
 #endif
                 ;
     }

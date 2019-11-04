@@ -15,11 +15,10 @@ public partial class Database
     #region Custom Database Classes
 
 #if _SQLITE
-
     // -----------------------------------------------------------------------------------
     // Account Unlockables
     // -----------------------------------------------------------------------------------
-    private class account_unlockables
+    class account_unlockables
     {
         public string account { get; set; }
         public string unlockable { get; set; }
@@ -28,18 +27,17 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // Account Admin
     // -----------------------------------------------------------------------------------
-    private class account_admin
+    class account_admin
     {
         [PrimaryKey] // important for performance: O(log n) instead of O(n)
         public string account { get; set; }
-
         public int admin { get; set; }
     }
 
     // -----------------------------------------------------------------------------------
     // UCE Attributes
     // -----------------------------------------------------------------------------------
-    private class UCE_attributes
+    class UCE_attributes
     {
         public string character { get; set; }
         public int slot { get; set; }
@@ -50,11 +48,10 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // Character Bindpoint
     // -----------------------------------------------------------------------------------
-    private class character_bindpoint
+    class character_bindpoint
     {
         [PrimaryKey] // important for performance: O(log n) instead of O(n)
         public string character { get; set; }
-
         public string name { get; set; }
         public float x { get; set; }
         public float y { get; set; }
@@ -65,7 +62,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // Character Crafts
     // -----------------------------------------------------------------------------------
-    private class character_crafts
+    class character_crafts
     {
         public string character { get; set; }
         public string profession { get; set; }
@@ -75,7 +72,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // Character Recipes
     // -----------------------------------------------------------------------------------
-    private class character_recipes
+    class character_recipes
     {
         public string character { get; set; }
         public string recipe { get; set; }
@@ -84,22 +81,20 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // Character Last Online
     // -----------------------------------------------------------------------------------
-    private class character_lastonline
+    class character_lastonline
     {
         [PrimaryKey] // important for performance: O(log n) instead of O(n)
         public string character { get; set; }
-
         public string lastOnline { get; set; }
     }
 
     // -----------------------------------------------------------------------------------
     // Character Daily Rewards
     // -----------------------------------------------------------------------------------
-    private class character_dailyrewards
+    class character_dailyrewards
     {
         [PrimaryKey] // important for performance: O(log n) instead of O(n)
         public string character { get; set; }
-
         public int counter { get; set; }
         public double resetTime { get; set; }
     }
@@ -107,18 +102,17 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // Account Last Online
     // -----------------------------------------------------------------------------------
-    private class account_lastonline
+    class account_lastonline
     {
         [PrimaryKey] // important for performance: O(log n) instead of O(n)
         public string account { get; set; }
-
         public string lastOnline { get; set; }
     }
 
     // -----------------------------------------------------------------------------------
     // Character Exploration
     // -----------------------------------------------------------------------------------
-    private class character_exploration
+    class character_exploration
     {
         public string character { get; set; }
         public string exploredArea { get; set; }
@@ -127,7 +121,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // Character Factions
     // -----------------------------------------------------------------------------------
-    private class character_factions
+    class character_factions
     {
         public string character { get; set; }
         public string faction { get; set; }
@@ -137,7 +131,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // Character Friends
     // -----------------------------------------------------------------------------------
-    private class character_friends
+    class character_friends
     {
         public string character { get; set; }
         public string friendName { get; set; }
@@ -147,22 +141,20 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // UCE Guild Upgrades
     // -----------------------------------------------------------------------------------
-    private class UCE_guild_upgrades
+    class UCE_guild_upgrades
     {
         [PrimaryKey] // important for performance: O(log n) instead of O(n)
         public string guild { get; set; }
-
         public int level { get; set; }
     }
 
     // -----------------------------------------------------------------------------------
     // UCE Guild Warehouse
     // -----------------------------------------------------------------------------------
-    private class UCE_guild_warehouse
+    class UCE_guild_warehouse
     {
         [PrimaryKey] // important for performance: O(log n) instead of O(n)
         public string guild { get; set; }
-
         public int gold { get; set; }
         public int level { get; set; }
         public int locked { get; set; }
@@ -172,7 +164,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // UCE Guild Warehouse Items
     // -----------------------------------------------------------------------------------
-    private class UCE_guild_warehouse_items
+    class UCE_guild_warehouse_items
     {
         public string guild { get; set; }
         public int slot { get; set; }
@@ -186,7 +178,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // Character Professions
     // -----------------------------------------------------------------------------------
-    private class character_professions
+    class character_professions
     {
         public string character { get; set; }
         public string profession { get; set; }
@@ -196,7 +188,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // UCE Reports
     // -----------------------------------------------------------------------------------
-    private class UCE_reports
+    class UCE_reports
     {
         public string senderAcc { get; set; }
         public string senderCharacter { get; set; }
@@ -211,7 +203,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // Character Currencies
     // -----------------------------------------------------------------------------------
-    private class character_currencies
+    class character_currencies
     {
         public string character { get; set; }
         public string currency { get; set; }
@@ -226,7 +218,6 @@ public partial class Database
     {
         [PrimaryKey] // important for performance: O(log n) instead of O(n)
         public int id { get; set; }
-
         public string messageFrom { get; set; }
         public string messageTo { get; set; }
         public string subject { get; set; }
@@ -241,18 +232,17 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // Character Scene
     // -----------------------------------------------------------------------------------
-    private class character_scene
+    class character_scene
     {
         [PrimaryKey] // important for performance: O(log n) instead of O(n)
         public string character { get; set; }
-
         public string scene { get; set; }
     }
 
     // -----------------------------------------------------------------------------------
     // Zones Online
     // -----------------------------------------------------------------------------------
-    private class zones_online
+    class zones_online
     {
         public string online { get; set; }
     }
@@ -260,7 +250,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // Character Purchases
     // -----------------------------------------------------------------------------------
-    private class character_purchases
+    class character_purchases
     {
         public string character { get; set; }
         public string product { get; set; }
@@ -271,7 +261,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // Character Prestige Classes
     // -----------------------------------------------------------------------------------
-    private class character_prestigeclasses
+    class character_prestigeclasses
     {
         public string character { get; set; }
         public string class1 { get; set; }
@@ -281,7 +271,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // Character Pvp Zones
     // -----------------------------------------------------------------------------------
-    private class character_pvpzones
+    class character_pvpzones
     {
         public string character { get; set; }
         public string realm { get; set; }
@@ -291,14 +281,12 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // Character UCE Quests
     // -----------------------------------------------------------------------------------
-    private class character_UCE_quests
+    class character_UCE_quests
     {
         [PrimaryKey] // important for performance: O(log n) instead of O(n)
         public string character { get; set; }
-
         [Indexed]
         public string name { get; set; }
-
         public string pvped { get; set; }
         public string killed { get; set; }
         public string gathered { get; set; }
@@ -333,7 +321,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // Character Timegates
     // -----------------------------------------------------------------------------------
-    private class character_timegates
+    class character_timegates
     {
         public string character { get; set; }
         public string timegateName { get; set; }
@@ -344,7 +332,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // Character UCE Traits
     // -----------------------------------------------------------------------------------
-    private class character_UCE_traits
+    class character_UCE_traits
     {
         public string character { get; set; }
         public string name { get; set; }
@@ -353,7 +341,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // Character Travel Routes
     // -----------------------------------------------------------------------------------
-    private class character_travelroutes
+    class character_travelroutes
     {
         public string character { get; set; }
         public string travelroute { get; set; }
@@ -362,7 +350,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // Account Unlocked Classes
     // -----------------------------------------------------------------------------------
-    private class account_unlockedclasses
+    class account_unlockedclasses
     {
         public string account { get; set; }
         public string classname { get; set; }
@@ -371,11 +359,10 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // UCE Warehouse
     // -----------------------------------------------------------------------------------
-    private class uce_warehouse
+    class uce_warehouse
     {
         [PrimaryKey] // important for performance: O(log n) instead of O(n)
         public string character { get; set; }
-
         public int gold { get; set; }
         public int level { get; set; }
     }
@@ -383,7 +370,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // UCE Warehouse Items
     // -----------------------------------------------------------------------------------
-    private class uce_warehouse_items
+    class uce_warehouse_items
     {
         public string character { get; set; }
         public int slot { get; set; }
@@ -397,14 +384,12 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // UCE World Events
     // -----------------------------------------------------------------------------------
-    private class uce_worldevents
+    class uce_worldevents
     {
         [PrimaryKey] // important for performance: O(log n) instead of O(n)
         public string name { get; set; }
-
         public int count { get; set; }
     }
-
 #endif
 
     #endregion Custom Database Classes

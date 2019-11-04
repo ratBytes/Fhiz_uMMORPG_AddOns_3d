@@ -19,7 +19,6 @@ public partial class UCE_UI_InfoBox : MonoBehaviour
     public ScrollRect scrollRect;
     public GameObject textPrefab;
     [Range(0, 300)] public int keepHistory = 100;
-
     [Tooltip("Time (in seconds) the box will be visible when adding a message, set to 0 to make it visible permanently")]
     [Range(0, 30)]
     public float displayTime = 3f;
@@ -30,7 +29,7 @@ public partial class UCE_UI_InfoBox : MonoBehaviour
     // Update
     // @Client
     // -----------------------------------------------------------------------------------
-    private void Update()
+    void Update()
     {
         Player player = Player.localPlayer;
         if (!player && displayTime > 0) panel.SetActive(false);
@@ -48,7 +47,7 @@ public partial class UCE_UI_InfoBox : MonoBehaviour
     // AutoScroll
     // @Client
     // -----------------------------------------------------------------------------------
-    private void AutoScroll()
+    void AutoScroll()
     {
         Canvas.ForceUpdateCanvases();
         scrollRect.verticalNormalizedPosition = 0;

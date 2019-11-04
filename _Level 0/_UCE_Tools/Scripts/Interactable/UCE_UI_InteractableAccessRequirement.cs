@@ -21,7 +21,7 @@ public partial class UCE_UI_InteractableAccessRequirement : UCE_UI_Requirement
     public string labelGoldCost = " - Gold cost per use: ";
     public string labelCoinCost = " - Coins cost per use: ";
 #if _iMMOHONORSHOP
-    public string labelRequiredHonorCurrency = " - Honor Currency cost: ";
+    public string labelRequiredHonorCurrency 		= " - Honor Currency cost: ";
 #endif
 
     protected UCE_Interactable interactable;
@@ -100,21 +100,21 @@ public partial class UCE_UI_InteractableAccessRequirement : UCE_UI_Requirement
             AddMessage(labelCoinCost + ir.coinCost.ToString(), player.coins >= ir.coinCost ? textColor : errorColor);
 
 #if _iMMOHONORSHOP
-        if (ir.honorCurrencyCost.Length > 0)
-        {
-            AddMessage(labelRequiredHonorCurrency, textColor);
-            foreach (UCE_HonorShopCurrencyDrop currency in ir.honorCurrencyCost)
-            {
-                if (player.UCE_GetHonorCurrency(currency.honorCurrency) < currency.amount)
-                {
-                    AddMessage(currency.honorCurrency.name + " x" + currency.amount.ToString(), errorColor);
-                }
-                else
-                {
-                    AddMessage(currency.honorCurrency.name + " x" + currency.amount.ToString(), textColor);
-                }
-            }
-        }
+		if (ir.honorCurrencyCost.Length > 0)
+		{
+			AddMessage(labelRequiredHonorCurrency, textColor);
+			foreach (UCE_HonorShopCurrencyDrop currency in ir.honorCurrencyCost)
+			{
+				if (player.UCE_GetHonorCurrency(currency.honorCurrency) < currency.amount)
+				{
+					AddMessage(currency.honorCurrency.name + " x" + currency.amount.ToString(), errorColor);
+				}
+				else
+				{
+					AddMessage(currency.honorCurrency.name + " x" + currency.amount.ToString(), textColor);
+				}
+			}
+		}
 #endif
     }
 

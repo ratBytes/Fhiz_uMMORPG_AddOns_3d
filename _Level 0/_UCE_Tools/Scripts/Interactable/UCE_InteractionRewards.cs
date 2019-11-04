@@ -42,7 +42,6 @@ public partial class UCE_InteractionRewards
     public int maxCoins;
 
 #if _iMMOHONORSHOP
-
     [Tooltip("[Optional] Honor Currency rewarded")]
     public UCE_HonorShopCurrencyCost[] honorCurrencyReward;
 #endif
@@ -100,7 +99,7 @@ public partial class UCE_InteractionRewards
         // -- unlock travelroutes
 #if _iMMOTRAVEL
         foreach (UCE_Unlockroute route in unlockTravelroutes)
-            player.UCE_UnlockTravelroute(route);
+    		player.UCE_UnlockTravelroute(route);
 #endif
 
         // -- reward items

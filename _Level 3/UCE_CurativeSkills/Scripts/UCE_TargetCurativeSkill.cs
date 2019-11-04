@@ -14,6 +14,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "UCE Skills/UCE Target Curative Skill", order = 999)]
 public class UCE_TargetCurativeSkill : UCE_CurativeSkill
 {
+   
     // -----------------------------------------------------------------------------------
     // Apply
     // -----------------------------------------------------------------------------------

@@ -12,13 +12,13 @@ using Mirror;
 // =======================================================================================
 // TARGET PROJECTILE SKILL
 // =======================================================================================
-[CreateAssetMenu(menuName = "UCE Skills/UCE Target Projectile Skill", order = 999)]
+[CreateAssetMenu(menuName= "UCE Skills/UCE Target Projectile Skill", order=999)]
 public class UCE_TargetProjectileSkill : UCE_BaseDamageSkill
 {
     [Header("Projectile")]
     public UCE_ProjectileSkillEffect projectile; // Arrows, Bullets, Fireballs, ...
 
-    private bool HasRequiredWeaponAndAmmo(Entity caster)
+    bool HasRequiredWeaponAndAmmo(Entity caster)
     {
         int weaponIndex = caster.GetEquippedWeaponIndex();
         if (weaponIndex != -1)
@@ -31,7 +31,7 @@ public class UCE_TargetProjectileSkill : UCE_BaseDamageSkill
         return true;
     }
 
-    private void ConsumeRequiredWeaponsAmmo(Entity caster)
+    void ConsumeRequiredWeaponsAmmo(Entity caster)
     {
         int weaponIndex = caster.GetEquippedWeaponIndex();
         if (weaponIndex != -1)

@@ -7,6 +7,12 @@
 // * Instructions.......................: https://indie-mmo.net/knowledge-base/
 // =======================================================================================
 
+
+
+
+
+
+
 using Mirror;
 using UnityEngine;
 
@@ -76,3 +82,4 @@ public partial class UCE_AreaSphere_Popup : NetworkBehaviour
 
     // -----------------------------------------------------------------------------------
 }
+

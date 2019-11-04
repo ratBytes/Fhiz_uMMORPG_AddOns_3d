@@ -26,16 +26,17 @@ public partial class NetworkManagerMMO : NetworkManager
                 if (UCE_TraitTemplate.dict.TryGetValue(traitId, out trait))
                 {
                     player.UCE_Traits.Add(new UCE_Trait(trait));
-
+					
+					
 #if _iMMOATTRIBUTES
-                    foreach (UCE_AttributeTemplate template in player.playerAttributes.UCE_AttributeTypes)
-                    {
-                        if (template == null) continue;
-                        UCE_Attribute attr = new UCE_Attribute(template);
-                        player.UCE_Attributes.Add(attr);
-                    }
+					foreach (UCE_AttributeTemplate template in player.playerAttributes.UCE_AttributeTypes)
+					{
+						if (template == null) continue;
+						UCE_Attribute attr = new UCE_Attribute(template);
+						player.UCE_Attributes.Add(attr);
+					}
 #endif
-
+									
                     // ----------------------------------------------------------------------
                     foreach (UCE_SkillRequirement startSkill in trait.startingSkills)
                     {

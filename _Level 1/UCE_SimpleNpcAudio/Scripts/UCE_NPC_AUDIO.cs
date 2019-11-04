@@ -18,7 +18,7 @@ public partial class Entity
     public void PlayInteractSound()
     {
         AudioSource tempSource = FindObjectOfType<AudioSource>();
-        if (tempSource == null) return;
+        if(tempSource == null) return;
 
         tempSource.PlayOneShot(interactAudio);
     }
@@ -26,11 +26,12 @@ public partial class Entity
     public void PlayQuestAudio()
     {
         AudioSource tempSource = FindObjectOfType<AudioSource>();
-        if (tempSource == null) return;
+        if(tempSource == null) return;
 
         tempSource.PlayOneShot(questAudio);
         Debug.Log("Play Quest Audio.");
     }
+
 }
 
 public partial class UINpcDialogue
@@ -38,16 +39,15 @@ public partial class UINpcDialogue
     public void interactAudio()
     {
         Player player = Player.localPlayer;
-        if (player == null || player.target == null) return;
-        if (player.target.interactAudio == null) return;
+        if(player == null || player.target == null) return;
+        if(player.target.interactAudio == null) return;
         player.target.PlayInteractSound();
     }
-
     public void questAudio()
     {
         Player player = Player.localPlayer;
-        if (player == null || player.target == null) return;
-        if (player.target.questAudio == null) return;
+        if(player == null || player.target == null) return;
+        if(player.target.questAudio == null) return;
         player.target.PlayQuestAudio();
     }
 }

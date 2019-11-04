@@ -113,7 +113,7 @@ public partial class Database : MonoBehaviour
 	// Connect
 	// -----------------------------------------------------------------------------------
 	[DevExtMethods("Connect")]
-    private void Connect() {
+    public void Connect() {
     	// -- accounts
         ExecuteNonQueryMySql(@"
         CREATE TABLE IF NOT EXISTS accounts (

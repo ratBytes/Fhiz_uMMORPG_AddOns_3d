@@ -10,12 +10,15 @@ using UnityEngine;
 using Mirror;
 
 // =======================================================================================
-//
+// 
 // =======================================================================================
 public abstract partial class UCE_BaseDamageSkill : DamageSkill
 {
+
+
     [Header("Visuals")]
     public OneTimeTargetSkillEffect effect;
+
 
     [Header("[Radius]")]
     [Tooltip("[Required] The radius around the caster/target, all legal targets therein are affected.")]
@@ -24,10 +27,8 @@ public abstract partial class UCE_BaseDamageSkill : DamageSkill
     [Header("[Debuff]")]
     [Tooltip("[Optional] Remove only buffs, nerfs or both status effect types from each target?")]
     public BuffType removeBuffType;
-
     [Tooltip("[Optional] % Chance to successfully remove status effects from the target (each)")]
     public LinearFloat debuffChance;
-
     [Tooltip("[Optional] How many status effects are removed from the target at maximum (0 for unlimited)?")]
     public LinearInt debuffAmount;
 
@@ -40,13 +41,10 @@ public abstract partial class UCE_BaseDamageSkill : DamageSkill
     [Header("[Buff]")]
     [Tooltip("[Optional] One or more status effects applied to each target randomly.")]
     public BuffSkill[] applyBuffs;
-
     [Tooltip("[Optional] Level of the buffs applied (capped at buffs max level).")]
     public LinearInt buffLevel;
-
     [Tooltip("[Optional] % Chance to to apply each buff on each target.")]
     public LinearFloat buffChance;
-
     [Tooltip("[Optional] How many status effects are added to the target at maximum (0 for unlimited)?")]
     public LinearInt buffAmount;
 
@@ -59,44 +57,32 @@ public abstract partial class UCE_BaseDamageSkill : DamageSkill
     [Header("[Effects]")]
     [Tooltip("[Optional] ")]
     public LinearInt unstunSeconds;
-
     [Tooltip("[Optional] ")]
     public LinearFloat unstunChance;
-
     [Tooltip("[Optional] ")]
     public LinearInt modifyCooldown;
-
     [Tooltip("[Optional] ")]
     public LinearFloat modifyCooldownChance;
-
     [Tooltip("[Optional] ")]
     public LinearInt modifyBuffDuration;
-
     [Tooltip("[Optional] ")]
     public LinearFloat modifyBuffDurationChance;
-
     [Tooltip("[Optional] ")]
     public BuffType buffType;
 
     [Header("[Targets]")]
     [Tooltip("[Optional] Changes 'affect' affect into 'not affect' and vice-versa")]
     public bool reverseTargeting;
-
     [Tooltip("[Optional] Does affect the caster")]
     public bool affectSelf;
-
     [Tooltip("[Optional] Does affect other players (overwrites settings below)")]
     public bool affectPlayers;
-
     [Tooltip("[Optional] Does affect monsters")]
     public bool affectEnemies;
-
     [Tooltip("[Optional] Does affect members of the own party")]
     public bool affectOwnParty;
-
     [Tooltip("[Optional] Does affect members of the own guild")]
     public bool affectOwnGuild;
-
     [Tooltip("[Optional] Does affect members of the own realm (requires UCE PVP ZONE AddOn")]
     public bool affectOwnRealm;
 
@@ -122,10 +108,11 @@ public abstract partial class UCE_BaseDamageSkill : DamageSkill
         }
     }
 
+
     // -----------------------------------------------------------------------------------
     // CorrectedTarget
     // -----------------------------------------------------------------------------------
-    private Entity CorrectedTarget(Entity caster)
+    Entity CorrectedTarget(Entity caster)
     {
         // targeting nothing? then try to cast on self
         if (caster.target == null)
@@ -167,18 +154,21 @@ public abstract partial class UCE_BaseDamageSkill : DamageSkill
     // -----------------------------------------------------------------------------------
     public void ApplyToTargets(List<Entity> targets, Entity caster, int skillLevel)
     {
+
         //DamageType damageType = DamageType.Normal;
 
         // ---------------------------------------------------------- Apply to all targets
 
         foreach (Entity target in targets)
         {
+
             float buffModifier = 0;
             int dmg = 0;
 
             // ---------------------------------------------------------------- Debuff
             if (removeBuffType != BuffType.None || removeBuffs.Length > 0)
             {
+
                 foreach (BuffSkill removeBuff in removeBuffs)
                     target.UCE_RemoveBuff(removeBuff, debuffChance.Get(skillLevel), buffModifier);
 
@@ -194,8 +184,10 @@ public abstract partial class UCE_BaseDamageSkill : DamageSkill
                 }
                 else if (removeBuffType == BuffType.Both)
                 {
+
                     target.UCE_CleanupStatusAny(debuffChance.Get(skillLevel), buffModifier, debuffAmount.Get(skillLevel));
                 }
+
             }
 
             // ---------------------------------------------------------------- Buff
@@ -251,12 +243,15 @@ public abstract partial class UCE_BaseDamageSkill : DamageSkill
 
             // ---------------------------------------------------------------- Spawn Effect
             SpawnEffect(caster, target);
+
         }
 
         targets.Clear();
+
     }
 
     // -----------------------------------------------------------------------------------
+
 }
 
 // =======================================================================================

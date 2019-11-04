@@ -17,33 +17,37 @@ using TMPro;
 // =======================================================================================
 public partial class Entity
 {
-    [Header("Healing Popup")]
-    public GameObject healingPopupPrefab;
 
+	[Header("Healing Popup")]
+    public GameObject healingPopupPrefab;
+    
     // -----------------------------------------------------------------------------------
-    // ShowHealingPopup
-    // -----------------------------------------------------------------------------------
+	// ShowHealingPopup
+	// -----------------------------------------------------------------------------------
 
     [Client]
-    private void ShowHealingPopup(int amount)
+    void ShowHealingPopup(int amount)
     {
         // spawn the damage popup (if any) and set the text
         if (healingPopupPrefab != null)
         {
+        
             // showing it above their head looks best, and we don't have to use
             // a custom shader to draw world space UI in front of the entity
             Bounds bounds = collider.bounds;
             Vector3 position = new Vector3(bounds.center.x, bounds.max.y, bounds.center.z);
 
             GameObject popup = Instantiate(healingPopupPrefab, position, Quaternion.identity);
-
+            
             popup.GetComponentInChildren<TextMeshPro>().text = amount.ToString();
+            
+            
         }
     }
-
-    // -----------------------------------------------------------------------------------
-    // RpcOnHealingReceived
-    // -----------------------------------------------------------------------------------
+	
+	// -----------------------------------------------------------------------------------
+	// RpcOnHealingReceived
+	// -----------------------------------------------------------------------------------
 
     [ClientRpc]
     public void RpcOnHealingReceived(int amount)
@@ -54,7 +58,7 @@ public partial class Entity
         // addon system hooks
         Utils.InvokeMany(typeof(Entity), this, "OnHealingReceived_", amount);
     }
-
+	
     // -----------------------------------------------------------------------------------
 }
 

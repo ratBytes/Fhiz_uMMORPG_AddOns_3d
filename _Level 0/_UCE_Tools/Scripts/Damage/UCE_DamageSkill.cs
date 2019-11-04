@@ -295,9 +295,9 @@ public abstract partial class UCE_DamageSkill : ScriptableSkill
         effect.data.notAffectOwnParty = notAffectOwnParty;
         effect.data.notAffectOwnGuild = notAffectOwnGuild;
         effect.data.notAffectOwnRealm = notAffectOwnRealm;
-        effect.data.notAffectPlayers = notAffectPlayers;
-        effect.data.notAffectMonsters = notAffectMonsters;
-        effect.data.notAffectPets = notAffectPets;
+		effect.data.notAffectPlayers = notAffectPlayers;
+		effect.data.notAffectMonsters = notAffectMonsters;
+		effect.data.notAffectPets = notAffectPets;
 
         effect.data.removeRandomBuff = removeRandomBuff.Get(_skillLevel);
         effect.data.removeChance = removeChance.Get(_skillLevel);

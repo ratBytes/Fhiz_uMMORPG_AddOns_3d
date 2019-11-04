@@ -5,6 +5,7 @@ using Mirror;
 
 public class UCE_ProjectileSkillEffect : SkillEffect
 {
+
     [Header("Properties")]
     public float speed = 25;
     public float rotationSpeed = 0;
@@ -21,7 +22,7 @@ public class UCE_ProjectileSkillEffect : SkillEffect
         SetInitialPosition();
     }
 
-    private void SetInitialPosition()
+    void SetInitialPosition()
     {
         // the projectile should always start at the effectMount position.
         // -> server doesn't run animations, so it will never spawn it exactly
@@ -33,7 +34,7 @@ public class UCE_ProjectileSkillEffect : SkillEffect
             transform.position = caster.effectMount.position;
 
             //if (rotationSpeed > 0)
-            //transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+                //transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
 
             transform.LookAt(target.collider.bounds.center);
 
@@ -43,7 +44,7 @@ public class UCE_ProjectileSkillEffect : SkillEffect
 
     // fixedupdate on client and server to simulate the same effect without
     // using a NetworkTransform
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         // target and caster still around?
         // note: we keep flying towards it even if it died already, because
@@ -70,7 +71,7 @@ public class UCE_ProjectileSkillEffect : SkillEffect
 
     // animation (if any)
     [ClientCallback]
-    private void Update()
+    void Update()
     {
         if (rotationSpeed > 0)
             transform.RotateAround(transform.position, Vector3.forward, Time.deltaTime * rotationSpeed);
@@ -87,19 +88,21 @@ public class UCE_ProjectileSkillEffect : SkillEffect
             SpawnEffect(caster, caster.target);
 
         if (caster.target is Player && caster is Player && ((Player)caster).UCE_SameCheck((Player)caster.target, parentSkill.affectSelf, parentSkill.affectPlayers, parentSkill.affectOwnParty, parentSkill.affectOwnGuild, parentSkill.affectOwnRealm, parentSkill.reverseTargeting) ||
-            (caster.target is Monster && parentSkill.affectEnemies) ||
-            (caster is Monster && caster.target is Monster && parentSkill.affectEnemies) ||
-            (caster is Monster && caster.target is Player && parentSkill.affectPlayers)
-        )
-            if (caster.target.isAlive)
+			(caster.target is Monster && parentSkill.affectEnemies ) ||
+			(caster is Monster && caster.target is Monster && parentSkill.affectEnemies) ||
+			(caster is Monster && caster.target is Player && parentSkill.affectPlayers)
+		)
+        	if (caster.target.isAlive)
                 targets.Add(caster.target);
 
-        if (parentSkill.castRadius.Get(skillLevel) > 0)
+            if (parentSkill.castRadius.Get(skillLevel) > 0)
         {
+
             if (caster is Player)
                 targets.AddRange(((Player)caster).UCE_GetCorrectedTargetsInSphere(target.transform, parentSkill.castRadius.Get(skillLevel), false, parentSkill.affectSelf, parentSkill.affectOwnParty, parentSkill.affectOwnGuild, parentSkill.affectOwnRealm, parentSkill.reverseTargeting, parentSkill.affectPlayers, parentSkill.affectEnemies));
             else
                 targets.AddRange(caster.UCE_GetCorrectedTargetsInSphere(target.transform, parentSkill.castRadius.Get(skillLevel), false, parentSkill.affectSelf, parentSkill.affectOwnParty, parentSkill.affectOwnGuild, parentSkill.affectOwnRealm, parentSkill.reverseTargeting, parentSkill.affectPlayers, parentSkill.affectEnemies));
+
         }
 
         parentSkill.ApplyToTargets(targets, caster, skillLevel);
@@ -120,4 +123,5 @@ public class UCE_ProjectileSkillEffect : SkillEffect
             NetworkServer.Spawn(go);
         }
     }
+
 }

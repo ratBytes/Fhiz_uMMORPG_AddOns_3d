@@ -46,7 +46,7 @@ public partial class UCE_UI_NpcAccessRequirement : UCE_UI_Requirement
         Player player = Player.localPlayer;
         if (!player) return;
 
-        npc = _npc;
+		npc = _npc;
         requirements = npc.npcRestrictions;
 
         for (int i = 0; i < content.childCount; ++i)

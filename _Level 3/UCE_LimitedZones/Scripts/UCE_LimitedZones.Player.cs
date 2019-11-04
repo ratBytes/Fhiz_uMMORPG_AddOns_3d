@@ -1,11 +1,11 @@
 // =======================================================================================
-// Created and maintained by iMMO
+// Created and maintained by Fhiz
 // Usable for both personal and commercial projects, but no sharing or re-sale
 // * Discord Support Server.............: https://discord.gg/YkMbDHs
 // * Public downloads website...........: https://www.indie-mmo.net
 // * Pledge on Patreon for VIP AddOns...: https://www.patreon.com/IndieMMO
-// * Instructions.......................: https://indie-mmo.net/knowledge-base/
 // =======================================================================================
+
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -15,7 +15,8 @@ using System.Collections.Generic;
 [System.Serializable]
 public partial class Player
 {
-    private UCE_LimitedZonesManager sharedInstanceManager;
+
+    UCE_LimitedZonesManager sharedInstanceManager;
 
     // -----------------------------------------------------------------------------------
     // Cmd_UCE_teleportPlayerToInstance
@@ -23,6 +24,7 @@ public partial class Player
     // -----------------------------------------------------------------------------------
     public void Cmd_UCE_teleportPlayerToInstance(int index, int instanceCategory, int instanceIndex)
     {
+
         if (!sharedInstanceManager)
             sharedInstanceManager = FindObjectOfType<UCE_LimitedZonesManager>();
 
@@ -37,7 +39,12 @@ public partial class Player
         index = UnityEngine.Random.Range(0, locations.teleportPosition.Length - 1);
 
         agent.Warp(locations.teleportPosition[index].position);
+
     }
+
+
+
+
 }
 
 // =======================================================================================

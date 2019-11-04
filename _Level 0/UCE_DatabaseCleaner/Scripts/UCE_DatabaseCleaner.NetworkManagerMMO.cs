@@ -74,19 +74,21 @@ public partial class NetworkManagerMMO
             if (DatabaseCleaner.PruneInactiveAfterDays > 0 || DatabaseCleaner.PruneBannedAfterDays > 0)
             {
 #if _MYSQL
-				var table = Database.singleton.ExecuteReaderMySql("SELECT account, lastOnline FROM account_lastonline");
+					var table = Database.singleton.ExecuteReaderMySql("SELECT account, lastOnline FROM account_lastonline");
 #elif _SQLITE
                 var table = Database.singleton.connection.Query<account_lastonline>("SELECT account, lastOnline FROM account_lastonline");
 #endif
+
                 foreach (var row in table)
                 {
 #if _MYSQL
-					var accountName = (string)row[0];
-                    var lastOnline = (string)row[1];
+						var accountName = (string)row[0];
+                        var lastOnline = (string)row[1];
 #elif _SQLITE
                     var accountName = row.account;
                     var lastOnline = row.lastOnline;
 #endif
+
                     if (!string.IsNullOrWhiteSpace(accountName))
                     {
                         DateTime time = DateTime.Parse(lastOnline);
@@ -125,10 +127,11 @@ public partial class NetworkManagerMMO
             if (DatabaseCleaner.PruneEmptyAccounts)
             {
 #if _MYSQL
-				var table2 = Database.singleton.ExecuteReaderMySql("SELECT name FROM accounts");
+					var table2 = Database.singleton.ExecuteReaderMySql("SELECT name FROM accounts");
 #elif _SQLITE
                 var table2 = Database.singleton.connection.Query<accounts>("SELECT name FROM accounts");
 #endif
+
                 foreach (var row in table2)
                 {
 #if _MYSQL
@@ -142,8 +145,8 @@ public partial class NetworkManagerMMO
                     {
                         UCE_DatabaseCleanup(row.name);
                         i++;
-                    }
 #endif
+                    }
                 }
             }
 

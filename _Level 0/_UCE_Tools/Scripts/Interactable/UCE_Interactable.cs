@@ -73,13 +73,13 @@ public abstract partial class UCE_Interactable : NetworkBehaviour
     public string labelTravelroute = " Travelroute: ";
 #endif
 #if _iMMOWORLDEVENTS
-    public string labelWorldEvent = " World Event: ";
+	public string labelWorldEvent 					= " World Event: ";
 #endif
 #if _iMMOGUILDUPGRADES
-    public string labelGuildUpgrades = " Guild Level: ";
+	public string labelGuildUpgrades 				= " Guild Level: ";
 #endif
 #if _iMMOACCOUNTUNLOCKABLES
-    public string labelAccountUnlockable = " Account Unlockable: ";
+	public string labelAccountUnlockable			= " Account Unlockable: ";
 #endif
 
     public ChannelInfo requires = new ChannelInfo("", "(Requires)", "(Requires)", null);
@@ -271,43 +271,43 @@ public abstract partial class UCE_Interactable : NetworkBehaviour
 #endif
 
 #if _iMMOWORLDEVENTS
-        if (interactionRequirements.worldEvent != null)
-        {
-            if (player.UCE_CheckWorldEvent(interactionRequirements.worldEvent, interactionRequirements.minEventCount, interactionRequirements.maxEventCount))
-            {
-                if (interactionRequirements.maxEventCount == 0)
+		if (interactionRequirements.worldEvent != null)
+		{
+			if (player.UCE_CheckWorldEvent(interactionRequirements.worldEvent, interactionRequirements.minEventCount, interactionRequirements.maxEventCount))
+			{
+				if (interactionRequirements.maxEventCount == 0)
                     UIChat.singleton.AddMessage(new ChatMessage("", requires.identifierIn, labelWorldEvent + interactionRequirements.worldEvent.name + " (" + player.UCE_GetWorldEventCount(interactionRequirements.worldEvent) + "/" + interactionRequirements.minEventCount.ToString() + ")", "", requires.textPrefab));
-                else
+				else
                     UIChat.singleton.AddMessage(new ChatMessage("", requires.identifierIn, labelWorldEvent + interactionRequirements.worldEvent.name + " (" + interactionRequirements.minEventCount.ToString() + "-" + interactionRequirements.maxEventCount.ToString() + ") [" + player.UCE_GetWorldEventCount(interactionRequirements.worldEvent) + "]", "", requires.textPrefab));
             }
             else
             {
-                if (interactionRequirements.maxEventCount == 0)
+            	if (interactionRequirements.maxEventCount == 0)
                     UIChat.singleton.AddMessage(new ChatMessage("", requires.identifierIn, labelWorldEvent + interactionRequirements.worldEvent.name + " (" + player.UCE_GetWorldEventCount(interactionRequirements.worldEvent) + "/" + interactionRequirements.minEventCount.ToString() + ")", "", requires.textPrefab));
-                else
+				else
                     UIChat.singleton.AddMessage(new ChatMessage("", requires.identifierIn, labelWorldEvent + interactionRequirements.worldEvent.name + " (" + interactionRequirements.minEventCount.ToString() + "-" + interactionRequirements.maxEventCount.ToString() + ") [" + player.UCE_GetWorldEventCount(interactionRequirements.worldEvent) + "]", "", requires.textPrefab));
             }
-        }
+		}
 #endif
 
 #if _iMMOGUILDUPGRADES
-        if (interactionRequirements.minGuildLevel > 0)
-        {
-            if (player.InGuild())
+		if (interactionRequirements.minGuildLevel > 0)
+		{
+			if (player.InGuild())
                 UIChat.singleton.AddMessage(new ChatMessage("", requires.identifierIn, labelGuildUpgrades + player.guildLevel.ToString() + "/" + interactionRequirements.minGuildLevel.ToString(), "", requires.textPrefab));
-            else
+			else
                 UIChat.singleton.AddMessage(new ChatMessage("", requires.identifierIn, labelGuildUpgrades + "0/" + interactionRequirements.minGuildLevel.ToString(), "", requires.textPrefab));
-        }
+		}
 #endif
 
 #if _iMMOACCOUNTUNLOCKABLES
-        if (!string.IsNullOrWhiteSpace(interactionRequirements.accountUnlockable))
-        {
-            if (player.UCE_HasAccountUnlock(interactionRequirements.accountUnlockable))
+		if (!string.IsNullOrWhiteSpace(interactionRequirements.accountUnlockable))
+		{
+			if (player.UCE_HasAccountUnlock(interactionRequirements.accountUnlockable))
                 UIChat.singleton.AddMessage(new ChatMessage("", requires.identifierIn, labelAccountUnlockable + interactionRequirements.accountUnlockable, "", requires.textPrefab));
-            else
+			else
                 UIChat.singleton.AddMessage(new ChatMessage("", requires.identifierIn, labelAccountUnlockable + interactionRequirements.accountUnlockable, "", requires.textPrefab));
-        }
+		}
 #endif
     }
 

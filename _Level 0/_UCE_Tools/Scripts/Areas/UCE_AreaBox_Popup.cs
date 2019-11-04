@@ -41,7 +41,7 @@ public partial class UCE_AreaBox_Popup : NetworkBehaviour
                 if (player.UCE_getAlliedRealms(realmId, alliedRealmId))
                 {
 #endif
-                    player.UCE_ShowPopup(messageOnEnter, iconId, soundId);
+                player.UCE_ShowPopup(messageOnEnter, iconId, soundId);
 #if _iMMOPVP
                 }
 #endif
@@ -64,7 +64,7 @@ public partial class UCE_AreaBox_Popup : NetworkBehaviour
                 if (player.UCE_getAlliedRealms(realmId, alliedRealmId))
                 {
 #endif
-                    player.UCE_ShowPopup(messageOnExit, iconId, soundId);
+                player.UCE_ShowPopup(messageOnExit, iconId, soundId);
 #if _iMMOPVP
                 }
 #endif

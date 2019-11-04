@@ -171,6 +171,7 @@ public abstract class UCE_CurativeSkill : HealSkill
     // -----------------------------------------------------------------------------------
     public void ApplyToTargets(List<Entity> targets, Entity caster, int skillLevel)
     {
+
         // ---------------------------------------------------------- Apply to all targets
 
         foreach (Entity target in targets)
@@ -200,14 +201,15 @@ public abstract class UCE_CurativeSkill : HealSkill
 
                 if (hldHealth != 0)
                 {
+                
                     target.RpcOnHealingReceived(hldHealth);
-
-                    if (caster is Player)
-                    {
-                        caster.UCE_TargetAddMessage(string.Format(labelCasterHeal, target.name, hldHealth.ToString()));
-                        if (target != caster)
-                            target.UCE_TargetAddMessage(string.Format(labelTargetHeal, caster.name, hldHealth.ToString()));
+                    
+                    if (caster is Player) { 
+                        caster.UCE_TargetAddMessage( string.Format(labelCasterHeal, target.name, hldHealth.ToString()) );
+                		if (target != caster)
+                			target.UCE_TargetAddMessage( string.Format(labelTargetHeal, caster.name, hldHealth.ToString()) );
                     }
+                    
                 }
             }
 

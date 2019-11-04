@@ -211,21 +211,19 @@ public partial class Player
     // @Client -> @Server
     // -----------------------------------------------------------------------------------
 #if _iMMOTELEPORTER
-
-    [Command]
-    public void Cmd_NpcWarp(int index)
-    {
-        if (
+	[Command]
+	public void Cmd_NpcWarp(int index)
+	{
+		if (
             target != null &&
             target is Npc &&
             Utils.ClosestDistance(collider, target.collider) <= interactionRange &&
             ((Npc)target).teleportationDestinations.Length > 0 && ((Npc)target).teleportationDestinations.Length >= index
             )
         {
-            ((Npc)target).teleportationDestinations[index].teleportationTarget.OnTeleport(this);
-        }
-    }
-
+    		((Npc)target).teleportationDestinations[index].teleportationTarget.OnTeleport(this);
+    	}
+	}
 #endif
 
     // -----------------------------------------------------------------------------------
@@ -464,7 +462,7 @@ public partial class Player
                 || (entity is Player && entity.isAlive) || (entity is Monster && entity.isAlive)
             )
 #if _iMMOUSAGEREQUIREMENTS
-            && (UCE_GetWeapon() == null || (UCE_GetWeapon() != null && UCE_GetWeapon().UCE_CanUse(this)))
+            && ( UCE_GetWeapon() == null || (UCE_GetWeapon() != null && UCE_GetWeapon().UCE_CanUse(this)) )
 #endif
 #if _iMMOPVP
             && UCE_getAttackAllowance(entity)

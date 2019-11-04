@@ -48,41 +48,41 @@ public partial class UCE_UI_Requirement : MonoBehaviour
     public string labelRequiresGuild = " - Requires guild membership.";
     public string labelRequiresParty = " - Requires party membership.";
 #if _iMMOPRESTIGECLASSES
-    public string labelAllowedPrestigeClasses = " - Allowed Prestige Class(es): ";
+    public string labelAllowedPrestigeClasses 		= " - Allowed Prestige Class(es): ";
 #endif
 #if _iMMOPVP
-    public string labelRequiresRealm = " - Limited to specific Realm.";
+    public string labelRequiresRealm 				= " - Limited to specific Realm.";
 #endif
     public string labelRequiresQuest = " - Requires Quest: ";
     public string labelInProgressQuest = "[Must be in progress]";
 #if _iMMOFACTIONS
-    public string labelFactionRequirements = " - Required faction ratings:";
+    public string labelFactionRequirements 			= " - Required faction ratings:";
 #endif
 
     public string labelRequiredEquipment = " - Required equipment: ";
     public string labelRequiredItems = " - Required item(s): ";
     public string labelDestroyItem = "[Destroyed on use]";
 #if _iMMOHARVESTING
-    public string requiredHarvestProfessions = " - Requires Harvesting Profession(s):";
+    public string requiredHarvestProfessions 		= " - Requires Harvesting Profession(s):";
 #endif
 #if _iMMOCRAFTING
-    public string requiredCraftProfessions = " - Requires Craft Profession(s):";
+    public string requiredCraftProfessions 			= " - Requires Craft Profession(s):";
 #endif
 #if _iMMOMOUNTS
-    public string labelMountedOnly = " - Accessible only while mounted.";
-    public string labelUnmountedOnly = " - Accessible only while unmounted.";
+    public string labelMountedOnly 					= " - Accessible only while mounted.";
+    public string labelUnmountedOnly 				= " - Accessible only while unmounted.";
 #endif
 #if _iMMOTRAVEL
-    public string labelTravelroute = " - Required Travelroute:";
+	public string labelTravelroute					= " - Required Travelroute:";
 #endif
 #if _iMMOWORLDEVENTS
-    public string labelWorldEvent = " - Required World Event:";
+	public string labelWorldEvent 					= " - Required World Event:";
 #endif
 #if _iMMOGUILDUPGRADES
-    public string labelGuildUpgrades = " - Required Guild Level:";
+	public string labelGuildUpgrades 				= " - Required Guild Level:";
 #endif
 #if _iMMOACCOUNTUNLOCKABLES
-    public string labelAccountUnlockable = " - Required Account Unlockable:";
+	public string labelAccountUnlockable			= " - Required Account Unlockable:";
 #endif
 
     protected UCE_Requirements requirements;
@@ -245,51 +245,51 @@ public partial class UCE_UI_Requirement : MonoBehaviour
 #endif
 
 #if _iMMOTRAVEL
-        if (!string.IsNullOrWhiteSpace(requirements.requiredTravelrouteName))
-        {
-            AddMessage(labelTravelroute + requirements.requiredTravelrouteName, player.UCE_travelroutes.Any(t => t.name == requirements.requiredTravelrouteName) ? textColor : errorColor);
-        }
+		if (!string.IsNullOrWhiteSpace(requirements.requiredTravelrouteName))
+		{
+			AddMessage(labelTravelroute + requirements.requiredTravelrouteName, player.UCE_travelroutes.Any(t => t.name == requirements.requiredTravelrouteName) ? textColor : errorColor);
+		}
 #endif
 
 #if _iMMOWORLDEVENTS
-        if (requirements.worldEvent != null)
-        {
-            AddMessage(labelWorldEvent, textColor);
-            if (player.UCE_CheckWorldEvent(requirements.worldEvent, requirements.minEventCount, requirements.maxEventCount))
-            {
-                if (requirements.maxEventCount == 0)
-                    AddMessage(requirements.worldEvent.name + " (" + player.UCE_GetWorldEventCount(requirements.worldEvent) + "/" + requirements.minEventCount.ToString() + ")", textColor);
-                else
-                    AddMessage(requirements.worldEvent.name + " (" + requirements.minEventCount.ToString() + "-" + requirements.maxEventCount.ToString() + ") [" + player.UCE_GetWorldEventCount(requirements.worldEvent) + "]", textColor);
+		if (requirements.worldEvent != null)
+		{
+			AddMessage(labelWorldEvent, textColor);
+			if (player.UCE_CheckWorldEvent(requirements.worldEvent, requirements.minEventCount, requirements.maxEventCount))
+			{
+				if (requirements.maxEventCount == 0)
+					AddMessage(requirements.worldEvent.name + " (" + player.UCE_GetWorldEventCount(requirements.worldEvent) + "/" + requirements.minEventCount.ToString() + ")", textColor);
+				else
+            		AddMessage(requirements.worldEvent.name + " (" + requirements.minEventCount.ToString() + "-" + requirements.maxEventCount.ToString() + ") [" + player.UCE_GetWorldEventCount(requirements.worldEvent) + "]", textColor);
             }
             else
             {
-                if (requirements.maxEventCount == 0)
-                    AddMessage(requirements.worldEvent.name + " (" + player.UCE_GetWorldEventCount(requirements.worldEvent) + "/" + requirements.minEventCount.ToString() + ")", errorColor);
-                else
-                    AddMessage(requirements.worldEvent.name + " (" + requirements.minEventCount.ToString() + "-" + requirements.maxEventCount.ToString() + ") [" + player.UCE_GetWorldEventCount(requirements.worldEvent) + "]", errorColor);
+            	if (requirements.maxEventCount == 0)
+					AddMessage(requirements.worldEvent.name + " (" + player.UCE_GetWorldEventCount(requirements.worldEvent) + "/" + requirements.minEventCount.ToString() + ")", errorColor);
+				else
+            		AddMessage(requirements.worldEvent.name + " (" + requirements.minEventCount.ToString() + "-" + requirements.maxEventCount.ToString() + ") [" + player.UCE_GetWorldEventCount(requirements.worldEvent) + "]", errorColor);
             }
-        }
+		}
 #endif
 
 #if _iMMOGUILDUPGRADES
-        if (requirements.minGuildLevel > 0)
-        {
-            if (player.InGuild())
-                AddMessage(labelGuildUpgrades + player.guildLevel.ToString() + "/" + requirements.minGuildLevel.ToString(), textColor);
-            else
-                AddMessage(labelGuildUpgrades + "0/" + requirements.minGuildLevel.ToString(), errorColor);
-        }
+		if (requirements.minGuildLevel > 0)
+		{
+			if (player.InGuild())
+				AddMessage(labelGuildUpgrades + player.guildLevel.ToString() + "/" + requirements.minGuildLevel.ToString(), textColor);
+			else
+				AddMessage(labelGuildUpgrades + "0/" + requirements.minGuildLevel.ToString(), errorColor);
+		}
 #endif
 
 #if _iMMOACCOUNTUNLOCKABLES
-        if (!string.IsNullOrWhiteSpace(requirements.accountUnlockable))
-        {
-            if (player.UCE_HasAccountUnlock(requirements.accountUnlockable))
-                AddMessage(labelAccountUnlockable + requirements.accountUnlockable, textColor);
-            else
-                AddMessage(labelAccountUnlockable + requirements.accountUnlockable, errorColor);
-        }
+		if (!string.IsNullOrWhiteSpace(requirements.accountUnlockable))
+		{
+			if (player.UCE_HasAccountUnlock(requirements.accountUnlockable))
+				AddMessage(labelAccountUnlockable + requirements.accountUnlockable, textColor);
+			else
+				AddMessage(labelAccountUnlockable + requirements.accountUnlockable, errorColor);
+		}
 #endif
     }
 
