@@ -8,11 +8,11 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using Mirror;
 
 // =======================================================================================
 // PLAYER
 // =======================================================================================
-[System.Serializable]
 public partial class Player
 {
 
@@ -22,6 +22,7 @@ public partial class Player
     // Cmd_UCE_teleportPlayerToInstance
     // @Client -> @Server
     // -----------------------------------------------------------------------------------
+    [Command]
     public void Cmd_UCE_teleportPlayerToInstance(int index, int instanceCategory, int instanceIndex)
     {
 
