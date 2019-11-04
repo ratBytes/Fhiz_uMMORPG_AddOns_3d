@@ -131,4 +131,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tooltipPrefab: {fileID: 171736, guid: f234d5ec9358c46668b3c1b044ba66b8, type: 3}
-  text: Harvesting Professions
+  text: Crafting Professions
