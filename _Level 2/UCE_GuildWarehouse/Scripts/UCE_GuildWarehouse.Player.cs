@@ -563,8 +563,11 @@ public partial class Player
     [DevExtMethods("OnDestroy")]
     private void OnDestroy_UCE_GuildWarehouse()
     {
-        if (InGuild())
-            Cmd_UCE_UnaccessGuildWarehouse(guild.name);
+        if (NetworkServer.active)
+        {
+            if (InGuild())
+                Cmd_UCE_UnaccessGuildWarehouse(guild.name);
+        }
     }
 
     // -----------------------------------------------------------------------------------
