@@ -20,6 +20,6 @@ MonoBehaviour:
     bonusPerLevel: 0
   warehouseUpgradeCost: []
   storeSellable: 1
-  storeTradable: 0
+  storeTradable: 1
   storeDestroyable: 1
   warehouseUpgradeLabel: Guild Warehouse upgraded!
