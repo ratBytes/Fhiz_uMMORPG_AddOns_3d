@@ -21,6 +21,10 @@ public partial class Player
     [Tooltip("[Optional] Default recipes the player starts the game with.")]
     public UCE_Tmpl_Recipe[] startingRecipes;
 
+    [Tooltip("[Optional] Default crafts the player starts the game with.")]
+    public UCE_DefaultCraftingProfession[] startingCrafts;
+
+
     [Tooltip("[Optional] Popup text, sound and icons (as defined in Tools).")]
     public UCE_CraftingPopupMessages craftingPopupMessages;
 

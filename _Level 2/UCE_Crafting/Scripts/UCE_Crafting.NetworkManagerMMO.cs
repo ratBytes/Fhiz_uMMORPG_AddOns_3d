@@ -20,6 +20,19 @@ public partial class NetworkManagerMMO
     [DevExtMethods("OnServerCharacterCreate")]
     private void OnServerCharacterCreate_UCE_Crafting(CharacterCreateMsg message, Player player)
     {
+
+        // -- check starting craft professions
+        foreach (UCE_DefaultCraftingProfession craft in player.startingCrafts)
+        {
+            if (!player.UCE_HasCraftingProfession(craft.craftProfession))
+            {
+                UCE_CraftingProfession tmpProf = new UCE_CraftingProfession(craft.craftProfession.name);
+                tmpProf.experience = craft.startingExp;
+                player.UCE_Crafts.Add(tmpProf);
+            }
+        }
+
+        // -- check starting recipes
         foreach (UCE_Tmpl_Recipe recipe in player.startingRecipes)
         {
             if (!player.UCE_recipes.Any(r => r == recipe.name))

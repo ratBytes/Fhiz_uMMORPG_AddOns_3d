@@ -16,6 +16,9 @@ public partial class UCE_UI_CraftingProfessions_Shortcuts : MonoBehaviour
     public Button CraftingProfessionsButton;
     public GameObject CraftingProfessionsPanel;
 
+    public Button CraftingRecipesButton;
+    public GameObject CraftingRecipesPanel;
+
     // -----------------------------------------------------------------------------------
     // Update
     // -----------------------------------------------------------------------------------
@@ -24,6 +27,11 @@ public partial class UCE_UI_CraftingProfessions_Shortcuts : MonoBehaviour
         CraftingProfessionsButton.onClick.SetListener(() =>
         {
             CraftingProfessionsPanel.SetActive(!CraftingProfessionsPanel.activeSelf);
+        });
+
+        CraftingRecipesButton.onClick.SetListener(() =>
+        {
+            CraftingRecipesPanel.SetActive(!CraftingRecipesPanel.activeSelf);
         });
     }
 

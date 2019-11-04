@@ -14,6 +14,16 @@ using UnityEngine;
 public enum UCE_CraftingResult { None, Failure, Success, CriticalSuccess }
 
 // ---------------------------------------------------------------------------------------
+// UCE_DefaultCraftingProfession
+// ---------------------------------------------------------------------------------------
+[Serializable]
+public partial class UCE_DefaultCraftingProfession
+{
+    public UCE_CraftingProfessionTemplate craftProfession;
+    public int startingExp = 1;
+}
+
+// ---------------------------------------------------------------------------------------
 // CraftingRecipeIngredient
 // ---------------------------------------------------------------------------------------
 [Serializable]
