@@ -29,7 +29,7 @@ public partial class Player
     // DealDamageAt_UCE_EquipableBuff
     // -----------------------------------------------------------------------------------
     [DevExtMethods("DealDamageAt")]
-    private void DealDamageAt_UCE_EquipableBuff(Entity entity, int amount, float stunChance=0, float stunTime=0)
+    private void DealDamageAt_UCE_EquipableBuff(Entity entity, int amount)
     {
         if (entity == null || amount <= 0) return;
 
