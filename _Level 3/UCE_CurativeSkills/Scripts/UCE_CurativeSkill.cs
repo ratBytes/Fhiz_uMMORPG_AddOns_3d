@@ -157,12 +157,16 @@ public abstract class UCE_CurativeSkill : HealSkill
     // -----------------------------------------------------------------------------------
     public override bool CheckDistance(Entity caster, int skillLevel, out Vector3 destination)
     {
+        destination = caster.transform.position;
+
+        if (caster.target == caster && affectSelf) return true;
+
         if (caster.target != null)
         {
             destination = caster.target.collider.ClosestPoint(caster.transform.position);
             return Utils.ClosestDistance(caster.collider, caster.target.collider) <= castRange.Get(skillLevel);
         }
-        destination = caster.transform.position;
+
         return false;
     }
 
