@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9fea8bb6f9efa4d8485e22bf9a6645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
   syncInterval: 0.1
   agent: {fileID: 195343120267874468}
 --- !u!54 &54997413729903692
@@ -140,10 +141,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
-  m_AssetId: c8aa1a84054224ad8a8021abc33352a3
-  m_SceneId: 0
+  serverOnly: 0
+  localPlayerAuthority: 0
+  m_AssetId: 
+  m_SceneId: 1173458422
 --- !u!114 &7096734293073545493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a89e192f1fcf4f888374a5aeb19eb29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
   syncInterval: 0.1
   visUpdateInterval: 1
   forceHidden: 0
@@ -172,7 +174,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b98bd3df45c3f482c9a059ab6b30bfe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
   syncInterval: 0.1
+  interactionSpriteRenderer: {fileID: 0}
   interactionText: Interact with this Object
   interactionIcon: {fileID: 21300000, guid: 38d0c5817a3a6413a83b11feb609b45a, type: 3}
   automaticActivation: 0
@@ -184,9 +188,13 @@ MonoBehaviour:
     maxLevel: 0
     minHealth: 0
     minMana: 0
+    dayStart: 0
+    dayEnd: 0
+    activeMonth: 0
     requiredSkills: []
     requiresAllSkills: 0
     requiredBuff: {fileID: 0}
+    prohibitedBuff: {fileID: 0}
     allowedClasses: []
     requiresParty: 0
     requiresGuild: 0
@@ -205,12 +213,18 @@ MonoBehaviour:
     factionRequirements: []
     requiresAllFactionRatings: 0
     harvestProfessionRequirements:
-    - template: {fileID: 11400000, guid: 47079ecedcfb646a6becd4eddd012490, type: 2}
+    - template: {fileID: 11400000, guid: 6a8f4c20b9abf714f8d3e6f973cfe76d, type: 2}
       level: 1
     requiresAllHarvestingProfessions: 0
     craftProfessionRequirements: []
     requiresAllCraftingProfessions: 0
     mountType: 0
+    requiredTravelrouteName: 
+    worldEvent: {fileID: 0}
+    minEventCount: 0
+    maxEventCount: 0
+    minGuildLevel: 0
+    accountUnlockable: 
     removeItems: []
     goldCost: 0
     coinCost: 0
@@ -221,6 +235,39 @@ MonoBehaviour:
     expRewardMax: 0
     skillExpRewardMin: 0
     skillExpRewardMax: 0
+    labelMinLevel: ' Minimum Level: '
+    labelMaxLevel: ' Maximum Level: '
+    labelMinHealth: ' Min. Health Percent: '
+    labelMinMana: ' Min. Mana Percent: '
+    labelDayStart: ' Start Day: '
+    labelDayEnd: ' End Day: '
+    labelActiveMonth: ' Active Month: '
+    labelRequiredSkills: ' Skill(s): '
+    labelLevel: LV
+    labelAllowedClasses: ' Allowed Class(es): '
+    labelRequiresGuild: ' Guild Membership'
+    labelRequiresParty: ' Party Membership'
+    labelAllowedPrestigeClasses: ' Allowed Prestige Class(es): '
+    labelRequiresRealm: ' Limited to Specific Realm'
+    labelRequiresQuest: ' Quest: '
+    labelInProgressQuest: '[Must be in progress]'
+    labelFactionRequirements: ' Faction Ratings: '
+    labelRequiredEquipment: ' Equipment: '
+    labelRequiredItems: ' Item(s): '
+    labelDestroyItem: '[Destroyed on use]'
+    requiredHarvestProfessions: ' Harvesting Profession(s): '
+    requiredCraftProfessions: ' Craft Profession(s): '
+    labelMountedOnly: ' Accessible only while mounted.'
+    labelUnmountedOnly: ' Accessible only while unmounted.'
+    labelTravelroute: ' Travelroute: '
+    labelWorldEvent: ' World Event: '
+    labelGuildUpgrades: ' Guild Level: '
+    labelAccountUnlockable: ' Account Unlockable: '
+    requires:
+      command: 
+      identifierOut: (Requires)
+      identifierIn: (Requires)
+      textPrefab: {fileID: 0}
   unlocked: 0
   interactionRangeType: 4
   unlockPermanently: 0
@@ -232,6 +279,7 @@ MonoBehaviour:
   harvestDuration: 2
   ProfessionExperienceRewardMin: 0
   ProfessionExperienceRewardMax: 2
+  manaCost: 0
   harvestItems:
   - template: {fileID: 11400000, guid: ae0314505b06f4f1280aa735db1c70e8, type: 2}
     probability: 1
@@ -241,7 +289,9 @@ MonoBehaviour:
     probability: 1
     minAmount: 1
     maxAmount: 1
-  totalResources: 5
+  harvestCriticalItems: []
+  totalResourcesMin: 10
+  totalResourcesMax: 50
   emptyTime: 10
   respawn: 1
   respawnTime: 20
@@ -253,7 +303,10 @@ MonoBehaviour:
   requirementsMessage: Harvesting Requirements not met!
   depletedMessage: No resources left!
   successMessage: Harvest successful!
+  criticalSuccessMessage: Critical harvest success!
   failedMessage: Harvest Failed!
+  breakMessage: Your tool broke!
+  boosterMessage: You used a booster!
   accessLabel: Harvesting...
   baseSuccessFactor: 10
 --- !u!82 &6671797314289027197
@@ -5166,7 +5219,7 @@ ParticleSystem:
 --- !u!199 &7347362223528767062
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
