@@ -292,6 +292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1355216563839142}
   interactButton: {fileID: 114330653974190096}
+  cancelButton: {fileID: 114118334073049098}
   content: {fileID: 224296450632297456}
   scrollRect: {fileID: 114835658993270780}
   textPrefab: {fileID: 1405140468550630, guid: ab78f0bf7e54045daaca90c0b39f8bd6, type: 3}
@@ -301,6 +302,11 @@ MonoBehaviour:
   labelHeading: 'Interaction requirements:'
   labelMinLevel: ' - Required minimum Level: '
   labelMaxLevel: ' - Required maximum level: '
+  labelMinHealth: ' - Min. Health Percent: '
+  labelMinMana: ' - Min. Mana Percent: '
+  labelDayStart: ' - Start Day: '
+  labelDayEnd: ' - End Day: '
+  labelActiveMonth: ' - Active Month: '
   labelRequiredSkills: ' - Required Skill(s): '
   labelLevel: LV
   labelAllowedClasses: ' - Allowed Class(es): '
@@ -311,9 +317,6 @@ MonoBehaviour:
   labelRequiresQuest: ' - Requires Quest: '
   labelInProgressQuest: '[Must be in progress]'
   labelFactionRequirements: ' - Required faction ratings:'
-  labelGoldCost: ' - Gold cost per use: '
-  labelCoinCost: ' - Coins cost per use: '
-  labelRequiredHonorCurrency: ' - Honor Currency cost: '
   labelRequiredEquipment: ' - Required equipment: '
   labelRequiredItems: ' - Required item(s): '
   labelDestroyItem: '[Destroyed on use]'
@@ -321,6 +324,13 @@ MonoBehaviour:
   requiredCraftProfessions: ' - Requires Craft Profession(s):'
   labelMountedOnly: ' - Accessible only while mounted.'
   labelUnmountedOnly: ' - Accessible only while unmounted.'
+  labelTravelroute: ' - Required Travelroute:'
+  labelWorldEvent: ' - Required World Event:'
+  labelGuildUpgrades: ' - Required Guild Level:'
+  labelAccountUnlockable: ' - Required Account Unlockable:'
+  labelGoldCost: ' - Gold cost per use: '
+  labelCoinCost: ' - Coins cost per use: '
+  labelRequiredHonorCurrency: ' - Honor Currency cost: '
 --- !u!1 &1335019052792834
 GameObject:
   m_ObjectHideFlags: 0
