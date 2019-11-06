@@ -931,9 +931,22 @@ public partial class Database : MonoBehaviour
 
             ExecuteNonQueryMySql(command, "DELETE FROM character_guild WHERE `guild` = @guild", new SqlParameter("@guild", guild.name));
 
+            var query2 = @"
+                INSERT INTO character_guild
+                SET
+                `guild` = @guild,
+                `rank`= @rank,
+                `character`= @character
+
+                ON DUPLICATE KEY UPDATE
+                `guild` = @guild,
+                `rank`= @rank,
+                `character`= @character
+                ";
+
             foreach (GuildMember member in guild.members)
             {
-                ExecuteNonQueryMySql(command, "INSERT INTO character_guild SET `guild` = @guild, `rank`= @rank, `character`= @character",
+                ExecuteNonQueryMySql(command, query2,
                                 new SqlParameter("@guild", guild.name),
                                 new SqlParameter("@rank", member.rank),
                                 new SqlParameter("@character", member.name));
