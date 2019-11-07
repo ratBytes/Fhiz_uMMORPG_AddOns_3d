@@ -31,7 +31,7 @@ public partial class Player
         
         patreon = GetComponent<Patreon>();
 
-        if (patreon != null)
+        if (patreon != null && !string.IsNullOrWhiteSpace(patreon.client_id))        
         {
             patreon.onConnect = UCE_RefreshPatreonToken;
             patreon.connect();
@@ -53,7 +53,7 @@ public partial class Player
     [DevExtMethods("Update")]
     private void Update_UCE_PatreonManager()
     {
-        if (patreon == null) return;
+        if (patreon == null || string.IsNullOrWhiteSpace(patreon.client_id)) return;
 
         if (Time.time > dPatreonTimer)
         {
