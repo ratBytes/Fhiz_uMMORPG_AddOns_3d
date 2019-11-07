@@ -363,9 +363,9 @@ public partial class UCE_InteractionRequirements : UCE_Requirements
 #endif
 
 #if _iMMOPATREON
-        if (activePatreonSubscription)
+        if (activeMinPatreon > 0)
         {
-            if (player.UCE_HasActivePatreonSubscription())
+            if (player.UCE_HasActivePatreonSubscription(activeMinPatreon))
                 UIChat.singleton.AddMessage(new ChatMessage("", requires.identifierIn, labelPatreonSubscription, "", requires.textPrefab));
             else
                 UIChat.singleton.AddMessage(new ChatMessage("", requires.identifierIn, labelPatreonSubscription, "", requires.textPrefab));

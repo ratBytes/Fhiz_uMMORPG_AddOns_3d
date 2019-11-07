@@ -296,9 +296,9 @@ public partial class UCE_UI_Requirement : MonoBehaviour
 #endif
 
 #if _iMMOPATREON
-        if (activePatreonSubscription)
+        if (requirements.activeMinPatreon > 0)
         {
-            if (player.UCE_HasActivePatreonSubscription())
+            if (player.UCE_HasActivePatreonSubscription(requirements.activeMinPatreon))
                 AddMessage(labelPatreonSubscription, textColor);
             else
                 AddMessage(labelPatreonSubscription, errorColor);

@@ -179,7 +179,7 @@ public partial class UCE_Requirements
 #if _iMMOPATREON
     [Header("[UCE PATREON]")]
     [Tooltip("[Optional] Requires an active patreon subscription")]
-    public bool activePatreonSubscription;
+    public int activeMinPatreon;
 #endif
 
     // -----------------------------------------------------------------------------------
@@ -268,8 +268,8 @@ public partial class UCE_Requirements
 #endif
 
 #if _iMMOPATREON
-        if (activePatreonSubscription)
-            valid = player.UCE_HasActivePatreonSubscription() ? valid : false;
+        if (activeMinPatreon > 0)
+            valid = player.UCE_HasActivePatreonSubscription(activeMinPatreon) ? valid : false;
 #endif
 
         return valid;
@@ -397,7 +397,7 @@ public partial class UCE_Requirements
 				|| minGuildLevel > 0
 #endif
 #if _iMMOPATREON
-                || activePatreonSubscription
+                || activeMinPatreon > 0
 #endif
                 ;
     }
