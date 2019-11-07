@@ -127,6 +127,11 @@ public abstract partial class UCE_Projectile : SkillEffect
         // ----- apply effects to targets
         foreach (Entity target in targets)
         {
+
+            // ------ Spawn Visual Effect (if any)
+            if (!data.visualEffectOnMainTargetOnly && data.impactRadius > 0)
+                SpawnEffect(caster, target);
+
             // ------ Deal Damage
 
             int damage = data.damage;
@@ -137,6 +142,9 @@ public abstract partial class UCE_Projectile : SkillEffect
             if (data.stunAddAccuracy) stunChance = target.UCE_HarmonizeChance(stunChance, caster.accuracy);
 #endif
             caster.DealDamageAt(target, damage, stunChance, UnityEngine.Random.Range(data.minStunTime, data.maxStunTime));
+
+            // ------ Skip remaining calculations if target is dead already
+            if (!target.isAlive) continue;
 
             // ------ Remove random Buff
             if (data.removeRandomBuff > 0 && caster.target.buffs.Count > 0)
@@ -186,10 +194,6 @@ public abstract partial class UCE_Projectile : SkillEffect
 #endif
                 target.UCE_ApplyBuff(data.applyBuff, data.buffLevel, data.buffChance, buffModifier);
             }
-
-            // ------ Spawn Visual Effect (if any)
-            if (!data.visualEffectOnMainTargetOnly && data.impactRadius > 0)
-                SpawnEffect(caster, target);
 
             // ------ Check for Aggro Trigger
             target.UCE_OnAggro(caster, data.triggerAggroChance);
