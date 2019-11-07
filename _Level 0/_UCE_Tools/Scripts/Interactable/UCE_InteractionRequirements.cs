@@ -88,6 +88,9 @@ public partial class UCE_InteractionRequirements : UCE_Requirements
 #if _iMMOACCOUNTUNLOCKABLES
     public string labelAccountUnlockable        = " Account Unlockable: ";
 #endif
+#if _iMMOPATREON
+    public string labelPatreonSubscription      = " - Requires active Patreon subscription.";
+#endif
 
     public ChannelInfo requires = new ChannelInfo("", "(Requires)", "(Requires)", null);
 
@@ -358,8 +361,18 @@ public partial class UCE_InteractionRequirements : UCE_Requirements
                 UIChat.singleton.AddMessage(new ChatMessage("", requires.identifierIn, labelAccountUnlockable + accountUnlockable, "", requires.textPrefab));
         }
 #endif
-    }
 
+#if _iMMOPATREON
+        if (activePatreonSubscription)
+        {
+            if (player.UCE_HasActivePatreonSubscription())
+                UIChat.singleton.AddMessage(new ChatMessage("", requires.identifierIn, labelPatreonSubscription, "", requires.textPrefab));
+            else
+                UIChat.singleton.AddMessage(new ChatMessage("", requires.identifierIn, labelPatreonSubscription, "", requires.textPrefab));
+        }
+#endif
+
+    }
 
     // -----------------------------------------------------------------------------------
 }

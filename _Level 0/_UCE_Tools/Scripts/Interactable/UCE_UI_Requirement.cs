@@ -84,6 +84,9 @@ public partial class UCE_UI_Requirement : MonoBehaviour
 #if _iMMOACCOUNTUNLOCKABLES
 	public string labelAccountUnlockable			= " - Required Account Unlockable:";
 #endif
+#if _iMMOPATREON
+    public string labelPatreonSubscription          = " - Requires active Patreon subscription.";
+#endif
 
     protected UCE_Requirements requirements;
 
@@ -291,6 +294,17 @@ public partial class UCE_UI_Requirement : MonoBehaviour
 				AddMessage(labelAccountUnlockable + requirements.accountUnlockable, errorColor);
 		}
 #endif
+
+#if _iMMOPATREON
+        if (activePatreonSubscription)
+        {
+            if (player.UCE_HasActivePatreonSubscription())
+                AddMessage(labelPatreonSubscription, textColor);
+            else
+                AddMessage(labelPatreonSubscription, errorColor);
+        }
+#endif
+
     }
 
     // -----------------------------------------------------------------------------------

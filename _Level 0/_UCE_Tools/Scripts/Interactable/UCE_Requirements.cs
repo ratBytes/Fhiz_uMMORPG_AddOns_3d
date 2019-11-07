@@ -176,6 +176,12 @@ public partial class UCE_Requirements
 	public string accountUnlockable;
 #endif
 
+#if _iMMOPATREON
+    [Header("[UCE PATREON]")]
+    [Tooltip("[Optional] Requires an active patreon subscription")]
+    public bool activePatreonSubscription;
+#endif
+
     // -----------------------------------------------------------------------------------
     // checkRequirements
     // Runs a full check to see if all interaction requirements are met by the player
@@ -259,6 +265,11 @@ public partial class UCE_Requirements
 #if _iMMOACCOUNTUNLOCKABLES
 		if (!string.IsNullOrWhiteSpace(accountUnlockable))
 			valid = player.UCE_HasAccountUnlock(accountUnlockable) ? valid : false;
+#endif
+
+#if _iMMOPATREON
+        if (activePatreonSubscription)
+            valid = player.UCE_HasActivePatreonSubscription() ? valid : false;
 #endif
 
         return valid;
@@ -384,6 +395,9 @@ public partial class UCE_Requirements
 #endif
 #if _iMMOGUILDUPGRADES
 				|| minGuildLevel > 0
+#endif
+#if _iMMOPATREON
+                || activePatreonSubscription
 #endif
                 ;
     }
