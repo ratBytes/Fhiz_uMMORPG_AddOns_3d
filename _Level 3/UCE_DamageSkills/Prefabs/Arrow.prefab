@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4701118860678660}
   - component: {fileID: 212535686356103080}
   - component: {fileID: 114113772746526810}
-  - component: {fileID: 114726659603648916}
-  - component: {fileID: 3031356131945656634}
+  - component: {fileID: 310587718913510359}
+  - component: {fileID: 46654376212904010}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
@@ -69,7 +69,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1591611385
-  m_SortingLayer: 1
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300002, guid: 7cf46b8d2b47d4c4dbecff372398ca07, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &114113772746526810
@@ -96,9 +96,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serverOnly: 0
   localPlayerAuthority: 0
-  m_AssetId: 9475ca2f528844ca69bcc4b24e1a6f0a
+  m_AssetId: 3e85836d17fc34dc59e24279fda7dd86
   m_SceneId: 0
---- !u!114 &114726659603648916
+--- !u!114 &310587718913510359
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,15 +107,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1999249501724554}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 164680bdf7f854b5e94fb01f5fc52d0f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a89e192f1fcf4f888374a5aeb19eb29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
   visUpdateInterval: 1
   forceHidden: 0
-  checkMethod: 1
---- !u!114 &3031356131945656634
+  checkMethod: 0
+--- !u!114 &46654376212904010
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1999249501724554}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e62cca5549cc24b388fe2bd5c32cc5db, type: 3}
+  m_Script: {fileID: 11500000, guid: c465b6082df744cce92c584c8daab9ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
@@ -133,7 +133,6 @@ MonoBehaviour:
   rotationSpeed: 0
   parentSkill: {fileID: 0}
   skillLevel: 1
-  lockDirection: 1
   onSetInitialPosition:
     m_PersistentCalls:
       m_Calls: []
