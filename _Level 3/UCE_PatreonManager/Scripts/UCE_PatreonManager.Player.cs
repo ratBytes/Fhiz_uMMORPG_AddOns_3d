@@ -28,10 +28,14 @@ public partial class Player
     [DevExtMethods("OnStartLocalPlayer")]
     private void OnStartLocalPlayer_UCE_PatreonManager()
     {
-
+        
         patreon = GetComponent<Patreon>();
-        patreon.onConnect = UCE_RefreshPatreonToken;
-        patreon.connect();
+
+        if (patreon != null)
+        {
+            patreon.onConnect = UCE_RefreshPatreonToken;
+            patreon.connect();
+        }
 
     }
 
@@ -40,7 +44,7 @@ public partial class Player
     // -----------------------------------------------------------------------------------
     public bool UCE_HasActivePatreonSubscription(int minAmount)
     {
-        return (patreon.pledge >= minAmount);
+        return (patreon != null && patreon.pledge >= minAmount);
     }
 
     // -----------------------------------------------------------------------------------
@@ -49,6 +53,8 @@ public partial class Player
     [DevExtMethods("Update")]
     private void Update_UCE_PatreonManager()
     {
+        if (patreon == null) return;
+
         if (Time.time > dPatreonTimer)
         {
             dPatreonTimer = Time.time + patreonIntervalSeconds;
