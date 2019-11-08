@@ -877,6 +877,54 @@ public partial class Player
         }
     }
 
+#if _iMMOSTAMINA
+    // -----------------------------------------------------------------------------------
+    // staminaMax
+    // -----------------------------------------------------------------------------------
+    public override int staminaMax
+    {
+        get
+        {
+            
+            if (Time.time < _cacheStatTimer[18])
+                return _cacheStatInt[4];
+
+            // -- Bonus: Equipment
+            int equipmentBonus = 0;
+            foreach (ItemSlot slot in equipment)
+                if (slot.amount > 0)
+                    equipmentBonus += ((EquipmentItem)slot.item.data).staminaBonus;
+
+            // -- Bonus: Traits
+            int iTraitBonus = 0;
+            iTraitBonus = UCE_Traits.Sum(trait => trait.staminaBonus);
+
+            // -- Bonus: Equipment Sets
+            int iSetBonus = 0;
+#if _iMMOEQUIPMENTSETS
+            iSetBonus += Convert.ToInt32((from slot in equipment
+                                  where slot.amount > 0 && slot.item.UCE_hasIndividualSetBonus()
+                                  select (slot.item).setIndividualBonusStamina(equipment)).DefaultIfEmpty(0).Sum());
+            iSetBonus += Convert.ToInt32((from slot in equipment
+                                  where slot.amount > 0 && slot.item.UCE_hasPartialSetBonus()
+                                  select (slot.item).setPartialBonusStamina(equipment)).DefaultIfEmpty(0).FirstOrDefault());
+            iSetBonus += Convert.ToInt32((from slot in equipment
+                                  where slot.amount > 0 && slot.item.UCE_hasCompleteSetBonus()
+                                  select (slot.item).setCompleteBonusStamina(equipment)).DefaultIfEmpty(0).FirstOrDefault());
+#endif
+            // -- Bonus: Attributes
+            int attrBonus = CalcStaminaMax();
+            
+            _cacheStatTimer[18] = Time.time + cacheTimerInterval;
+            
+            _cacheStatInt[4] = base.staminaMax + equipmentBonus + iTraitBonus + iSetBonus + attrBonus;
+            
+            return Mathf.Max(0, _cacheStatInt[4]);
+            
+        }
+    }
+#endif
+
     // ============================= ATTRIBUTE FUNCTIONS =================================
 
     // -----------------------------------------------------------------------------------
@@ -1040,6 +1088,42 @@ public partial class Player
 
         return total;
     }
+
+
+#if _iMMOSTAMINA
+     // -----------------------------------------------------------------------------------
+    // CalcStaminaMax
+    // -----------------------------------------------------------------------------------
+    public int CalcStaminaMax()
+    {
+
+        int total = 0;
+
+        if (UCE_Attributes.Count > 0)
+        {
+
+            int points = 0;
+            int flatBonus = 0;
+            float pctBonus = 0f;
+
+            foreach (UCE_Attribute attrib in UCE_Attributes)
+            {
+
+                points = UCE_calculateBonusAttribute(attrib) + attrib.points;
+
+                flatBonus += attrib.flatStamina * points;
+                pctBonus += attrib.percentStamina * points;
+
+            }
+
+            total += flatBonus;
+            total += (int)Mathf.Round(_manaMax.Get(level) * pctBonus);
+        }
+
+        return total;
+
+    }
+#endif
 
     // -----------------------------------------------------------------------------------
     // CalcDamage

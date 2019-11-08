@@ -36,43 +36,47 @@ public partial struct UCE_Attribute
         get { return UCE_AttributeTemplate.dict[name.GetStableHashCode()]; }
     }
 
-    public float percentHealth { get { return template.percentHealth; } }
-    public int flatHealth { get { return template.flatHealth; } }
-    public float percentMana { get { return template.percentMana; } }
-    public int flatMana { get { return template.flatMana; } }
-    public float percentDamage { get { return template.percentDamage; } }
-    public int flatDamage { get { return template.flatDamage; } }
-    public float percentDefense { get { return template.percentDefense; } }
-    public int flatDefense { get { return template.flatDefense; } }
-    public float percentBlock { get { return template.percentBlock; } }
-    public float flatBlock { get { return template.flatBlock; } }
-    public float percentCritical { get { return template.percentCritical; } }
-    public float flatCritical { get { return template.flatCritical; } }
-    public float percentBlockFactor { get { return template.percentBlockFactor; } }
-    public float flatBlockFactor { get { return template.flatBlockFactor; } }
-    public float percentCriticalFactor { get { return template.percentCriticalFactor; } }
-    public float flatCriticalFactor { get { return template.flatCriticalFactor; } }
-    public float percentAccuracy { get { return template.percentAccuracy; } }
-    public float flatAccuracy { get { return template.flatAccuracy; } }
-    public float percentResistance { get { return template.percentResistance; } }
-    public float flatResistance { get { return template.flatResistance; } }
-    public float percentDrainHealthFactor { get { return template.percentDrainHealthFactor; } }
-    public float flatDrainHealthFactor { get { return template.flatDrainHealthFactor; } }
-    public float percentDrainManaFactor { get { return template.percentDrainManaFactor; } }
-    public float flatDrainManaFactor { get { return template.flatDrainManaFactor; } }
-    public float percentReflectDamageFactor { get { return template.percentReflectDamageFactor; } }
-    public float flatReflectDamageFactor { get { return template.flatReflectDamageFactor; } }
-    public float percentDefenseBreakFactor { get { return template.percentDefenseBreakFactor; } }
-    public float flatDefenseBreakFactor { get { return template.flatDefenseBreakFactor; } }
-    public float percentBlockBreakFactor { get { return template.percentBlockBreakFactor; } }
-    public float flatBlockBreakFactor { get { return template.flatBlockBreakFactor; } }
-    public float percentCriticalEvasion { get { return template.percentCriticalEvasion; } }
-    public float flatCriticalEvasion { get { return template.flatCriticalEvasion; } }
-
-    public float percentAbsorbHealthFactor { get { return template.percentAbsorbHealthFactor; } }
-    public float flatAbsorbHealthFactor { get { return template.flatAbsorbHealthFactor; } }
-    public float percentAbsorbManaFactor { get { return template.percentAbsorbManaFactor; } }
-    public float flatAbsorbManaFactor { get { return template.flatAbsorbManaFactor; } }
+    public float    percentHealth                   { get { return template.percentHealth; } }
+    public int      flatHealth                      { get { return template.flatHealth; } }
+    public float    percentMana                     { get { return template.percentMana; } }
+    public int      flatMana                        { get { return template.flatMana; } }
+#if _iMMOSTAMINA
+    public float    percentStamina                  { get { return template.percentStamina; } }
+    public int      flatStamina                     { get { return template.flatStamina; } }
+#endif
+    public float    percentDamage                   { get { return template.percentDamage; } }
+    public int      flatDamage                      { get { return template.flatDamage; } }
+    public float    percentDefense                  { get { return template.percentDefense; } }
+    public int      flatDefense                     { get { return template.flatDefense; } }
+    public float    percentBlock                    { get { return template.percentBlock; } }
+    public float    flatBlock                       { get { return template.flatBlock; } }
+    public float    percentCritical                 { get { return template.percentCritical; } }
+    public float    flatCritical                    { get { return template.flatCritical; } }
+    public float    percentBlockFactor              { get { return template.percentBlockFactor; } }
+    public float    flatBlockFactor                 { get { return template.flatBlockFactor; } }
+    public float    percentCriticalFactor           { get { return template.percentCriticalFactor; } }
+    public float    flatCriticalFactor              { get { return template.flatCriticalFactor; } }
+    public float    percentAccuracy                 { get { return template.percentAccuracy; } }
+    public float    flatAccuracy                    { get { return template.flatAccuracy; } }
+    public float    percentResistance               { get { return template.percentResistance; } }
+    public float    flatResistance                  { get { return template.flatResistance; } }
+    public float    percentDrainHealthFactor        { get { return template.percentDrainHealthFactor; } }
+    public float    flatDrainHealthFactor           { get { return template.flatDrainHealthFactor; } }
+    public float    percentDrainManaFactor          { get { return template.percentDrainManaFactor; } }
+    public float    flatDrainManaFactor             { get { return template.flatDrainManaFactor; } }
+    public float    percentReflectDamageFactor      { get { return template.percentReflectDamageFactor; } }
+    public float    flatReflectDamageFactor         { get { return template.flatReflectDamageFactor; } }
+    public float    percentDefenseBreakFactor       { get { return template.percentDefenseBreakFactor; } }
+    public float    flatDefenseBreakFactor          { get { return template.flatDefenseBreakFactor; } }
+    public float    percentBlockBreakFactor         { get { return template.percentBlockBreakFactor; } }
+    public float    flatBlockBreakFactor            { get { return template.flatBlockBreakFactor; } }
+    public float    percentCriticalEvasion          { get { return template.percentCriticalEvasion; } }
+    public float    flatCriticalEvasion             { get { return template.flatCriticalEvasion; } }
+    
+    public float    percentAbsorbHealthFactor       { get { return template.percentAbsorbHealthFactor; } }
+    public float    flatAbsorbHealthFactor          { get { return template.flatAbsorbHealthFactor; } }
+    public float    percentAbsorbManaFactor         { get { return template.percentAbsorbManaFactor; } }
+    public float    flatAbsorbManaFactor            { get { return template.flatAbsorbManaFactor; } }
 
     // -----------------------------------------------------------------------------------
     // ToolTip
@@ -86,6 +90,10 @@ public partial struct UCE_Attribute
         tip.Replace("{FLATHEALTH}", flatHealth.ToString());
         tip.Replace("{PERCENTMANA}", (percentMana * 100).ToString("0.0"));
         tip.Replace("{FLATMANA}", flatMana.ToString());
+#if _iMMOSTAMINA
+        tip.Replace("{PERCENTSTAMINA}",             (percentStamina * 100).ToString("0.0"));
+        tip.Replace("{FLATSTAMINA}",                flatStamina.ToString());
+#endif
         tip.Replace("{PERCENTDAMAGE}", (percentDamage * 100).ToString("0.0"));
         tip.Replace("{FLATDAMAGE}", flatDamage.ToString());
         tip.Replace("{PERCENTDEFENSE}", (percentDefense * 100).ToString("0.0"));
