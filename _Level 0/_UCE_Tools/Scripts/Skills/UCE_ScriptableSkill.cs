@@ -15,4 +15,5 @@ public abstract partial class ScriptableSkill : ScriptableObject
 
     [Tooltip("Checked = negative skill, Unchecked = positive skill. Certain skills can debuff disadvantageous skills only")]
     public bool disadvantageous;
+
 }

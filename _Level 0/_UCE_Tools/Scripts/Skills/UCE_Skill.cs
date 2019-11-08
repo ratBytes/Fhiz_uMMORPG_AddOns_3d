@@ -13,4 +13,5 @@ public partial struct Skill
 
     // is considered to be a negative status effect and can be removed by certain skills
     public bool disadvantageous { get { return data.disadvantageous; } }
+
 }

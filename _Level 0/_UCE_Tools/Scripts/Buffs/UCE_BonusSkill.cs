@@ -32,11 +32,6 @@ public abstract partial class BonusSkill
     public bool blockManaRecovery;
 #endif
 
-#if _iMMOSTAMINA
-    [Tooltip("Blocks stamina recovery (and only recovery), while buff is active")]
-    public bool blockStaminaRecovery;
-#endif
-
 #if _iMMOBUFFENDURE
     [Tooltip("Prevents losing the final Healthpoint, while buff is active (= cannot die)")]
     public bool endure;
