@@ -54,7 +54,7 @@ public partial class Player
     [TargetRpc]
     public void Target_UCE_JukeboxRevert(NetworkConnection target)
     {
-        if (UCE_Jukebox.singleton.jukeboxTemplate != null)
+        if (UCE_Jukebox.singleton != null && UCE_Jukebox.singleton.jukeboxTemplate != null)
             UCE_Jukebox.singleton.revertBGM(UCE_Jukebox.singleton.jukeboxTemplate.defaultMusicClip, UCE_Jukebox.singleton.jukeboxTemplate.defaultFadeInFadeOut, UCE_Jukebox.singleton.jukeboxTemplate.defaultAdjustedVol);
         else Debug.Log("Jukebox is missing!");
     }
