@@ -13,13 +13,12 @@ using UnityEngine;
 [System.Serializable]
 public class UCE_StatModifier
 {
-#if _iMMOATTRIBUTES
 
+#if _iMMOATTRIBUTES
     [Header("[-=-=- UCE ATTRIBUTE MODIFIERS -=-=-]")]
     public UCE_AttributeModifier[] UCE_AttributeModifiers = { };
 #endif
 #if _iMMOELEMENTS
-
     [Header("[-=-=- UCE ELEMENTAL RESISTANCES -=-=-]")]
     public UCE_ElementModifier[] elementalResistances;
 #endif
@@ -27,6 +26,9 @@ public class UCE_StatModifier
     [Header("[-=-=- UCE MAIN STAT MODIFIERS -=-=-]")]
     public int healthBonus;
     public int manaBonus;
+#if _iMMOSTAMINA
+    public int staminaBonus;
+#endif
     public int damageBonus;
     public int defenseBonus;
 
@@ -79,6 +81,9 @@ public class UCE_StatModifier
 #endif
                     healthBonus != 0 ||
                     manaBonus != 0 ||
+#if _iMMOSTAMINA
+                    staminaBonus != 0 ||
+#endif
                     damageBonus != 0 ||
                     defenseBonus != 0 ||
                     blockChanceBonus != 0 ||
