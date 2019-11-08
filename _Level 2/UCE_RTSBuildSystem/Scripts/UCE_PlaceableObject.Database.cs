@@ -9,13 +9,11 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE (SQLite / mySQL Hybrid)
@@ -28,7 +26,7 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_UCE_PlaceableObject()
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"CREATE TABLE IF NOT EXISTS placeable_objects (
 				`character` VARCHAR(32) NOT NULL,
 				guild VARCHAR(32) NOT NULL,
@@ -42,7 +40,7 @@ public partial class Database
                 item VARCHAR(64) NOT NULL,
                 id INT NOT NULL
                 )");
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.CreateTable<placeable_objects>();
 #endif
     }
@@ -54,7 +52,7 @@ public partial class Database
     {
         Vector3 position = placeableObject.transform.position;
         Vector3 rotation = placeableObject.transform.rotation.eulerAngles;
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql("INSERT INTO placeable_objects VALUES (@character, @guild, @x, @y, @z, @xRot, @yRot, @zRot, @level, @item, @id)",
 				new MySqlParameter("@character", 	character),
 				new MySqlParameter("@guild", 		guild == null ? "" : guild),
@@ -68,7 +66,7 @@ public partial class Database
 				new MySqlParameter("@item", 		itemName),
 				new MySqlParameter("@id", 			id)
 				);
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Insert(new placeable_objects
         {
             character = character,
@@ -91,7 +89,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     public void UCE_DeletePlaceableObject(string character, string guild, int level, string itemName, int id)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql("DELETE FROM placeable_objects WHERE (`character`=@character AND guild=@guild AND level=@level AND item=@item AND id=@id)",
 				new MySqlParameter("@character", 	character),
 				new MySqlParameter("@guild", 		guild == null ? "" : guild),
@@ -99,12 +97,12 @@ public partial class Database
 				new MySqlParameter("@item", 		itemName),
 				new MySqlParameter("@id", 			id)
 				);
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Execute("DELETE FROM placeable_objects WHERE (character=? AND guild=? AND level=? AND item=? AND id=?)", character, guild == null ? "" : guild, level, itemName, id);
 #endif
     }
 
-#if _MYSQL
+#if _MYSQL && _SERVER
     // -----------------------------------------------------------------------------------
     // MySql UCE_LoadPlaceableObjects
     // -----------------------------------------------------------------------------------
@@ -119,8 +117,7 @@ public partial class Database
     }
 #endif
 
-#if _SQLITE
-
+#if _SQLITE && _SERVER
     // -----------------------------------------------------------------------------------
     // Sqlite UCE_LoadPlaceableObjects
     // -----------------------------------------------------------------------------------
@@ -134,7 +131,6 @@ public partial class Database
 
         return objects;
     }
-
 #endif
 
     // -----------------------------------------------------------------------------------
