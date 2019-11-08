@@ -25,6 +25,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     public void CharacterSaveMany(IEnumerable<Player> players, bool online = true)
     {
+#if _SERVER
 #if _MYSQL
      		UCE_LoomManager.Loom.QueueOnMainThread(() =>
     			{
@@ -36,12 +37,13 @@ public partial class Database
                 CharacterSaveMany_SQLite(players, online);
             });
 #endif
+#endif
     }
 
     // -----------------------------------------------------------------------------------
     // CharacterSaveMany_SQLite
     // -----------------------------------------------------------------------------------
-#if _SQLITE
+#if _SQLITE && _SERVER
 
     [DevExtMethods("CharacterSaveMany")]
     private void CharacterSaveMany_SQLite(IEnumerable<Player> players, bool online = true)
@@ -60,7 +62,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     // CharacterSaveMany_mySQL
     // -----------------------------------------------------------------------------------
-#if _MYSQL
+#if _MYSQL && _SERVER
     [DevExtMethods("CharacterSaveMany")]
     private  void CharacterSaveMany_mySQL(IEnumerable<Player> players, bool online = true)
     {
