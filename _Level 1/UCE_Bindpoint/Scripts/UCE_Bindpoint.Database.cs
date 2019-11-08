@@ -8,13 +8,11 @@
 // =======================================================================================
 using UnityEngine;
 
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE (SQLite / mySQL Hybrid)
@@ -27,7 +25,7 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_UCE_Bindpoint()
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"CREATE TABLE IF NOT EXISTS character_bindpoint (
 					 `character` VARCHAR(32) NOT NULL,
 					 `name` VARCHAR(32) NOT NULL,
@@ -37,7 +35,7 @@ public partial class Database
             		sceneName VARCHAR(64) NOT NULL,
                     PRIMARY KEY(`character`)
                 ) CHARACTER SET=utf8mb4");
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.CreateTable<character_bindpoint>();
 #endif
     }
@@ -50,7 +48,7 @@ public partial class Database
     {
         if (!player.UCE_myBindpoint.Valid) return;
 
-#if _MYSQL
+#if _MYSQL && _SERVER
         ExecuteNonQueryMySql("DELETE FROM character_bindpoint WHERE `character`=@character", new MySqlParameter("@character", player.name));
         ExecuteNonQueryMySql("INSERT INTO character_bindpoint VALUES (@character, @name, @x, @y, @z, @sceneName)",
 				new MySqlParameter("@character", 	player.name),
@@ -60,7 +58,7 @@ public partial class Database
 				new MySqlParameter("@z", 			player.UCE_myBindpoint.position.z),
 				new MySqlParameter("@sceneName", 	player.UCE_myBindpoint.SceneName)
 				);
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Execute("DELETE FROM character_bindpoint WHERE character=?", player.name);
         connection.Insert(new character_bindpoint
         {
@@ -80,13 +78,15 @@ public partial class Database
     [DevExtMethods("CharacterLoad")]
     private void CharacterLoad_UCE_Bindpoint(Player player)
     {
+#if _SERVER
         player.UCE_myBindpoint = new UCE_BindPoint();
-
+		
 #if _MYSQL
 		var table = ExecuteReaderMySql("SELECT name, x, y, z, sceneName FROM character_bindpoint WHERE `character`=@name", new MySqlParameter("@name", player.name));
 #elif _SQLITE
         var table = connection.Query<character_bindpoint>("SELECT name, x, y, z, sceneName FROM character_bindpoint WHERE character=?", player.name);
 #endif
+
         if (table.Count == 1)
         {
             var row = table[0];
@@ -98,7 +98,6 @@ public partial class Database
             Vector3 p = new Vector3(row.x, row.y, row.z);
             string sceneName = row.sceneName;
 #endif
-
             if (p != Vector3.zero && !string.IsNullOrEmpty(sceneName))
             {
 #if _MYSQL
@@ -110,6 +109,7 @@ public partial class Database
                 player.UCE_myBindpoint.SceneName = sceneName;
             }
         }
+#endif
     }
 
     // -----------------------------------------------------------------------------------
