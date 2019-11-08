@@ -8,13 +8,11 @@
 // =======================================================================================
 using System;
 
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE (SQLite / mySQL Hybrid)
@@ -27,8 +25,7 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_UCE_DailyRewards()
     {
-#if _MYSQL
-
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"CREATE TABLE IF NOT EXISTS character_dailyrewards (
 					`character` VARCHAR(32) NOT NULL,
 					counter INTEGER NOT NULL,
@@ -41,8 +38,7 @@ public partial class Database
 				    lastOnline VARCHAR(64) NOT NULL,
                         PRIMARY KEY(`character`)
               ) CHARACTER SET=utf8mb4");
-
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.CreateTable<character_lastonline>();
         connection.CreateTable<character_dailyrewards>();
 #endif
@@ -54,14 +50,14 @@ public partial class Database
     [DevExtMethods("CharacterLoad")]
     private void CharacterLoad_UCE_DailyRewards(Player player)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		var table = ExecuteReaderMySql("SELECT counter, resetTime FROM character_dailyrewards WHERE `character`=@name", new MySqlParameter("@name", player.name));
 		if (table.Count == 1) {
             var row = table[0];
 			player.dailyRewardCounter 	= (int)row[0];
 			player.dailyRewardReset		= (int)row[1];
 		}
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         var table = connection.Query<character_dailyrewards>("SELECT counter, resetTime FROM character_dailyrewards WHERE character=?", player.name);
         if (table.Count == 1)
         {
@@ -80,7 +76,7 @@ public partial class Database
     {
         DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
         TimeSpan timeSinceEpoch = DateTime.UtcNow - UnixEpoch;
-#if _MYSQL
+#if _MYSQL && _SERVER
 		var query2 = @"
             INSERT INTO character_dailyrewards
             SET
@@ -109,7 +105,7 @@ public partial class Database
         ExecuteNonQueryMySql(query,
                     new MySqlParameter("@lastOnline", DateTime.UtcNow.ToString("s")),
                     new MySqlParameter("@character", player.name));
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Execute("DELETE FROM character_lastonline WHERE character=?", player.name);
         connection.Insert(new character_lastonline
         {
@@ -132,22 +128,21 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     public double UCE_DailyRewards_HoursPassed(Player player)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		var row = (string)ExecuteScalarMySql("SELECT lastOnline FROM character_lastonline WHERE  `character`=@name", new MySqlParameter("@name", player.name));
 		if (!string.IsNullOrWhiteSpace(row)) {
 			DateTime time 			= DateTime.Parse(row);
 			return (DateTime.UtcNow - time).TotalSeconds/3600;
 		}
-		return 0;
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         var row = connection.FindWithQuery<character_lastonline>("SELECT lastOnline FROM character_lastonline WHERE character=?", player.name);
         if (!string.IsNullOrWhiteSpace(row.lastOnline))
         {
             DateTime time = DateTime.Parse(row.lastOnline);
             return (DateTime.UtcNow - time).TotalSeconds / 3600;
         }
-        return 0;
 #endif
+		return 0;
     }
 
     // -----------------------------------------------------------------------------------
