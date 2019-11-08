@@ -8,13 +8,11 @@
 // =======================================================================================
 using System;
 
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE (SQLite / mySQL Hybrid)
@@ -27,13 +25,13 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_UCE_Sanctuary()
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"CREATE TABLE IF NOT EXISTS character_lastonline (
 				`character` VARCHAR(32) NOT NULL,
 				lastOnline VARCHAR(64) NOT NULL,
                     PRIMARY KEY(`character`)
                 ) CHARACTER SET=utf8mb4");
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.CreateTable<character_lastonline>();
 #endif
     }
@@ -44,7 +42,7 @@ public partial class Database
     [DevExtMethods("CharacterLoad")]
     private void CharacterLoad_UCE_Sanctuary(Player player)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		var row = (string)ExecuteScalarMySql("SELECT lastOnline FROM character_lastonline WHERE `character`=@name", new MySqlParameter("@name", player.name));
 		if (!string.IsNullOrWhiteSpace(row)) {
 			DateTime time 				= DateTime.Parse(row);
@@ -52,7 +50,7 @@ public partial class Database
 		} else {
 			player.UCE_SecondsPassed 	= 0;
 		}
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         var results = connection.FindWithQuery<character_lastonline>("SELECT lastOnline FROM character_lastonline WHERE character=?", player.name);
         string row = results.lastOnline;
         if (!string.IsNullOrWhiteSpace(row))
@@ -73,12 +71,12 @@ public partial class Database
     [DevExtMethods("CharacterSave")]
     private void CharacterSave_UCE_Sanctuary(Player player)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql("DELETE FROM character_lastonline WHERE `character`=@character", new MySqlParameter("@character", player.name));
         ExecuteNonQueryMySql("INSERT INTO character_lastonline VALUES (@character, @lastOnline)",
 				new MySqlParameter("@lastOnline", DateTime.UtcNow.ToString("s")),
 				new MySqlParameter("@character", player.name));
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Execute("DELETE FROM character_lastonline WHERE character=?", player.name);
         connection.Insert(new character_lastonline
         {
