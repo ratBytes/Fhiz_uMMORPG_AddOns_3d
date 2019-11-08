@@ -11,13 +11,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE (SQLite / mySQL Hybrid)
@@ -30,14 +28,14 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_UCE_Attributes()
     {
-#if _MYSQL && _iMMOATTRIBUTES
+#if _MYSQL && _iMMOATTRIBUTES && _SERVER
 		ExecuteNonQueryMySql(@"CREATE TABLE IF NOT EXISTS UCE_attributes (
                         `character` VARCHAR(32) NOT NULL,
                         slot INTEGER NOT NULL,
                         name TEXT NOT NULL,
                         points INTEGER NOT NULL
                         ) CHARACTER SET=utf8mb4");
-#elif _SQLITE && _iMMOATTRIBUTES
+#elif _SQLITE && _iMMOATTRIBUTES && _SERVER
         connection.CreateTable<UCE_attributes>();
 #endif
     }
@@ -48,7 +46,7 @@ public partial class Database
     [DevExtMethods("CharacterLoad")]
     private void CharacterLoad_UCE_Attributes(Player player)
     {
-#if _MYSQL && _iMMOATTRIBUTES
+#if _MYSQL && _iMMOATTRIBUTES && _SERVER
 		foreach (UCE_AttributeTemplate template in player.playerAttributes.UCE_AttributeTypes) {
             if (template == null) continue;
             UCE_Attribute attr = new UCE_Attribute(template);
@@ -59,7 +57,7 @@ public partial class Database
             }
             player.UCE_Attributes.Add(attr);
         }
-#elif _SQLITE && _iMMOATTRIBUTES
+#elif _SQLITE && _iMMOATTRIBUTES && _SERVER
         foreach (UCE_AttributeTemplate template in player.playerAttributes.UCE_AttributeTypes)
         {
             if (template == null) continue;
@@ -81,7 +79,7 @@ public partial class Database
     [DevExtMethods("CharacterSave")]
     private void CharacterSave_UCE_Attributes(Player player)
     {
-#if _MYSQL && _iMMOATTRIBUTES
+#if _MYSQL && _iMMOATTRIBUTES && _SERVER
 		ExecuteNonQueryMySql("DELETE FROM UCE_attributes WHERE `character`=@character", new MySqlParameter("@character", player.name));
         for (int i = 0; i < player.UCE_Attributes.Count; ++i) {
             var attr = player.UCE_Attributes[i];
@@ -91,7 +89,7 @@ public partial class Database
                             new MySqlParameter("@name", attr.name),
                             new MySqlParameter("@points", attr.points));
         }
-#elif _SQLITE && _iMMOATTRIBUTES
+#elif _SQLITE && _iMMOATTRIBUTES && _SERVER
         connection.Execute("DELETE FROM UCE_attributes WHERE character=?", player.name);
         for (int i = 0; i < player.UCE_Attributes.Count; ++i)
         {
