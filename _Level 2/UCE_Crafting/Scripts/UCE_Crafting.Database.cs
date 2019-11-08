@@ -6,13 +6,11 @@
 // * Pledge on Patreon for VIP AddOns...: https://www.patreon.com/IndieMMO
 // * Instructions.......................: https://indie-mmo.net/knowledge-base/
 // =======================================================================================
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 #if _iMMOCRAFTING
@@ -27,7 +25,7 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_UCE_Crafting()
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"CREATE TABLE IF NOT EXISTS character_crafts (
 			`character` VARCHAR(32) NOT NULL,
 			profession VARCHAR(32) NOT NULL,
@@ -38,7 +36,7 @@ public partial class Database
 			`character` VARCHAR(32) NOT NULL,
 			recipe VARCHAR(32) NOT NULL
              ) CHARACTER SET=utf8mb4");
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.CreateTable<character_crafts>();
         connection.CreateIndex(nameof(character_crafts), new[] { "character", "profession" });
         connection.CreateTable<character_recipes>();
@@ -51,7 +49,7 @@ public partial class Database
     [DevExtMethods("CharacterLoad")]
     private void CharacterLoad_UCE_Crafting(Player player)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		var table = ExecuteReaderMySql("SELECT profession, experience FROM character_crafts WHERE `character`=@character",
                     new MySqlParameter("@character", player.name));
 
@@ -67,7 +65,7 @@ public partial class Database
         {
             player.UCE_recipes.Add((string)row[0]);
         }
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         var table = connection.Query<character_crafts>("SELECT profession, experience FROM character_crafts WHERE character=?", player.name);
         foreach (var row in table)
         {
@@ -88,7 +86,7 @@ public partial class Database
     [DevExtMethods("CharacterSave")]
     private void CharacterSave_UCE_Crafting(Player player)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql("DELETE FROM character_crafts WHERE `character`=@character", new MySqlParameter("@character", player.name));
         foreach (var profession in player.UCE_Crafts)
             ExecuteNonQueryMySql("INSERT INTO character_crafts VALUES (@character, @profession, @experience)",
@@ -103,7 +101,7 @@ public partial class Database
                  new MySqlParameter("@character", player.name),
                  new MySqlParameter("@recipe", player.UCE_recipes[i]));
         }
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Execute("DELETE FROM character_crafts WHERE character=?", player.name);
         foreach (var profession in player.UCE_Crafts)
             connection.InsertOrReplace(new character_crafts
