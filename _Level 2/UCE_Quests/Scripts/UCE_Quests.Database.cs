@@ -9,13 +9,11 @@
 using System;
 using System.Collections.Generic;
 
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE (SQLite / mySQL Hybrid)
@@ -28,7 +26,7 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_UCE_Quest()
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"CREATE TABLE IF NOT EXISTS character_UCE_quests (
                             `character` VARCHAR(32) NOT NULL,
                             name VARCHAR(111) NOT NULL,
@@ -44,7 +42,7 @@ public partial class Database
                             counter INTEGER(16) NOT NULL,
                                 PRIMARY KEY(`character`, name)
                             ) CHARACTER SET=utf8mb4");
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.CreateTable<character_UCE_quests>();
         connection.CreateIndex(nameof(character_UCE_quests), new[] { "character", "name" });
 #endif
@@ -56,7 +54,7 @@ public partial class Database
     [DevExtMethods("CharacterLoad")]
     private void CharacterLoad_UCE_Quest(Player player)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		List< List<object> > table = ExecuteReaderMySql("SELECT name, killed, gathered, harvested, visited, crafted, looted, completed, completedAgain, lastCompleted, counter FROM character_UCE_quests WHERE `character`=@character",
         					new MySqlParameter("@character", player.name));
         foreach (List<object> row in table)
@@ -84,8 +82,7 @@ public partial class Database
                 player.UCE_quests.Add(quest);
             }
         }
-
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         var table = connection.Query<character_UCE_quests>("SELECT name, pvped, killed, gathered, harvested, visited, crafted, looted, completed, completedAgain, lastCompleted, counter FROM character_UCE_quests WHERE character=?", player.name);
         foreach (var row in table)
         {
@@ -122,7 +119,7 @@ public partial class Database
     [DevExtMethods("CharacterSave")]
     private void CharacterSave_UCE_Quest(Player player)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		var query2 = @"
             INSERT INTO character_UCE_quests
             SET
@@ -168,8 +165,7 @@ public partial class Database
                             new MySqlParameter("@counter", quest.counter)
                             );
 
-#elif _SQLITE
-        // quests: remove old entries first, then add all new ones
+#elif _SQLITE && _SERVER
         connection.Execute("DELETE FROM character_UCE_quests WHERE character=?", player.name);
         foreach (UCE_Quest quest in player.UCE_quests)
             connection.Insert(new character_UCE_quests
