@@ -11,37 +11,15 @@
 using UnityEditor;
 using UnityEngine;
 
-[InitializeOnLoad]
-public class SanctuaryLib
+public partial class UCE_DefinesManager
 {
-    private const string define = "_iMMOSANCTUARY";
 
-    static SanctuaryLib()
+    [DevExtMethods("Constructor")]
+    public static void Constructor_UCE_Sanctuary()
     {
-        AddLibrayDefineIfNeeded();
+        defines.Add("_iMMOSANCTUARY");
     }
 
-    private static void AddLibrayDefineIfNeeded()
-    {
-        BuildTargetGroup buildTargetGroup = EditorUserBuildSettings.selectedBuildTargetGroup;
-        string definestring = PlayerSettings.GetScriptingDefineSymbolsForGroup(buildTargetGroup);
-        string[] defines = definestring.Split(';');
-
-        if (Contains(defines, define))
-            return;
-
-        PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, (definestring + ";" + define));
-    }
-
-    private static bool Contains(string[] defines, string define)
-    {
-        foreach (string def in defines)
-        {
-            if (def == define)
-                return true;
-        }
-        return false;
-    }
 }
 
 #endif
