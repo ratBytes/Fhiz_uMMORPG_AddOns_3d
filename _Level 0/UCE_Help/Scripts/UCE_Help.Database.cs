@@ -6,17 +6,14 @@
 // * Pledge on Patreon for VIP AddOns...: https://www.patreon.com/IndieMMO
 // * Instructions.......................: https://indie-mmo.net/knowledge-base/
 // =======================================================================================
-using UnityEngine;
-using System.IO;
+//using UnityEngine;
+//using System.IO;
 
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-
-#elif _SQLITE
-
-using SQLite;                       // copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE (SQLite / mySQL Hybrid)
@@ -33,8 +30,7 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_Reports()
     {
-#if _MYSQL
-
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"
 							CREATE TABLE IF NOT EXISTS UCE_reports(
                            	senderAcc VARCHAR(32) NOT NULL,
@@ -46,11 +42,8 @@ public partial class Database
                            	time VARCHAR(128) NOT NULL,
                            	position VARCHAR(256) NOT NULL
                   			) CHARACTER SET=utf8mb4");
-
-#elif _SQLITE
-
+#elif _SQLITE && _SERVER
         connection.CreateTable<UCE_reports>();
-
 #endif
     }
 
@@ -61,8 +54,7 @@ public partial class Database
     [DevExtMethods("CharacterLoad")]
     private void CharacterLoad_Reports(Player player)
     {
-#if _MYSQL
-
+#if _MYSQL && _SERVER
 		var table = ExecuteReaderMySql("SELECT senderCharacter, readBefore, title, message, solved, time, position FROM UCE_reports WHERE senderAcc=@senderAcc;", new MySqlParameter("@senderAcc", player.account));
         if (table.Count > 0)                                //If the table has anything then continue.
         {
@@ -81,9 +73,7 @@ public partial class Database
                 player.reports.Add(report);                 //Add the report to a list to pull with other addon.
             }
         }
-
-#elif _SQLITE
-
+#elif _SQLITE && _SERVER
         var table = connection.Query<UCE_reports>("SELECT senderCharacter, readBefore, title, message, solved, time, position FROM 'UCE_reports' WHERE senderAcc=?", player.account);
         if (table.Count > 0)                                //If the table has anything then continue.
         {
@@ -102,7 +92,6 @@ public partial class Database
                 player.reports.Add(report);                 //Add the report to a list to pull with other addon.
             }
         }
-
 #endif
     }
 
@@ -112,8 +101,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     public void SaveReports(UCE_HelpMember report)
     {
-#if _MYSQL
-
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql("INSERT INTO UCE_reports VALUES (@senderAcc, @senderCharacter, @readBefore, @title, @message, @solved, @time, @position)",
                         new MySqlParameter("@senderAcc", report.senderAcc),
                         new MySqlParameter("@senderCharacter", report.senderCharacter),
@@ -123,9 +111,7 @@ public partial class Database
                         new MySqlParameter("@solved", report.solved ? 1 : 0),
                         new MySqlParameter("@time", report.time),
                         new MySqlParameter("@position", report.position));
-
-#elif _SQLITE
-
+#elif _SQLITE && _SERVER
         connection.Insert(new UCE_reports
         {
             senderAcc = report.senderAcc,
@@ -137,7 +123,6 @@ public partial class Database
             time = report.time,
             position = report.position
         });
-
 #endif
     }
 
