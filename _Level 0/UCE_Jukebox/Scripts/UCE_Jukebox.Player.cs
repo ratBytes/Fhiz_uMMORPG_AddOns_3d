@@ -23,6 +23,12 @@ public partial class Player
     [DevExtMethods("Start")]
     private void Start_UCE_Jukebox()
     {
+    	if (UCE_Jukebox.singleton == null)
+    	{
+    		Debug.LogWarning("No Jukebox has been added to the scene!");
+    		return;
+    	}
+    	
         if (UCE_Jukebox.singleton.jukeboxTemplate != null &&
             UCE_Jukebox.singleton.jukeboxTemplate.isActive &&
             UCE_Jukebox.singleton.jukeboxTemplate.defaultMusicClip != null)
