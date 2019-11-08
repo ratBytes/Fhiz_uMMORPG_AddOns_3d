@@ -59,7 +59,15 @@ public partial class Player
     // -----------------------------------------------------------------------------------
     public int guildWarehouseStorageItems
     {
-        get { return guildWarehouse.warehouseStorageItems.Get(guildWarehouseLevel + 1); }
+        get {
+        	if (guildWarehouse)
+        	{
+        		return guildWarehouse.warehouseStorageItems.Get(guildWarehouseLevel + 1);
+        	} else {
+        		Debug.LogWarning("You forgot to assign a guild warehouse template to one of your player prefabs");
+        		return 0;
+         	}
+        }
     }
 
     // -----------------------------------------------------------------------------------
@@ -67,7 +75,15 @@ public partial class Player
     // -----------------------------------------------------------------------------------
     public long guildWarehouseStorageGold
     {
-        get { return guildWarehouse.warehouseStorageGold.Get(guildWarehouseLevel + 1); }
+        get {
+        	if (guildWarehouse)
+        	{
+        		return guildWarehouse.warehouseStorageGold.Get(guildWarehouseLevel + 1);
+        	} else {
+        		Debug.LogWarning("You forgot to assign a guild warehouse template to one of your player prefabs");
+        		return 0;
+         	}
+        }
     }
 
     // -----------------------------------------------------------------------------------
