@@ -49,7 +49,15 @@ public partial class Player
     // -----------------------------------------------------------------------------------
     public int playerWarehouseStorageItems
     {
-        get { return playerWarehouse.warehouseStorageItems.Get(_playerWarehouseLevel + 1); }
+        get {
+        	if (playerWarehouse)
+        	{
+        		return playerWarehouse.warehouseStorageItems.Get(_playerWarehouseLevel + 1);
+        	} else{ 
+        		Debug.LogWarning("You forgot to assign a warehouse template to one of your player prefabs");
+        		return 0;
+        	}
+         }
     }
 
     // -----------------------------------------------------------------------------------
@@ -57,7 +65,15 @@ public partial class Player
     // -----------------------------------------------------------------------------------
     public long playerWarehouseStorageGold
     {
-        get { return playerWarehouse.warehouseStorageGold.Get(playerWarehouseLevel + 1); }
+        get {
+        	if (playerWarehouse)
+        	{
+        		return playerWarehouse.warehouseStorageGold.Get(playerWarehouseLevel + 1);
+        	} else {
+        		Debug.LogWarning("You forgot to assign a warehouse template to one of your player prefabs");
+        		return 0;
+         	}
+         }
     }
 
     // -----------------------------------------------------------------------------------
