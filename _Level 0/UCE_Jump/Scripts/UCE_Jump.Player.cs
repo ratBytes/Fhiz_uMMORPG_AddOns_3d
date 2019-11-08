@@ -19,13 +19,12 @@ public partial class Player
 {
     private Vector3 startJumpPosition;
     private Vector3 endJumpPosition;
-    public bool isJumping;
+    protected bool isJumping;
     private float jumpDelta;
     private float jumptimer;
 
     [Header("Player Jump Setup")]
     public float jumpHeight = 3f;
-
     public float maxDistanceJump = 5f;
 
     /**
