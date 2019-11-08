@@ -6,13 +6,11 @@
 // * Pledge on Patreon for VIP AddOns...: https://www.patreon.com/IndieMMO
 // * Instructions.......................: https://indie-mmo.net/knowledge-base/
 // =======================================================================================
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE (SQLite / mySQL Hybrid)
@@ -25,14 +23,14 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_UCE_Friendlist()
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"CREATE TABLE IF NOT EXISTS character_friends (
                         `character` VARCHAR(32) NOT NULL,
                         friendName VARCHAR(32) NOT NULL,
                         lastGifted TEXT,
                         PRIMARY KEY(`character`, friendName)
                         ) CHARACTER SET=utf8mb4");
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.CreateTable<character_friends>();
 #endif
     }
@@ -43,7 +41,7 @@ public partial class Database
     [DevExtMethods("CharacterLoad")]
     private void CharacterLoad_UCE_Friendlist(Player player)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		var table = ExecuteReaderMySql("SELECT `character`, friendName, lastGifted FROM character_friends WHERE `character`=@character", new MySqlParameter("character", player.name));
         if (table.Count > 0) {
             for (int i = 0; i < table.Count; i++) {
@@ -52,7 +50,7 @@ public partial class Database
                 player.UCE_Friends.Add(frnd);
             }
         }
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         var table = connection.Query<character_friends>("SELECT character, friendName, lastGifted FROM character_friends WHERE character=?", player.name);
         if (table.Count > 0)
         {
@@ -72,7 +70,7 @@ public partial class Database
     [DevExtMethods("CharacterSave")]
     private void CharacterSave_UCE_Friendlist(Player player)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		var query2 = @"
             INSERT INTO character_friends
             SET
@@ -94,7 +92,7 @@ public partial class Database
                                  new MySqlParameter("@lastGifted", frnd.lastGifted)
             );
         }
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Execute("DELETE FROM character_friends WHERE character=?", player.name);
 
         for (int i = 0; i < player.UCE_Friends.Count; i++)
