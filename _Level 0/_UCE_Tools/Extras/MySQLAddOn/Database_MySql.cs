@@ -27,7 +27,6 @@ public partial class Database : MonoBehaviour
         get
         {
 #if _SERVER
-
             if (connectionString == null)
             {
                 MySqlConnectionStringBuilder connectionStringBuilder = new MySqlConnectionStringBuilder
@@ -41,11 +40,8 @@ public partial class Database : MonoBehaviour
                 };
                 connectionString = connectionStringBuilder.ConnectionString;
             }
-
-            return connectionString;
-        
 #endif
-            return "";
+            return connectionString;
         }
     }
 
@@ -334,13 +330,14 @@ public partial class Database : MonoBehaviour
         {
             throw ex;
         }
-#endif
+#else
         return null;
+#endif
     }
 
     // -----------------------------------------------------------------------------------
-	// ExecuteDataRowMySql
-	// -----------------------------------------------------------------------------------
+    // ExecuteDataRowMySql
+    // -----------------------------------------------------------------------------------
     public DataRow ExecuteDataRowMySql(string sql, params SqlParameter[] args)
     {
 #if _SERVER
@@ -352,13 +349,14 @@ public partial class Database : MonoBehaviour
         {
             throw ex;
         }
-#endif
+#else
         return null;
+#endif
     }
 
     // -----------------------------------------------------------------------------------
-	// ExecuteDataSetMySql
-	// -----------------------------------------------------------------------------------
+    // ExecuteDataSetMySql
+    // -----------------------------------------------------------------------------------
     public DataSet ExecuteDataSetMySql(string sql, params SqlParameter[] args)
     {
 #if _SERVER
@@ -370,17 +368,19 @@ public partial class Database : MonoBehaviour
         {
             throw ex;
         }
-#endif
+#else
         return null;
+#endif
     }
 
     // -----------------------------------------------------------------------------------
-	// ExecuteReaderMySql
-	// -----------------------------------------------------------------------------------
+    // ExecuteReaderMySql
+    // -----------------------------------------------------------------------------------
     public List<List<object>> ExecuteReaderMySql(string sql, params SqlParameter[] args)
     {
-        List<List<object>> result = new List<List<object>>();
 #if _SERVER
+        List<List<object>> result = new List<List<object>>();
+
         try
         {
             using (var reader = MySqlHelper.ExecuteReader(ConnectionString, sql, args))
@@ -399,13 +399,14 @@ public partial class Database : MonoBehaviour
         {
             throw ex;
         }
+#else
+        return null;
 #endif
-        return result;
     }
 
     // -----------------------------------------------------------------------------------
-	// GetReader
-	// -----------------------------------------------------------------------------------
+    // GetReader
+    // -----------------------------------------------------------------------------------
     public MySqlDataReader GetReader(string sql, params SqlParameter[] args)
     {
 #if _SERVER
@@ -417,13 +418,14 @@ public partial class Database : MonoBehaviour
         {
             throw ex;
         }
-#endif
+#else
         return null;
+#endif
     }
 
     // -----------------------------------------------------------------------------------
-	// TryLogin
-	// -----------------------------------------------------------------------------------
+    // TryLogin
+    // -----------------------------------------------------------------------------------
     public bool TryLogin(string account, string password)
     {
 #if _SERVER
@@ -452,14 +454,15 @@ public partial class Database : MonoBehaviour
     {
 #if _SERVER
         return ((long)ExecuteScalarMySql("SELECT Count(*) FROM characters WHERE name=@name", new SqlParameter("@name", characterName))) == 1;
-#endif
+#else
         return false;
+#endif
     }
 
- 	// -----------------------------------------------------------------------------------
-	// CharacterDelete
-	// -----------------------------------------------------------------------------------
-   	public void CharacterDelete(string characterName)
+    // -----------------------------------------------------------------------------------
+    // CharacterDelete
+    // -----------------------------------------------------------------------------------
+    public void CharacterDelete(string characterName)
     {
 #if _SERVER
         ExecuteNonQueryMySql("UPDATE characters SET deleted=1 WHERE name=@character", new SqlParameter("@character", characterName));
@@ -1024,13 +1027,14 @@ public partial class Database : MonoBehaviour
 #if _SERVER
     {
         return ((long)ExecuteScalarMySql("SELECT Count(*) FROM guild_info WHERE `name`=@name", new SqlParameter("@name", guild))) == 1;
-#endif
+#else
         return false;
+#endif
     }
 
     // -----------------------------------------------------------------------------------
-	// RemoveGuild
-	// -----------------------------------------------------------------------------------
+    // RemoveGuild
+    // -----------------------------------------------------------------------------------
     public void RemoveGuild(string guild)
     {
 #if _SERVER
