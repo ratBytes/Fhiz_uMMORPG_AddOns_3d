@@ -6,13 +6,11 @@
 // * Pledge on Patreon for VIP AddOns...: https://www.patreon.com/IndieMMO
 // * Instructions.......................: https://indie-mmo.net/knowledge-base/
 // =======================================================================================
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE (SQLite / mySQL Hybrid)
@@ -25,13 +23,13 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_UCE_PVPZone()
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteReaderMySql(@"CREATE TABLE IF NOT EXISTS character_pvpzones (
 			`character` VARCHAR(32) NOT NULL,
 			realm VARCHAR(32) NOT NULL,
 			alliedrealm VARCHAR(32) NOT NULL
 		) CHARACTER SET=utf8mb4");
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.CreateTable<character_pvpzones>();
 #endif
     }
@@ -42,9 +40,9 @@ public partial class Database
     [DevExtMethods("CharacterLoad")]
     private void CharacterLoad_UCE_PVPZone(Player player)
     {
+#if _SERVER
 #if _MYSQL
 		var table = ExecuteReaderMySql("SELECT realm, alliedrealm FROM character_pvpzones WHERE `character`=@name", new MySqlParameter("@name", player.name));
-
 #elif _SQLITE
         var table = connection.Query<character_pvpzones>("SELECT realm, alliedrealm FROM character_pvpzones WHERE character=?", player.name);
 #endif
@@ -54,12 +52,14 @@ public partial class Database
 #if _MYSQL
             string realm = (string)row[0];
             string ally = (string)row[1];
+            player.UCE_setRealm(realm.GetStableHashCode(), ally.GetStableHashCode());
 #elif _SQLITE
             string realm = row.realm;
             string ally = row.alliedrealm;
-#endif
             player.UCE_setRealm(realm.GetStableHashCode(), ally.GetStableHashCode());
+#endif 
         }
+#endif
     }
 
     // -----------------------------------------------------------------------------------
@@ -68,13 +68,13 @@ public partial class Database
     [DevExtMethods("CharacterSave")]
     private void CharacterSave_UCE_PVPZone(Player player)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql("DELETE FROM character_pvpzones WHERE `character`=@character", new MySqlParameter("@character", player.name));
         ExecuteNonQueryMySql("INSERT INTO character_pvpzones VALUES (@character, @realm, @alliedrealm)",
 				new MySqlParameter("@character", 	player.name),
 				new MySqlParameter("@realm", 		(player.Realm != null) ? player.Realm.name : ""),
 				new MySqlParameter("@alliedrealm", 	(player.Ally != null) ? player.Ally.name : ""));
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Execute("DELETE FROM character_pvpzones WHERE character=?", player.name);
         connection.Insert(new character_pvpzones
         {
