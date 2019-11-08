@@ -6,13 +6,11 @@
 // * Pledge on Patreon for VIP AddOns...: https://www.patreon.com/IndieMMO
 // * Instructions.......................: https://indie-mmo.net/knowledge-base/
 // =======================================================================================
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 #if _iMMOHARVESTING
@@ -27,14 +25,14 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_UCE_Harvesting()
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"CREATE TABLE IF NOT EXISTS character_professions (
                     `character` VARCHAR(32) NOT NULL,
                     profession VARCHAR(32) NOT NULL,
                     experience BIGINT,
                      PRIMARY KEY(`character`, profession)
                     ) CHARACTER SET=utf8mb4");
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.CreateTable<character_professions>();
         connection.CreateIndex(nameof(character_professions), new[] { "character", "profession" });
 #endif
@@ -46,7 +44,7 @@ public partial class Database
     [DevExtMethods("CharacterLoad")]
     private void CharacterLoad_UCE_Harvesting(Player player)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		var table = ExecuteReaderMySql("SELECT profession, experience FROM character_professions WHERE `character`=@character", new MySqlParameter("@character", player.name));
         foreach (var row in table)
         {
@@ -54,7 +52,7 @@ public partial class Database
             profession.experience = (long)row[1];
             player.UCE_Professions.Add(profession);
         }
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         var table = connection.Query<character_professions>("SELECT profession, experience FROM character_professions WHERE character=?", player.name);
         foreach (var row in table)
         {
@@ -71,7 +69,7 @@ public partial class Database
     [DevExtMethods("CharacterSave")]
     private void CharacterSave_UCE_Harvesting(Player player)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		var query2 = @"
             INSERT INTO character_professions
             SET
@@ -90,7 +88,7 @@ public partial class Database
            new MySqlParameter("@character", player.name),
            new MySqlParameter("@profession", profession.templateName),
            new MySqlParameter("@experience", profession.experience));
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Execute("DELETE FROM character_professions WHERE character=?", player.name);
         foreach (var profession in player.UCE_Professions)
             connection.InsertOrReplace(new character_professions
