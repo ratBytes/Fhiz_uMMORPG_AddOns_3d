@@ -122,8 +122,9 @@ public partial class Database
 #elif _SQLITE && _SERVER
         var results = connection.Query<accounts>("SELECT count(*) FROM accounts");
         return results.Count;
+#else
+        return 0;
 #endif
-		return 0;
     }
 
     // -----------------------------------------------------------------------------------
