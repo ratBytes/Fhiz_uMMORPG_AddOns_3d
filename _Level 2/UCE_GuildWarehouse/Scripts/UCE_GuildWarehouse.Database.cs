@@ -8,13 +8,11 @@
 // =======================================================================================
 using System;
 
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE (SQLite / mySQL Hybrid)
@@ -27,8 +25,7 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_UCE_GuildWareHouse()
     {
-#if _MYSQL
-
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"
             CREATE TABLE IF NOT EXISTS UCE_guild_warehouse(
 			        guild VARCHAR(32) NOT NULL,
@@ -50,7 +47,7 @@ public partial class Database
                     summonedExperience INTEGER NOT NULL
                   ) CHARACTER SET=utf8mb4");
 
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.CreateTable<UCE_guild_warehouse>();
         connection.CreateTable<UCE_guild_warehouse_items>();
 #endif
@@ -62,7 +59,9 @@ public partial class Database
     [DevExtMethods("CharacterSave")]
     private void CharacterSave_UCE_GuildWarehouse(Player player)
     {
+#if _SERVER
         UCE_SaveGuildWarehouse(player);
+#endif
     }
 
     // -----------------------------------------------------------------------------------
@@ -73,7 +72,7 @@ public partial class Database
         player.resetGuildWarehouse();
         if (!player.InGuild()) return;
 
-#if _MYSQL
+#if _MYSQL && _SERVER
 
 		var UCE_warehouseData = ExecuteReaderMySql("SELECT gold, level, locked FROM UCE_guild_warehouse WHERE guild=@guild", new MySqlParameter("@guild", player.guild.name));
 
@@ -120,7 +119,7 @@ public partial class Database
             }
         }
 
-#elif _SQLITE
+#elif _SQLITE && _SERVER
 
         var UCE_warehouseData = connection.FindWithQuery<UCE_guild_warehouse>("SELECT gold, level, locked FROM UCE_guild_warehouse WHERE guild=?", player.guild.name);
 
@@ -190,7 +189,7 @@ public partial class Database
         if (!player.InGuild()) player.resetGuildWarehouse();
         if (!player.InGuild() || !player.guildWarehouseActionDone) return;
 
-#if _MYSQL
+#if _MYSQL && _SERVER
 
 		long EntryExistsOrBusy = Convert.ToInt32(ExecuteScalarMySql("SELECT busy FROM UCE_guild_warehouse WHERE guild=@guild", new MySqlParameter("@guild", player.guild.name)));
 
@@ -220,7 +219,7 @@ public partial class Database
 			new MySqlParameter("@locked", 	(player.guildWarehouseLock) ? 1 : 0),
 			new MySqlParameter("@guild", 	player.guild.name));
 
-#elif _SQLITE
+#elif _SQLITE && _SERVER
 
         var results = connection.FindWithQuery<UCE_guild_warehouse>("SELECT busy FROM UCE_guild_warehouse WHERE guild=?", player.guild.name);
         long EntryExistsOrBusy = results.busy;
@@ -258,9 +257,9 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     public void UCE_SetGuildWarehouseBusy(Player player, int isbusy = 1)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql("UPDATE UCE_guild_warehouse SET busy=@busy WHERE guild=@guild", new MySqlParameter("@guild", player.guild.name), new MySqlParameter("@busy", 	isbusy));
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Execute("UPDATE UCE_guild_warehouse SET busy=? WHERE guild=?", isbusy, player.guild.name);
 #endif
     }
@@ -270,11 +269,12 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     public bool UCE_GetGuildWarehouseAccess(Player player)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		return Convert.ToInt32(ExecuteScalarMySql("SELECT busy FROM UCE_guild_warehouse WHERE guild=@guild", new MySqlParameter("@guild", player.guild.name))) != 1;
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         return Convert.ToInt32(connection.FindWithQuery<UCE_guild_warehouse>("SELECT busy FROM UCE_guild_warehouse WHERE guild=?", player.guild.name)) != 1;
 #endif
+		return false;
     }
 
     // -----------------------------------------------------------------------------------
