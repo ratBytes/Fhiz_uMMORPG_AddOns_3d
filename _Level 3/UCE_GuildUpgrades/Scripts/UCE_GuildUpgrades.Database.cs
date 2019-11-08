@@ -6,15 +6,11 @@
 // * Pledge on Patreon for VIP AddOns...: https://www.patreon.com/IndieMMO
 // * Instructions.......................: https://indie-mmo.net/knowledge-base/
 // =======================================================================================
-using System;
-
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE (SQLite / mySQL Hybrid)
@@ -27,16 +23,14 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_UCE_GuildUpgrades()
     {
-#if _MYSQL
-
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"
             CREATE TABLE IF NOT EXISTS UCE_guild_upgrades(
 			        guild VARCHAR(32) NOT NULL,
 					level INTEGER(16) NOT NULL DEFAULT 0,
                     PRIMARY KEY(guild)
                   ) CHARACTER SET=utf8mb4");
-
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.CreateTable<UCE_guild_upgrades>();
 #endif
     }
@@ -47,7 +41,9 @@ public partial class Database
     [DevExtMethods("CharacterSave")]
     private void CharacterSave_UCE_GuildUpgrades(Player player)
     {
+#if _SERVER
         UCE_SaveGuildUpgrades(player);
+#endif
     }
 
     // -----------------------------------------------------------------------------------
@@ -57,7 +53,7 @@ public partial class Database
     {
         if (!player.InGuild()) return;
 
-#if _MYSQL
+#if _MYSQL && _SERVER
 
 		var guildLevel = ExecuteScalarMySql("SELECT level FROM UCE_guild_upgrades WHERE guild=@guild", new MySqlParameter("@guild", player.guild.name));
 
@@ -77,7 +73,7 @@ public partial class Database
             player.guildLevel 	= 0;
         }
 
-#elif _SQLITE
+#elif _SQLITE && _SERVER
 
         var results = connection.FindWithQuery<UCE_guild_upgrades>("SELECT level FROM UCE_guild_upgrades WHERE guild=?", player.guild.name);
         int guildLevel = results.level;
@@ -112,13 +108,13 @@ public partial class Database
     {
         if (!player.InGuild()) return;
 
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql("DELETE FROM UCE_guild_upgrades WHERE guild=@guild", new MySqlParameter("@guild", player.guild.name));
 		ExecuteNonQueryMySql("INSERT INTO UCE_guild_upgrades (guild, level) VALUES(@guild, @level)",
 			new MySqlParameter("@level", 	player.guildLevel),
 			new MySqlParameter("@guild", 	player.guild.name));
 
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Execute("DELETE FROM UCE_guild_upgrades WHERE guild=?", player.guild.name);
         connection.Insert(new UCE_guild_upgrades
         {
