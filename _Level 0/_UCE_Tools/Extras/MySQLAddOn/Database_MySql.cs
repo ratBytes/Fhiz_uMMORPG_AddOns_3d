@@ -143,6 +143,9 @@ public partial class Database : MonoBehaviour
         	level INT NOT NULL DEFAULT 1,
             health INT NOT NULL,
         	mana INT NOT NULL,
+#if _iMMOSTAMINA
+            stamina INT NOT NULL,
+#endif
             strength INT NOT NULL DEFAULT 0,
         	intelligence INT NOT NULL DEFAULT 0,
             experience BIGINT NOT NULL DEFAULT 0,
@@ -709,22 +712,25 @@ public partial class Database : MonoBehaviour
                 GameObject go = GameObject.Instantiate(prefab.gameObject);
                 Player player = go.GetComponent<Player>();
 
-                player.name = (string)row["name"];
-                player.account = (string)row["account"];
-                player.className = (string)row["class"];
-                float x = (float)row["x"];
-                float y = (float)row["y"];
-                float z = (float)row["z"];
-                Vector3 position = new Vector3(x, y, z);
-                player.level = (int)row["level"];
-                int health = (int)row["health"];
-                int mana = (int)row["mana"];
-                player.strength = (int)row["strength"];
-                player.intelligence = (int)row["intelligence"];
-                player.experience = (long)row["experience"];
-                player.skillExperience = (long)row["skillExperience"];
-                player.gold = (long)row["gold"];
-                player.coins = (long)row["coins"];
+                player.name             = (string)row["name"];
+                player.account          = (string)row["account"];
+                player.className        = (string)row["class"];
+                float x                 = (float)row["x"];
+                float y                 = (float)row["y"];
+                float z                 = (float)row["z"];
+                Vector3 position        = new Vector3(x, y, z);
+                player.level            = (int)row["level"];
+                int health              = (int)row["health"];
+                int mana                = (int)row["mana"];
+#if _iMMOSTAMINA
+                int stamina             = (int)row["stamina"];
+#endif
+                player.strength         = (int)row["strength"];
+                player.intelligence     = (int)row["intelligence"];
+                player.experience       = (long)row["experience"];
+                player.skillExperience  = (long)row["skillExperience"];
+                player.gold             = (long)row["gold"];
+                player.coins            = (long)row["coins"];
 
                 player.agent.Warp(position);
                 if (!player.agent.isOnNavMesh)
@@ -743,8 +749,11 @@ public partial class Database : MonoBehaviour
 #endif
                 LoadGuildOnDemand(player);
 
-                player.health = health;
-                player.mana = mana;
+                player.health           = health;
+                player.mana             = mana;
+#if _iMMOSTAMINA
+                player.stamina          = stamina;
+#endif
 
                 if (!isPreview)
                     ExecuteNonQueryMySql("UPDATE characters SET online=1, lastsaved=@lastsaved WHERE name=@name",new SqlParameter("@name", characterName), new SqlParameter("@lastsaved", DateTime.UtcNow));
@@ -889,6 +898,9 @@ public partial class Database : MonoBehaviour
                 level = @level,
                 health = @health,
                 mana = @mana,
+#if _iMMOSTAMINA
+                stamina = @stamina,
+#endif
                 strength = @strength,
                 intelligence = @intelligence,
                 experience = @experience,
@@ -930,6 +942,9 @@ public partial class Database : MonoBehaviour
                     new SqlParameter("@level", player.level),
                     new SqlParameter("@health", player.health),
                     new SqlParameter("@mana", player.mana),
+#if _iMMOSTAMINA
+                    new SqlParameter("@stamina", player.stamina),
+#endif
                     new SqlParameter("@strength", player.strength),
                     new SqlParameter("@intelligence", player.intelligence),
                     new SqlParameter("@experience", player.experience),
