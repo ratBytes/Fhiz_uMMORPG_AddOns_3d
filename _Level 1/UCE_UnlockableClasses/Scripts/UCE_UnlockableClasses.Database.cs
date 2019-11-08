@@ -8,13 +8,11 @@
 // =======================================================================================
 using System.Collections.Generic;
 
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE (SQLite / mySQL Hybrid)
@@ -27,12 +25,12 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_UCE_UnlockableClasses()
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"CREATE TABLE IF NOT EXISTS account_unlockedclasses (
  			account VARCHAR(32) NOT NULL,
  			classname VARCHAR(32) NOT NULL
  		)");
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.CreateTable<account_unlockedclasses>();
 #endif
     }
@@ -43,11 +41,11 @@ public partial class Database
     public List<string> UCE_GetUnlockedClasses(string accountName)
     {
         List<string> unlockedClasses = new List<string>();
-#if _MYSQL
+#if _MYSQL && _SERVER
 		var table = ExecuteReaderMySql("SELECT classname FROM account_unlockedclasses WHERE `account`=@account", new MySqlParameter("@account", accountName));
         foreach (var row in table)
             unlockedClasses.Add((string)row[0]);
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         var table = connection.Query<account_unlockedclasses>("SELECT classname FROM account_unlockedclasses WHERE account=?", accountName);
         foreach (var row in table)
             unlockedClasses.Add(row.classname);
@@ -61,11 +59,11 @@ public partial class Database
     [DevExtMethods("CharacterLoad")]
     private void CharacterLoad_UCE_UnlockableClasses(Player player)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		var table = ExecuteReaderMySql("SELECT classname FROM account_unlockedclasses WHERE `account`=@account", new MySqlParameter("@account", player.account));
         foreach (var row in table)
             player.UCE_unlockedClasses.Add((string)row[0]);
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         var table = connection.Query<account_unlockedclasses>("SELECT classname FROM account_unlockedclasses WHERE account=?", player.account);
         foreach (var row in table)
             player.UCE_unlockedClasses.Add(row.classname);
@@ -78,14 +76,14 @@ public partial class Database
     [DevExtMethods("CharacterSave")]
     private void CharacterSave_UCE_UnlockableClasses(Player player)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql("DELETE FROM account_unlockedclasses WHERE `account`=@account", new MySqlParameter("@account", player.account));
 		for (int i = 0; i < player.UCE_unlockedClasses.Count; ++i) {
 			ExecuteNonQueryMySql("INSERT INTO account_unlockedclasses VALUES (@account, @classname)",
  				new MySqlParameter("@account", player.account),
  				new MySqlParameter("@classname", player.UCE_unlockedClasses[i]));
  		}
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Execute("DELETE FROM account_unlockedclasses WHERE account=?", player.account);
         for (int i = 0; i < player.UCE_unlockedClasses.Count; ++i)
             connection.Insert(new account_unlockedclasses
