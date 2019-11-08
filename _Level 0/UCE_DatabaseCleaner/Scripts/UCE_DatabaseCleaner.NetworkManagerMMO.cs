@@ -66,6 +66,7 @@ public partial class NetworkManagerMMO
     [DevExtMethods("OnStartServer")]
     public void OnStartServer_UCE_DatabaseCleaner()
     {
+#if _SERVER
         if (DatabaseCleaner && DatabaseCleaner.isActive)
         {
             var i = 0;
@@ -156,6 +157,7 @@ public partial class NetworkManagerMMO
         {
             Debug.LogWarning("DatabaseCleaner: Either inactive or ScriptableObject not found!");
         }
+#endif
     }
 
     // -----------------------------------------------------------------------------------
