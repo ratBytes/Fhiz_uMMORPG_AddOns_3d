@@ -9,6 +9,7 @@
 #if _MYSQL && _SERVER
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using System;
 #elif _SQLITE && _SERVER
 using SQLite;
 #endif
