@@ -31,8 +31,10 @@ public partial class NetworkManagerMMO
     // -----------------------------------------------------------------------------------
     protected void StartSpawnRTSStructures()
     {
+#if _SERVER
         if (NetworkServer.active)
             StartCoroutine("SpawnRTSStructures");
+#endif
     }
 
     // -----------------------------------------------------------------------------------
@@ -40,6 +42,7 @@ public partial class NetworkManagerMMO
     // -----------------------------------------------------------------------------------
     protected IEnumerator SpawnRTSStructures()
     {
+#if _SERVER
         var table = Database.singleton.UCE_LoadPlaceableObjects();
 
         foreach (var row in table)
@@ -96,7 +99,7 @@ public partial class NetworkManagerMMO
                 NetworkServer.Spawn(go);
             }
         }
-
+#endif
         yield return new WaitForEndOfFrame();
     }
 
