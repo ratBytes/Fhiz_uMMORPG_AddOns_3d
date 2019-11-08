@@ -8,13 +8,11 @@
 // =======================================================================================
 using System;
 
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE (SQLite / mySQL Hybrid)
@@ -27,14 +25,14 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_UCE_SimpleTimegate()
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"CREATE TABLE IF NOT EXISTS character_timegates (
 			`character` VARCHAR(32) NOT NULL,
 			timegateName TEXT NOT NULL,
 			timegateCount INTEGER NOT NULL,
 			timegateHours TEXT NOT NULL
               ) CHARACTER SET=utf8mb4");
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.CreateTable<character_timegates>();
 #endif
     }
@@ -47,7 +45,7 @@ public partial class Database
     {
         player.UCE_timegates.Clear();
 
-#if _MYSQL
+#if _MYSQL && _SERVER
 		var table = ExecuteReaderMySql("SELECT timegateName, timegateCount, timegateHours FROM character_timegates WHERE `character`=@name", new MySqlParameter("@name", player.name));
 		foreach (var row in table) {
 			UCE_Timegate timegate = new UCE_Timegate();
@@ -57,7 +55,7 @@ public partial class Database
 			timegate.valid = true;
 			player.UCE_timegates.Add(timegate);
 		}
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         var table = connection.Query<character_timegates>("SELECT timegateName, timegateCount, timegateHours FROM character_timegates WHERE character=?", player.name);
         foreach (var row in table)
         {
@@ -77,7 +75,7 @@ public partial class Database
     [DevExtMethods("CharacterSave")]
     private void CharacterSave_UCE_SimpleTimegate(Player player)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql("DELETE FROM character_timegates WHERE `character`=@character", new MySqlParameter("@character", player.name));
 		for (int i = 0; i < player.UCE_timegates.Count; ++i) {
             ExecuteNonQueryMySql("INSERT INTO character_timegates VALUES (@character, @timegateName, @timegateCount, @timegateHours)",
@@ -86,7 +84,7 @@ public partial class Database
  				new MySqlParameter("@timegateCount", player.UCE_timegates[i].count),
  				new MySqlParameter("@timegateHours", player.UCE_timegates[i].hours));
  		}
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Execute("DELETE FROM character_timegates WHERE character=?", player.name);
         for (int i = 0; i < player.UCE_timegates.Count; ++i)
         {
