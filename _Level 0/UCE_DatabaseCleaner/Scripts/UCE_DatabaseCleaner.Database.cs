@@ -11,13 +11,11 @@ using Mirror;
 using System;
 using System.Collections;
 
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE (SQLite / mySQL Hybrid)
@@ -30,13 +28,13 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_UCE_DatabaseCleaner()
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
  		ExecuteNonQueryMySql(@"CREATE TABLE IF NOT EXISTS account_lastonline (
  			account VARCHAR(32) NOT NULL,
  			lastOnline VARCHAR(64) NOT NULL,
             PRIMARY KEY(`account`)
  		    )");
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.CreateTable<account_lastonline>();
 #endif
     }
@@ -47,12 +45,12 @@ public partial class Database
     public void UCE_DatabaseCleanerAccountLastOnline(string accountName)
     {
         if (string.IsNullOrWhiteSpace(accountName)) return;
-#if _MYSQL
+#if _MYSQL && _SERVER
  		ExecuteNonQueryMySql("DELETE FROM account_lastonline WHERE account=@name", new MySqlParameter("@name", accountName));
         ExecuteNonQueryMySql("INSERT INTO account_lastonline VALUES (@account, @lastOnline)",
 			new MySqlParameter("@lastOnline", DateTime.UtcNow.ToString("s")),
 			new MySqlParameter("@account", accountName));
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Execute("DELETE FROM account_lastonline WHERE account=?", accountName);
         connection.Insert(new account_lastonline
         {
