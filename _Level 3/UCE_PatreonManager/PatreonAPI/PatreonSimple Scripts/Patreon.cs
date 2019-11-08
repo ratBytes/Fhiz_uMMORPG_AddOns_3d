@@ -1,7 +1,10 @@
 ﻿/*
 	Written by: guzuligo@gmail.com
 	Licence: https://opensource.org/licenses/MIT
+	
+	Modified by Fhiz
  */
+ 
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -9,22 +12,17 @@ using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Threading;
+
 public class Patreon :MonoBehaviour {
-	void log(string text_){
-		//Debug.Log(text_);
-	}
 
 	[Header("Client & API Keys")]
 	[Tooltip("Get it from\n\n https://www.patreon.com/portal  ")]
 	public string client_id;
-	//[Tooltip("Get it from\n\n https://www.patreon.com/portal  ")]
-	private string client_secret=""; //,access_token="",refresh_token="";
-	[Tooltip("Make sure you write it on patreon client page including "
-	+"the port. Example: http://localhost:8080/")]
+	private string client_secret="";
+	[Tooltip("Make sure you write it on patreon client page including the port. Example: http://localhost:8080/")]
 	public string redirect_uri="http://localhost";
 	public int port=8080;
 	
-
 	//listener
 	public delegate void onStatus(string text);
 	public delegate void onPageReturn(JsonValue jsonData_);
@@ -49,8 +47,6 @@ public class Patreon :MonoBehaviour {
 		status=text;
 	}
 
-	//
-	//TODO:
 	[Header("User Data")]
 	public string email="";
 	public float pledge=0;
@@ -68,7 +64,7 @@ public class Patreon :MonoBehaviour {
 		status="updating user data";
 		//find rewards
 		if (userData.has("included")){
-			log("ADDING REWARDS");
+			
 			int i=0;
 			rewards=new List<string>();
 			string type_="";
@@ -208,13 +204,8 @@ public class Patreon :MonoBehaviour {
 	}
 
 	IEnumerator _getUser() {
-		status="Getting user";
-		//Application.OpenURL("http://www.google.com/");
-		log("getting user using token:" + tokenData.get("access_token") );
-		//Dictionary<string,string> data=new Dictionary<string,string>();
-		//data.AddField("Authorization","Bearer "+tokenData.get("access_token"));
-		//data.Add("Authorization","Bearer "+tokenData.get("access_token"));
-		
+	
+		status="Getting user";		
 		WWW w=new WWW("https://www.patreon.com/api/oauth2/api/current_user",null,_myToken());
 		
 		yield return w;
@@ -223,7 +214,7 @@ public class Patreon :MonoBehaviour {
 			yield break;
 		}
 		userData.parse(w.text);
-		log("user data:\n"+w.text);
+
 		if (!userData.has("data","attributes","email"))
 			_onerror("Failed to get user.");
 		else
@@ -270,9 +261,7 @@ public class Patreon :MonoBehaviour {
 		yield return w;
 		if (w.text==null || w.text=="")
 			_onerror("Failed.");
-		log("TOKEN:"+w.text);
 		
-		//log((int)w.text.ToCharArray()[0]);
 		tokenData.parse(w.text);
 		if (!tokenData.has("access_token"))
 			_onerror("Failed to get token.");
@@ -288,31 +277,21 @@ public class Patreon :MonoBehaviour {
 
 	Socket server;
 	void openPatreonPage(){
-		/* 
-		string patRequest2="https://www.patreon.com/oauth2/authorize?"
-            +"response_type=code"+"&client_id="+client_id
-            +"&redirect_uri="+redirect_uri+":"+port.ToString()+"/";
-
-		Application.OpenURL(patRequest2);
-		*/
+		
 		IPEndPoint serverEP=new IPEndPoint(IPAddress.Any,port);
 		server =new Socket(AddressFamily.InterNetwork,
                    SocketType.Stream, ProtocolType.Tcp);
-		//
-		//server.Blocking=false;
+		
 		server.Bind(serverEP);
 		server.Listen(1);
 		Socket _s=server.Accept();
-		//yield return 
-		
 		
 		byte[] b=new byte[1000];
 		_s.Receive(b);
 		string s=System.Text.Encoding.UTF8.GetString(b);
-		//log(s);
+		
 		string toSend="HTTP/1.1 200 OK\nContent-Type: text/html\nConnection: close\n\n"+
 			"<html><H1>CONNECTED</H1><pre>You can close this page.</html>";
-
 
 		NetworkStream st=new NetworkStream(_s);
 		b=System.Text.Encoding.UTF8.GetBytes(toSend);
@@ -322,16 +301,9 @@ public class Patreon :MonoBehaviour {
 		
 		_s.Close();
 		server.Close();
-		//log("TO CODE: "+s);
 		code=extractCode(s);
-		//log("CODE: "+code);
-
 		
-		//StartCoroutine( getToken());
-		//getToken();
-		//StartCoroutine( test());
 	}
-
 
 	string extractCode(string s){
 		int a;
