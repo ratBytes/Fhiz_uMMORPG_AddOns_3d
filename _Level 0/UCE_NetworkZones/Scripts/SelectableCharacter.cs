@@ -15,12 +15,11 @@ public class SelectableCharacter : MonoBehaviour
     // index will be set by networkmanager when creating this script
     public int index = -1;
 
-    public NetworkManagerMMO manager;
-
+    
     private void OnMouseDown()
     {
         // set selection index
-        manager.selection = index;
+        ((NetworkManagerMMO)NetworkManager.singleton).selection = index;
 
         // show selection indicator for better feedback
         GetComponent<Player>().SetIndicatorViaParent(transform);
@@ -29,7 +28,7 @@ public class SelectableCharacter : MonoBehaviour
     private void Update()
     {
         // remove indicator if not selected anymore
-        if (manager && manager.selection != index)
+        if (((NetworkManagerMMO)NetworkManager.singleton).selection != index)
         {
             Player player = GetComponent<Player>();
             if (player.indicator != null)
