@@ -32,6 +32,8 @@ Stamina can be modified:
 
 Installation
 
+IMPORTANT: This AddOn requires "UCE SmartInvoke (VIP3)" in order to function properly.
+
 1. UI
 1.1 Go to your Canvas, locate "healthMana"
 1.2 Add "UIStamina" script as new component to it
