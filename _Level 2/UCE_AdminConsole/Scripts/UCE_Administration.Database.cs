@@ -8,13 +8,11 @@
 // =======================================================================================
 using System;
 
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE (SQLite / mySQL Hybrid)
@@ -29,14 +27,14 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_UCE_Administration()
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"
                         CREATE TABLE IF NOT EXISTS account_admin (
 					    `account` VARCHAR(32) NOT NULL,
                         admin INTEGER(4) NOT NULL DEFAULT 0,
                             PRIMARY KEY(`account`)
                         ) CHARACTER SET=utf8mb4");
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.CreateTable<account_admin>();
 #endif
     }
@@ -47,13 +45,13 @@ public partial class Database
     [DevExtMethods("CharacterLoad")]
     private void CharacterLoad_UCE_Administration(Player player)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		var table = ExecuteReaderMySql("SELECT admin FROM account_admin WHERE `account`=@account", new MySqlParameter("@account", player.account));
 		if (table.Count == 1) {
             var row = table[0];
             player.UCE_adminLevel = (int)(row[0]);
         }
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         var table = connection.Query<account_admin>("SELECT admin FROM account_admin WHERE account=?", player.account);
         if (table.Count == 1)
         {
@@ -68,6 +66,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     public bool IsBannedAccount(string account, string password)
     {
+#if _SERVER
         if (string.IsNullOrWhiteSpace(account) || string.IsNullOrWhiteSpace(password)) return false;
 #if _MYSQL
 		var table = ExecuteReaderMySql("SELECT password, banned FROM accounts WHERE name=@name", new MySqlParameter("@name", account));
@@ -84,6 +83,7 @@ public partial class Database
             return row.banned;
 #endif
         }
+#endif
         return false;
     }
 
@@ -92,6 +92,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     public string GetAccountName(string playerName)
     {
+#if _SERVER
         if (string.IsNullOrWhiteSpace(playerName)) return "";
 #if _MYSQL
 		var table = ExecuteReaderMySql("SELECT account FROM characters WHERE name=@name", new MySqlParameter("@name", playerName));
@@ -105,8 +106,9 @@ public partial class Database
             return (string)row[0];
 #elif _SQLITE
             return row.account;
-#endif
         }
+#endif
+#endif
         return "";
     }
 
@@ -115,12 +117,13 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     public long GetAccountCount()
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		return (long)ExecuteScalarMySql("SELECT count(*) FROM accounts");
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         var results = connection.Query<accounts>("SELECT count(*) FROM accounts");
         return results.Count;
 #endif
+		return 0;
     }
 
     // -----------------------------------------------------------------------------------
@@ -129,9 +132,9 @@ public partial class Database
     public void BanAccount(string account)
     {
         if (string.IsNullOrWhiteSpace(account)) return;
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql("UPDATE accounts SET banned = '1' WHERE name =@name", new MySqlParameter("@name", account));
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Execute("UPDATE accounts SET banned=true WHERE name =?", account);
 #endif
     }
@@ -142,9 +145,9 @@ public partial class Database
     public void UnbanAccount(string account)
     {
         if (string.IsNullOrWhiteSpace(account)) return;
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql("UPDATE accounts SET banned = '0' WHERE name =@name", new MySqlParameter("@name", account));
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Execute("UPDATE accounts SET banned=false WHERE name =?", account);
 #endif
     }
@@ -155,11 +158,11 @@ public partial class Database
     public void SetAdminAccount(string accountName, int adminLevel)
     {
         if (string.IsNullOrWhiteSpace(accountName)) return;
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql("REPLACE account_admin VALUES (@account,@admin)",
         	new MySqlParameter("@account", accountName),
         	new MySqlParameter("@admin", adminLevel));
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.InsertOrReplace(new account_admin
         {
             account = accountName,
@@ -174,12 +177,12 @@ public partial class Database
     public void SetCharacterDeleted(string playerName, bool deleted)
     {
         if (string.IsNullOrWhiteSpace(playerName)) return;
-#if _MYSQL
+#if _MYSQL && _SERVER
         int del = (deleted == true ? 1 : 0);
 		ExecuteNonQueryMySql("UPDATE accounts SET deleted = '@deleted' WHERE name =@name",
         	new MySqlParameter("@deleted", del),
         	new MySqlParameter("@name", playerName));
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Execute("UPDATE accounts SET deleted=? WHERE name =?", deleted, playerName);
 #endif
     }
