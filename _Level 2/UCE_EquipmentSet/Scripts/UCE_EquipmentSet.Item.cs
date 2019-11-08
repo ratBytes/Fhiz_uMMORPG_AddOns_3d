@@ -350,6 +350,23 @@ public partial struct Item
         return UCE_validCompleteSetBonus(equipment) ? ((EquipmentItem)data).equipmentSet.completeStatModifiers.manaBonus : 0;
     }
 
+#if _iMMOSTAMINA
+    public int setIndividualBonusStamina(SyncListItemSlot equipment)
+    {
+        return UCE_validIndividualSetBonus(equipment) ? ((EquipmentItem)data).individualStatModifiers.staminaBonus : 0;
+    }
+
+    public int setPartialBonusStamina(SyncListItemSlot equipment)
+    {
+        return UCE_validPartialSetBonus(equipment) ? ((EquipmentItem)data).equipmentSet.partialStatModifiers.staminaBonus : 0;
+    }
+
+    public int setCompleteBonusStamina(SyncListItemSlot equipment)
+    {
+        return UCE_validCompleteSetBonus(equipment) ? ((EquipmentItem)data).equipmentSet.completeStatModifiers.staminaBonus : 0;
+    }
+#endif
+
     public int setIndividualBonusDamage(SyncListItemSlot equipment)
     {
         return UCE_validIndividualSetBonus(equipment) ? ((EquipmentItem)data).individualStatModifiers.damageBonus : 0;
