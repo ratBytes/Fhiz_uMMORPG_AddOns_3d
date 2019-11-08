@@ -14,7 +14,8 @@ public partial class Database
 {
     #region Custom Database Classes
 
-#if _SQLITE
+#if _SQLITE && _SERVER
+
     // -----------------------------------------------------------------------------------
     // Account Unlockables
     // -----------------------------------------------------------------------------------
