@@ -8,12 +8,11 @@
 // =======================================================================================
 using System.Collections.Generic;
 
-#if _MYSQL
-
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-
-#elif _SQLITE
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE (SQLite / mySQL Hybrid)
@@ -44,7 +43,6 @@ public partial class Database
     // CharacterSaveMany_SQLite
     // -----------------------------------------------------------------------------------
 #if _SQLITE && _SERVER
-
     [DevExtMethods("CharacterSaveMany")]
     private void CharacterSaveMany_SQLite(IEnumerable<Player> players, bool online = true)
     {
