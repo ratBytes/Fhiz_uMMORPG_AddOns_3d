@@ -10,13 +10,11 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE (SQLite / mySQL Hybrid)
@@ -29,9 +27,9 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_UCE_WorldEvents()
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"CREATE TABLE IF NOT EXISTS uce_worldevents (`name` VARCHAR(64) NOT NULL, `count` INTEGER NOT NULL) CHARACTER SET=utf8mb4");
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.CreateTable<uce_worldevents>();
 #endif
     }
@@ -41,7 +39,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     public void UCE_Load_WorldEvents()
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		var table = ExecuteReaderMySql("SELECT `name`, `count` FROM uce_worldevents");
 		foreach (var row in table) {
 			string name = (string)row[0];
@@ -52,7 +50,7 @@ public partial class Database
 				NetworkManagerMMO.UCE_SetWorldEventCount(name, count);
 			}
 		}
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         var table = connection.Query<uce_worldevents>("SELECT `name`, `count` FROM uce_worldevents");
         foreach (var row in table)
         {
@@ -72,7 +70,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     public void UCE_Save_WorldEvents()
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql("DELETE FROM uce_worldevents");
         foreach (UCE_WorldEvent ev in NetworkManagerMMO.UCE_WorldEvents)
         {
@@ -81,7 +79,7 @@ public partial class Database
                  new MySqlParameter("@count", ev.count)
                  );
         }
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Execute("DELETE FROM uce_worldevents");
         foreach (UCE_WorldEvent ev in NetworkManagerMMO.UCE_WorldEvents)
             connection.Insert(new uce_worldevents
@@ -89,7 +87,6 @@ public partial class Database
                 name = ev.name,
                 count = ev.count
             });
-
 #endif
     }
 
@@ -100,6 +97,7 @@ public partial class Database
     [DevExtMethods("CharacterLoad")]
     private void CharacterLoad_UCE_WorldEvents(Player player)
     {
+#if _SERVER
         player.UCE_WorldEvents.Clear();
         foreach (UCE_WorldEvent ev in NetworkManagerMMO.UCE_WorldEvents)
         {
@@ -108,6 +106,7 @@ public partial class Database
             e.count = ev.count;
             player.UCE_WorldEvents.Add(e);
         }
+#endif
     }
 
     // -----------------------------------------------------------------------------------
@@ -117,6 +116,7 @@ public partial class Database
     [DevExtMethods("CharacterSave")]
     private void CharacterSave_UCE_WorldEvents(Player player)
     {
+#if _SERVER
         foreach (UCE_WorldEvent ev in NetworkManagerMMO.UCE_WorldEvents)
         {
             int id = player.UCE_WorldEvents.FindIndex(x => x.template == ev.template);
@@ -131,6 +131,7 @@ public partial class Database
 
         // -- we save the world events as well here, but only if they changed and only once (not for every player)
         NetworkManagerMMO.UCE_SaveWorldEvents();
+#endif
     }
 
     // -----------------------------------------------------------------------------------
