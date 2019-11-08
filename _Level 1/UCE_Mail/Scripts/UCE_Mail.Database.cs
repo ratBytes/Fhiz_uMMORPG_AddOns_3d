@@ -9,13 +9,11 @@
 using System.Collections.Generic;
 using System;
 
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE
@@ -28,7 +26,7 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_Mail()
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"
                             CREATE TABLE IF NOT EXISTS mail(
 							id INTEGER(16) NOT NULL AUTO_INCREMENT,
@@ -43,12 +41,12 @@ public partial class Database
 							`item` VARCHAR(32) NOT NULL,
                             PRIMARY KEY(id)
                             ) CHARACTER SET=utf8mb4");
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.CreateTable<mail>();
 #endif
     }
 
-#if _MYSQL
+#if _MYSQL && _SERVER
     // -----------------------------------------------------------------------------------
     // MySql Mail_BuildMessageFromDBRow
     // -----------------------------------------------------------------------------------
@@ -76,8 +74,7 @@ public partial class Database
     }
 #endif
 
-#if _SQLITE
-
+#if _SQLITE && _SERVER
     // -----------------------------------------------------------------------------------
     // Sqlite Mail_BuildMessageFromDBRow
     // -----------------------------------------------------------------------------------
@@ -110,6 +107,7 @@ public partial class Database
     [DevExtMethods("CharacterLoad")]
     private void CharacterLoad_Mail(Player player)
     {
+#if _SERVER
 #if _MYSQL
 		var table = ExecuteReaderMySql("SELECT * FROM mail WHERE messageTo=@character AND deleted=0 AND expires > @expires ORDER BY sent", new MySqlParameter("@character", player.name), new MySqlParameter("@expires", Epoch.Current()));
 #elif _SQLITE
@@ -120,6 +118,7 @@ public partial class Database
             MailMessage message = Mail_BuildMessageFromDBRow(row);
             player.mailMessages.Add(message);
         }
+#endif
     }
 
     // -----------------------------------------------------------------------------------
@@ -129,7 +128,7 @@ public partial class Database
     {
         List<MailSearch> result = new List<MailSearch>();
 
-#if _MYSQL
+#if _MYSQL && _SERVER
 		var table = ExecuteReaderMySql(@"SELECT `name` , level FROM `characters` WHERE name=@search", new MySqlParameter("@search", name));
 
 		foreach (var row in table) {
@@ -141,7 +140,7 @@ public partial class Database
 			result.Add(res);
 		}
 
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         /**
 		 * Order by here is setup in such a way that:
 		 *		exact matches appear first
@@ -182,14 +181,13 @@ public partial class Database
     {
         long sent = Epoch.Current();
         long expires = 0;
+        
         if (expiration > 0)
-        {
             expires = sent + expiration;
-        }
 
         if (itemName == null) itemName = "";
 
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"INSERT INTO mail (
 							messageFrom, messageTo, subject, body, sent, `expires`, `read`, `deleted`, `item`
 						) VALUES (
@@ -203,7 +201,7 @@ public partial class Database
 						new MySqlParameter("@expires", expires),
 						new MySqlParameter("@item", itemName )
 						);
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Insert(new mail
         {
             messageFrom = from,
@@ -226,7 +224,7 @@ public partial class Database
         if (message.item != null)
             itemName = message.item.name;
 
-#if _MYSQL
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"UPDATE mail SET
 							`read`=@read,
 							deleted=@deleted,
@@ -237,7 +235,7 @@ public partial class Database
 						new MySqlParameter("@item", itemName),
 						new MySqlParameter("@id", message.id));
 
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.Execute(@"UPDATE mail SET read=?, deleted=?, item=? WHERE id=?", message.read, message.deleted, itemName, message.id);
 #endif
     }
@@ -247,7 +245,8 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     public MailMessage Mail_MessageById(long id)
     {
-        MailMessage message = new MailMessage();
+    	MailMessage message = new MailMessage();
+#if _SERVER
 #if _MYSQL
 		var table = ExecuteReaderMySql("SELECT * FROM mail WHERE id=@id", new MySqlParameter("@id", id));
 #elif _SQLITE
@@ -257,8 +256,8 @@ public partial class Database
         {
             message = Mail_BuildMessageFromDBRow(table[0]);
         }
-
-        return message;
+#endif
+		return message;
     }
 
     // -----------------------------------------------------------------------------------
@@ -267,6 +266,7 @@ public partial class Database
     public List<MailMessage> Mail_CheckForNewMessages(long maxID)
     {
         List<MailMessage> result = new List<MailMessage>();
+#if _SERVER
 #if _MYSQL
 		var table = ExecuteReaderMySql("SELECT * FROM mail WHERE id > @maxid AND deleted=0 AND expires > @expires ORDER BY sent", new MySqlParameter("@maxid", maxID), new MySqlParameter("@expires", Epoch.Current()));
 #elif _SQLITE
@@ -277,7 +277,7 @@ public partial class Database
             MailMessage message = Mail_BuildMessageFromDBRow(row);
             result.Add(message);
         }
-
+#endif
         return result;
     }
 
