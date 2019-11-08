@@ -13,13 +13,11 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE (SQLite / mySQL Hybrid)
@@ -32,8 +30,7 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_UCE_Warehouse()
     {
-#if _MYSQL
-
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"CREATE TABLE IF NOT EXISTS uce_warehouse (
 							`character` VARCHAR(32) NOT NULL PRIMARY KEY,
 							gold INTEGER(16) NOT NULL DEFAULT 0,
@@ -49,12 +46,9 @@ public partial class Database
                            summonedLevel INTEGER NOT NULL,
                            summonedExperience INTEGER NOT NULL
                            ) CHARACTER SET=utf8mb4");
-
-#elif _SQLITE
-
+#elif _SQLITE && _SERVER
         connection.CreateTable<uce_warehouse>();
         connection.CreateTable<uce_warehouse_items>();
-
 #endif
     }
 
@@ -66,7 +60,7 @@ public partial class Database
     {
         player.warehouseActionDone = false;
 
-#if _MYSQL
+#if _MYSQL && _SERVER
 
 		var warehouseData = ExecuteReaderMySql("SELECT gold, level FROM uce_warehouse WHERE `character`=@character", new MySqlParameter("@character", player.name));
 
@@ -79,9 +73,8 @@ public partial class Database
 			player.playerWarehouseLevel 	= 0;
 		}
 
-		for (int i = 0; i < player.playerWarehouseStorageItems; ++i) {
+		for (int i = 0; i < player.playerWarehouseStorageItems; ++i)
 			player.UCE_playerWarehouse.Add(new ItemSlot());
-		}
 
 		List<List<object>> table = ExecuteReaderMySql("SELECT `name`, slot, amount, summonedHealth, summonedLevel, summonedExperience FROM uce_warehouse_items WHERE `character`=@character", new MySqlParameter("@character", player.name));
 		if (table.Count > 0) {
@@ -101,7 +94,7 @@ public partial class Database
 			}
 		}
 
-#elif _SQLITE
+#elif _SQLITE && _SERVER
 
         var warehouseData = connection.FindWithQuery<uce_warehouse>("SELECT gold, level FROM uce_warehouse WHERE character=?", player.name);
         if (warehouseData != null)
@@ -122,9 +115,7 @@ public partial class Database
         }
 
         for (int i = 0; i < player.playerWarehouseStorageItems; ++i)
-        {
             player.UCE_playerWarehouse.Add(new ItemSlot());
-        }
 
         var table = connection.Query<uce_warehouse_items>("SELECT name, slot, amount, summonedHealth, summonedLevel, summonedExperience FROM uce_warehouse_items WHERE character=?", player.name);
         if (table.Count > 0)
@@ -156,7 +147,7 @@ public partial class Database
     [DevExtMethods("CharacterSave")]
     private void CharacterSave_UCE_Warehouse(Player player)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 
 		var warehouseGoldEntryExists = ExecuteReaderMySql("SELECT 1 FROM uce_warehouse WHERE `character`=@character", new MySqlParameter("@character", player.name));
 
@@ -188,7 +179,7 @@ public partial class Database
 			}
 		}
 
-#elif _SQLITE
+#elif _SQLITE && _SERVER
 
         var warehouseGoldEntryExists = connection.FindWithQuery<uce_warehouse>("SELECT 1 FROM uce_warehouse WHERE character=?", player.name);
         if (warehouseGoldEntryExists != null)
