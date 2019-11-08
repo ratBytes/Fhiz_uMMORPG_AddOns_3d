@@ -7,7 +7,6 @@
 // * Instructions.......................: https://indie-mmo.net/knowledge-base/
 // =======================================================================================
 
-/*
 #if UNITY_EDITOR
 
 using UnityEditor;
@@ -47,4 +46,3 @@ public class StaminaLib
 }
 
 #endif
-*/

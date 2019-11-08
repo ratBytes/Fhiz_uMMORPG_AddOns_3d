@@ -32,7 +32,7 @@ Stamina can be modified:
 
 Installation
 
-IMPORTANT: This AddOn requires "UCE SmartInvoke (VIP3)" in order to function properly.
+IMPORTANT: This AddOn requires "UCE SmartInvoke (VIP3)" and "UCE Attributes" in order to function properly.
 
 1. UI
 1.1 Go to your Canvas, locate "healthMana"
