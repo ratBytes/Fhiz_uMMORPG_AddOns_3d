@@ -13,14 +13,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Mirror;
 
-#if _MYSQL
-using MySql.Data;								// From MySql.Data.dll in Plugins folder
-using MySql.Data.MySqlClient;                   // From MySql.Data.dll in Plugins folder
+#if _MYSQL && _SERVER
+using MySql.Data;
+using MySql.Data.MySqlClient;
 using SqlParameter = MySql.Data.MySqlClient.MySqlParameter;
-#elif _SQLITE
-
-using SQLite; 						// copied from Unity/Mono/lib/mono/2.0 to Plugins
-
+#elif _SQLITE && _SERVER
+using SQLite;
 #endif
 
 // DATABASE (SQLite / mySQL Hybrid)
@@ -33,8 +31,7 @@ public partial class Database
     [DevExtMethods("Connect")]
     private void Connect_UCE_NetworkZone()
     {
-#if _MYSQL
-
+#if _MYSQL && _SERVER
 		ExecuteNonQueryMySql(@"
         CREATE TABLE IF NOT EXISTS character_scene (
             `character` VARCHAR(32) NOT NULL,
@@ -48,8 +45,7 @@ public partial class Database
             PRIMARY KEY(id),
             online TIMESTAMP NOT NULL
         ) CHARACTER SET=utf8mb4");
-
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.CreateTable<character_scene>();
         connection.CreateTable<zones_online>();
 #endif
@@ -65,8 +61,7 @@ public partial class Database
     {
         float saveInterval = ((NetworkManagerMMO)NetworkManager.singleton).saveInterval;
 
-#if _MYSQL
-
+#if _MYSQL && _SERVER
 		var obj = ExecuteScalarMySql("SELECT online FROM characters WHERE name=@name", new SqlParameter("@name", characterName));
 		if (obj != null)
         {
@@ -74,9 +69,7 @@ public partial class Database
             double elapsedSeconds = (DateTime.UtcNow - time).TotalSeconds;
             return elapsedSeconds < saveInterval * 2;
         }
-
-#elif _SQLITE
-
+#elif _SQLITE && _SERVER
         object obj = connection.FindWithQuery<characters>("SELECT online FROM characters WHERE name=?", characterName);
         if (obj != null)
         {
@@ -89,7 +82,6 @@ public partial class Database
                 return elapsedSeconds < saveInterval * 2;
             }
         }
-
 #endif
         return false;
     }
@@ -99,8 +91,11 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     public bool AnyAccountCharacterOnline(string account)
     {
+#if _SERVER
         List<string> characters = CharactersForAccount(account);
         return characters.Any(IsCharacterOnlineAnywhere);
+#endif
+		return false;
     }
 
     // -----------------------------------------------------------------------------------
@@ -108,12 +103,14 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     public string GetCharacterScene(string characterName)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
         object obj = ExecuteScalarMySql("SELECT scene FROM character_scene WHERE `character`=@character", new SqlParameter("@character", characterName));
-#elif _SQLITE
-        object obj = connection.FindWithQuery<character_scene>("SELECT scene FROM character_scene WHERE character=?", characterName);
-#endif
         return obj != null ? (string)obj : "";
+#elif _SQLITE && _SERVER
+        object obj = connection.FindWithQuery<character_scene>("SELECT scene FROM character_scene WHERE character=?", characterName);
+        return obj != null ? (string)obj : "";
+#endif
+        return "";
     }
 
     // -----------------------------------------------------------------------------------
@@ -121,7 +118,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     public void SaveCharacterScene(string characterName, string sceneName)
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		var query = @"
             INSERT INTO character_scene
             SET
@@ -133,7 +130,7 @@ public partial class Database
         ExecuteNonQueryMySql(query,
                              new SqlParameter("@character", characterName),
                              new SqlParameter("@scene", sceneName));
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         connection.InsertOrReplace(new character_scene
         {
             character = characterName,
@@ -150,14 +147,14 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     public double TimeElapsedSinceMainZoneOnline()
     {
-#if _MYSQL
+#if _MYSQL && _SERVER
 		var obj = ExecuteScalarMySql("SELECT online FROM zones_online");
         if (obj != null)
         {
             var time = (DateTime)obj;
             return (DateTime.Now - time).TotalSeconds;
         }
-#elif _SQLITE
+#elif _SQLITE && _SERVER
         object obj = connection.FindWithQuery<zones_online>("SELECT online FROM zones_online");
         if (obj != null)
         {
@@ -182,8 +179,7 @@ public partial class Database
     // -----------------------------------------------------------------------------------
     public void SaveMainZoneOnlineTime()
     {
-#if _MYSQL
-
+#if _MYSQL && _SERVER
 		var query = @"
             INSERT INTO zones_online
             SET
@@ -195,16 +191,13 @@ public partial class Database
         ExecuteNonQueryMySql(query,
                              new SqlParameter("@id", 1),
                              new SqlParameter("@online", DateTime.Now));
-
-#elif _SQLITE
-
+#elif _SQLITE && _SERVER
         string onlineString = DateTime.UtcNow.ToString("s");
         connection.Execute("DELETE FROM zones_online");
         connection.InsertOrReplace(new zones_online
         {
             online = onlineString
         });
-
 #endif
     }
 
