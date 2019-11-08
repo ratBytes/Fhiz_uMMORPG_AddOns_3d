@@ -22,21 +22,35 @@ public partial class Player
     {
         if (sanctuary == null) return;
 
-        if (UCE_SecondsPassed > 0 && (sanctuary.SecondsPerHealth > 0 || sanctuary.SecondsPerMana > 0 || sanctuary.SecondsPerExp > 0 || sanctuary.SecondsPerSkillExp > 0 || sanctuary.SecondsPerGold > 0 || sanctuary.SecondsPerCoins > 0))
+        if (UCE_SecondsPassed > 0 && 
+            (sanctuary.SecondsPerHealth > 0 || 
+            sanctuary.SecondsPerMana > 0 ||
+#if _iMMOSTAMINA
+            sanctuary.SecondsPerStamina > 0 ||
+#endif
+            sanctuary.SecondsPerExp > 0 || 
+            sanctuary.SecondsPerSkillExp > 0 || 
+            sanctuary.SecondsPerGold > 0 || 
+            sanctuary.SecondsPerCoins > 0)
+            )
         {
-            int gainHealth = 0;
-            int gainMana = 0;
-            int gainExp = 0;
-            int gainSkillExp = 0;
-            int gainGold = 0;
-            int gainCoins = 0;
+            int gainHealth      = 0;
+            int gainMana        = 0;
+            int gainStamina     = 0;
+            int gainExp         = 0;
+            int gainSkillExp    = 0;
+            int gainGold        = 0;
+            int gainCoins       = 0;
 
-            if (sanctuary.SecondsPerHealth > 0) gainHealth = Mathf.Max(0, Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerHealth));
-            if (sanctuary.SecondsPerMana > 0) gainMana = Mathf.Max(0, Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerMana));
-            if (sanctuary.SecondsPerSkillExp > 0) gainSkillExp = sanctuary.MaxSkillExp > 0 ? Mathf.Clamp(Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerSkillExp), 0, sanctuary.MaxSkillExp) : Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerSkillExp);
-            if (sanctuary.SecondsPerExp > 0) gainExp = sanctuary.MaxExp > 0 ? Mathf.Clamp(Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerExp), 0, sanctuary.MaxExp) : Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerExp);
-            if (sanctuary.SecondsPerGold > 0) gainGold = sanctuary.MaxGold > 0 ? Mathf.Clamp(Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerGold), 0, sanctuary.MaxGold) : Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerGold);
-            if (sanctuary.SecondsPerCoins > 0) gainCoins = sanctuary.MaxCoins > 0 ? Mathf.Clamp(Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerCoins), 0, sanctuary.MaxCoins) : Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerCoins);
+            if (sanctuary.SecondsPerHealth > 0)     gainHealth = Mathf.Max(0, Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerHealth));
+            if (sanctuary.SecondsPerMana > 0)       gainMana = Mathf.Max(0, Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerMana));
+#if _iMMOSTAMINA
+            if (sanctuary.SecondsPerStamina > 0)    gainStamina = Mathf.Max(0, Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerStamina));
+#endif
+            if (sanctuary.SecondsPerSkillExp > 0)   gainSkillExp = sanctuary.MaxSkillExp > 0 ? Mathf.Clamp(Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerSkillExp), 0, sanctuary.MaxSkillExp) : Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerSkillExp);
+            if (sanctuary.SecondsPerExp > 0)        gainExp = sanctuary.MaxExp > 0 ? Mathf.Clamp(Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerExp), 0, sanctuary.MaxExp) : Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerExp);
+            if (sanctuary.SecondsPerGold > 0)       gainGold = sanctuary.MaxGold > 0 ? Mathf.Clamp(Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerGold), 0, sanctuary.MaxGold) : Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerGold);
+            if (sanctuary.SecondsPerCoins > 0)      gainCoins = sanctuary.MaxCoins > 0 ? Mathf.Clamp(Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerCoins), 0, sanctuary.MaxCoins) : Convert.ToInt32(UCE_SecondsPassed / sanctuary.SecondsPerCoins);
 
             if (gainHealth > 0 && health < healthMax)
             {
@@ -49,6 +63,14 @@ public partial class Player
                 mana += gainMana;
                 UCE_TargetAddMessage(sanctuary.MSG_MANA + gainMana.ToString());
             }
+
+#if _iMMOSTAMINA
+            if (gainStamina > 0 && stamina < staminaMax)
+            {
+                stamina += gainStamina;
+                UCE_TargetAddMessage(sanctuary.MSG_STAMINA + gainStamina.ToString());
+            }
+#endif
 
             if (gainExp > 0)
             {

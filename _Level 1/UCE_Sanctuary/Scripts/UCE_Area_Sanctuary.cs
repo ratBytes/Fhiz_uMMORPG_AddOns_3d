@@ -24,6 +24,11 @@ public class UCE_Area_Sanctuary : NetworkBehaviour
     [Tooltip("[Optional] Seconds spent offline to recover 1 Mana")]
     public int SecondsPerMana = 60;
 
+#if _iMMOSTAMINA
+    [Tooltip("[Optional] Seconds spent offline to recover 1 Stamina")]
+    public int SecondsPerStamina = 60;
+#endif
+
     [Tooltip("[Optional] Seconds spent offline to gain 1 Experience")]
     public int SecondsPerExp = 60;
 
@@ -57,7 +62,9 @@ public class UCE_Area_Sanctuary : NetworkBehaviour
 
     public string MSG_HEALTH = "[Sanctuary] Recovered health while being offline: ";
     public string MSG_MANA = "[Sanctuary] Recovered mana while being offline: ";
+#if _iMMOSTAMINA
     public string MSG_STAMINA = "[Sanctuary] Recovered stamina while being offline: ";
+#endif
     public string MSG_EXP = "[Sanctuary] Gained experience while being offline: ";
     public string MSG_SKILLEXP = "[Sanctuary] Gained skill experience while being offline: ";
     public string MSG_GOLD = "[Sanctuary] Earned gold while being offline: ";
