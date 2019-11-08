@@ -14,7 +14,7 @@ using System.Linq;
 [System.Serializable]
 public partial struct UCE_Trait
 {
-    public string name;                                                         // name used to reference the database entry (cant save template directly // because synclist only support simple types)
+    public string name;
 
     // constructors
     public UCE_Trait(UCE_TraitTemplate template)
@@ -56,6 +56,9 @@ public partial struct UCE_Trait
 
     public int healthBonus { get { return data.statModifiers.healthBonus; } }
     public int manaBonus { get { return data.statModifiers.manaBonus; } }
+#if _iMMOSTAMINA
+    public int staminaBonus { get { return data.statModifiers.staminaBonus; } }
+#endif
     public int damageBonus { get { return data.statModifiers.damageBonus; } }
     public int defenseBonus { get { return data.statModifiers.defenseBonus; } }
     public float blockChanceBonus { get { return data.statModifiers.blockChanceBonus; } }
