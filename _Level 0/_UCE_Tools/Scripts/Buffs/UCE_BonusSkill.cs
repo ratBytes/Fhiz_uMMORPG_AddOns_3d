@@ -23,33 +23,38 @@ public abstract partial class BonusSkill
     public bool blockBuffs;
 
 #if _iMMOBUFFBLOCKHEALTHRECOVERY
-
     [Tooltip("Blocks health recovery (and only recovery), while buff is active")]
     public bool blockHealthRecovery;
 #endif
-#if _iMMOBUFFBLOCKMANARECOVERY
 
+#if _iMMOBUFFBLOCKMANARECOVERY
     [Tooltip("Blocks mana recovery (and only recovery), while buff is active")]
     public bool blockManaRecovery;
 #endif
-#if _iMMOBUFFENDURE
 
+#if _iMMOSTAMINA
+    [Tooltip("Blocks stamina recovery (and only recovery), while buff is active")]
+    public bool blockStaminaRecovery;
+#endif
+
+#if _iMMOBUFFENDURE
     [Tooltip("Prevents losing the final Healthpoint, while buff is active (= cannot die)")]
     public bool endure;
 #endif
-#if _iMMOBUFFEXPERIENCE
 
+#if _iMMOBUFFEXPERIENCE
     [Tooltip("Increases the amount of experience gained by this factor, while buff is active (0.5=50%, 1.5=150% etc.)")]
     public float boostExperience;
 #endif
-#if _iMMOBUFFGOLD
 
+#if _iMMOBUFFGOLD
     [Tooltip("Increases the amount of gold gained by this factor, while buff is active (0.5=50%, 1.5=150% etc.)")]
     public float boostGold;
 #endif
-#if _iMMOBUFFINVINCIBILITY
 
+#if _iMMOBUFFINVINCIBILITY
     [Tooltip("Completely invulnerable while buff is active.")]
     public bool invincibility;
 #endif
+
 }

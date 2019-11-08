@@ -20,6 +20,9 @@ public partial struct Buff
 #if _iMMOBUFFBLOCKMANARECOVERY
     public bool blockManaRecovery { get { return data.blockManaRecovery; } }
 #endif
+#if _iMMOSTAMINA
+    public bool blockStaminaRecovery { get { return data.blockStaminaRecovery; } }
+#endif
 #if _iMMOBUFFENDURE
     public bool endure { get { return data.endure; } }
 #endif
