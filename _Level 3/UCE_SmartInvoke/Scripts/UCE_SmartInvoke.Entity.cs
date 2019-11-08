@@ -6,24 +6,36 @@
 // * Pledge on Patreon for VIP AddOns...: https://www.patreon.com/IndieMMO
 // * Instructions.......................: https://indie-mmo.net/knowledge-base/
 // =======================================================================================
+using UnityEngine;
 using Mirror;
 
 // Entity
 
 public partial class Entity
 {
-    protected bool bRecovering = false;
+
+    protected bool bRecoveringHealthMana = false;
+    protected bool bRecoveringStamina = false;
 
     // -----------------------------------------------------------------------------------
-    // Update
+    // Update_UCE_SmartInvoke
     // -----------------------------------------------------------------------------------
     [DevExtMethods("Update")]
     private void Update_UCE_SmartInvoke()
     {
         if (!isServer) return;
+        UCE_CheckRecovery();
+    }
 
+    // -----------------------------------------------------------------------------------
+    // UCE_CheckRecovery
+    // -----------------------------------------------------------------------------------
+    protected void UCE_CheckRecovery()
+    {
+
+        // -> check for health and mana recovery
         if (
-            !bRecovering &&
+            !bRecoveringHealthMana &&
             enabled &&
             isAlive &&
             !(this is Npc) &&
@@ -33,17 +45,33 @@ public partial class Entity
             )
             )
         {
-            InvokeRepeating("UCE_Recover", 1, 1);
-            bRecovering = true;
+            InvokeRepeating(nameof(UCE_RecoverHealthMana), 1, 1);
+            bRecoveringHealthMana = true;
         }
+
+#if _iMMOSTAMINA
+        // -> special case to check for stamina recovery
+        if (
+            !bRecoveringStamina &&
+            enabled &&
+            isAlive &&
+            !(this is Npc) &&
+            state != "IDLE"
+            )
+        {
+            InvokeRepeating(nameof(UCE_RecoverStamina), 1, 1);
+            bRecoveringStamina = true;
+        }
+#endif
+
     }
 
     // -----------------------------------------------------------------------------------
-    // UCE_Recover
+    // UCE_RecoverHealthMana
     // -----------------------------------------------------------------------------------
-    [ServerCallback]
-    public void UCE_Recover()
+    protected void UCE_RecoverHealthMana()
     {
+    
         if (
             !enabled ||
             !isAlive ||
@@ -52,13 +80,54 @@ public partial class Entity
             (healthRecoveryRate == 0 && manaRecoveryRate == 0)
             )
         {
-            CancelInvoke("UCE_Recover");
-            bRecovering = false;
+            CancelInvoke(nameof(UCE_RecoverHealthMana));
+            bRecoveringHealthMana = false;
             return;
         }
 
-        if (healthRecovery) health += healthRecoveryRate;
-        if (manaRecovery) mana += manaRecoveryRate;
+        if (healthRecovery &&
+            (healthRecoveryRate < 0 ||
+            healthRecoveryRate > 0
+#if _iMMOSTAMINA
+            && stamina > 0
+#endif
+            ))
+            health += healthRecoveryRate;
+
+        if (manaRecovery && 
+            (manaRecoveryRate < 0 ||
+            manaRecoveryRate > 0
+#if _iMMOSTAMINA
+            && stamina > 0
+#endif
+            ))
+            mana += manaRecoveryRate;
+
+    }
+
+    // -----------------------------------------------------------------------------------
+    // UCE_RecoverStamina
+    // -----------------------------------------------------------------------------------
+    protected void UCE_RecoverStamina()
+    {
+#if _iMMOSTAMINA
+        if (
+            !enabled ||
+            !isAlive ||
+            !staminaRecovery ||
+            staminaRecoveryRate == 0 ||
+            state == "IDLE"
+            )
+        {
+            CancelInvoke(nameof(UCE_RecoverStamina));
+            bRecoveringStamina = false;
+            return;
+        }
+
+
+        if (staminaRecovery)
+            stamina += staminaRecoveryRate;
+#endif
     }
 
     // -----------------------------------------------------------------------------------
