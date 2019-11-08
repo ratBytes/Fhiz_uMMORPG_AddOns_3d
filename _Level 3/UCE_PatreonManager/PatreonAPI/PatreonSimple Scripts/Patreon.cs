@@ -18,7 +18,7 @@ public class Patreon :MonoBehaviour {
 	[Tooltip("Get it from\n\n https://www.patreon.com/portal  ")]
 	public string client_id;
 	//[Tooltip("Get it from\n\n https://www.patreon.com/portal  ")]
-	private string client_secret="",access_token="",refresh_token="";
+	private string client_secret=""; //,access_token="",refresh_token="";
 	[Tooltip("Make sure you write it on patreon client page including "
 	+"the port. Example: http://localhost:8080/")]
 	public string redirect_uri="http://localhost";
@@ -109,11 +109,11 @@ public class Patreon :MonoBehaviour {
 
 
 	
-	string code="",token="";
+	string code=""; //,token="";
 	JsonValue tokenData=new JsonValue();
 	JsonValue userData=new JsonValue();
 	string ppage="https://www.patreon.com/api/oauth2/";
-	bool loggedIn=false;
+	//bool loggedIn=false;
 	
 	
 	// Use this for initialization
