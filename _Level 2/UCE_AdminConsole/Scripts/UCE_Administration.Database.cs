@@ -106,8 +106,8 @@ public partial class Database
             return (string)row[0];
 #elif _SQLITE
             return row.account;
-        }
 #endif
+        }
 #endif
         return "";
     }
