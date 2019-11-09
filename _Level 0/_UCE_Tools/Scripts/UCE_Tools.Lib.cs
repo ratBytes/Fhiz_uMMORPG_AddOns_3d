@@ -11,42 +11,16 @@
 using UnityEditor;
 using UnityEngine;
 
-[InitializeOnLoad]
-public class ToolsLib
+public partial class UCE_DefinesManager
 {
-    private const string define = "_iMMOTOOLS";
-    private const string define2 = "_SQLITE";
-    private const string define3 = "_MYSQL";
 
-    static ToolsLib()
+    [DevExtMethods("Constructor")]
+    public static void Constructor_UCE_Tools()
     {
-        AddLibrayDefineIfNeeded();
+        defines.Add("_iMMOTOOLS");
+        defines.Add("_SQLITE");
     }
 
-    private static void AddLibrayDefineIfNeeded()
-    {
-        BuildTargetGroup buildTargetGroup = EditorUserBuildSettings.selectedBuildTargetGroup;
-        string definestring = PlayerSettings.GetScriptingDefineSymbolsForGroup(buildTargetGroup);
-        string[] defines = definestring.Split(';');
-
-        if (!Contains(defines, define2) && !Contains(defines, define3))
-            PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, (definestring + ";" + define2));
-
-        if (Contains(defines, define))
-            return;
-
-        PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, (definestring + ";" + define));
-    }
-
-    private static bool Contains(string[] defines, string define)
-    {
-        foreach (string def in defines)
-        {
-            if (def == define)
-                return true;
-        }
-        return false;
-    }
 }
 
 #endif
