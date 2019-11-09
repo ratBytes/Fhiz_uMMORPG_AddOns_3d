@@ -18,7 +18,7 @@ public partial class UCE_DefinesManager
     public static void Constructor_UCE_Tools()
     {
         defines.Add("_iMMOTOOLS");
-        defines.Add("_SQLITE");
+        //defines.Add("_SQLITE");
     }
 
 }
