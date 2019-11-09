@@ -1,8 +1,20 @@
-﻿using UnityEngine;
+﻿// =======================================================================================
+// Created and maintained by iMMO
+// Usable for both personal and commercial projects, but no sharing or re-sale
+// * Discord Support Server.............: https://discord.gg/YkMbDHs
+// * Public downloads website...........: https://www.indie-mmo.net
+// * Pledge on Patreon for VIP AddOns...: https://www.patreon.com/IndieMMO
+// * Instructions.......................: https://indie-mmo.net/knowledge-base/
+// =======================================================================================
+using UnityEngine;
 using UnityEngine.UI;
 
+// ===================================================================================
+// UCE_UI_AssetBundleDownloader
+// ===================================================================================
 public class UCE_UI_AssetBundleDownloader : MonoBehaviour
 {
+
     public static UCE_UI_AssetBundleDownloader singleton;
 
     public GameObject panel;
@@ -11,14 +23,19 @@ public class UCE_UI_AssetBundleDownloader : MonoBehaviour
     public Text progressText;
     public Button cancelButton;
 
+    // -------------------------------------------------------------------------------
+    // 
+    // -------------------------------------------------------------------------------
     public UCE_UI_AssetBundleDownloader()
     {
         if (singleton == null) singleton = this;
     }
 
-    public void Show(string message)
+    // -------------------------------------------------------------------------------
+    // 
+    // -------------------------------------------------------------------------------
+    public void Show()
     {
-
 
         cancelButton.onClick.SetListener(() => {
             NetworkManagerMMO.Quit();
@@ -27,4 +44,37 @@ public class UCE_UI_AssetBundleDownloader : MonoBehaviour
         panel.SetActive(true);
 
     }
+
+    // -------------------------------------------------------------------------------
+    // 
+    // -------------------------------------------------------------------------------
+    public void UpdateUI(string sMessage, float fAmount=0f, string sText="")
+    {
+
+        if (!string.IsNullOrWhiteSpace(sMessage))
+            messageText.text        = sMessage;
+
+        if (fAmount <= 0 && string.IsNullOrWhiteSpace(sText) && string.IsNullOrWhiteSpace(sMessage))
+        {
+            progressSlider.gameObject.SetActive(false);
+        }
+        else
+        {
+            progressSlider.value = fAmount;
+
+            if (!string.IsNullOrWhiteSpace(sText))
+                progressText.text = sText;
+
+            progressSlider.gameObject.SetActive(true);
+        }
+
+        if (!panel.activeInHierarchy)
+            Show();
+
+    }
+
+    // -------------------------------------------------------------------------------
+
 }
+
+// ===================================================================================
