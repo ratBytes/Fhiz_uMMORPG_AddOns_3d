@@ -18,8 +18,6 @@ public class UCE_AssetBundleManager : MonoBehaviour
    
     public static UCE_AssetBundleManager singleton;
 
-    [Tooltip("[Required] Assign your UCE Jukebox Template here")]
-    public UCE_Tmpl_Jukebox jukeboxTemplate;
 
     private void Awake()
     {
