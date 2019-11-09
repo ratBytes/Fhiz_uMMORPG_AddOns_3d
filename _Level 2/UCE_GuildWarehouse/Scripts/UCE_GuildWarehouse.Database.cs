@@ -273,8 +273,9 @@ public partial class Database
 		return Convert.ToInt32(ExecuteScalarMySql("SELECT busy FROM UCE_guild_warehouse WHERE guild=@guild", new MySqlParameter("@guild", player.guild.name))) != 1;
 #elif _SQLITE && _SERVER
         return Convert.ToInt32(connection.FindWithQuery<UCE_guild_warehouse>("SELECT busy FROM UCE_guild_warehouse WHERE guild=?", player.guild.name)) != 1;
-#endif
+#else
 		return false;
+#endif
     }
 
     // -----------------------------------------------------------------------------------
