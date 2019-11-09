@@ -72,8 +72,9 @@ public partial class Database
 #elif _SQLITE && _SERVER
         var results = connection.Query<character_purchases>("SELECT Count(*) FROM character_purchases WHERE character=? AND product=?", name, product);
         return results.Count >= 1;
-#endif
+#else
 		return false;
+#endif
     }
 
     // -----------------------------------------------------------------------------------
