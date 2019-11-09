@@ -1042,8 +1042,9 @@ public partial class Database : MonoBehaviour
     {
 #if _SERVER
         return ((long)ExecuteScalarMySql("SELECT Count(*) FROM guild_info WHERE `name`=@name", new SqlParameter("@name", guild))) == 1;
-#endif
+#else
         return false;
+#endif
     }
 
     // -----------------------------------------------------------------------------------
