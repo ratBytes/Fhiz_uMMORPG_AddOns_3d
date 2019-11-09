@@ -24,7 +24,7 @@ public class UCE_UI_AssetBundleDownloader : MonoBehaviour
     public Button cancelButton;
 
     // -------------------------------------------------------------------------------
-    // 
+    // UCE_UI_AssetBundleDownloader
     // -------------------------------------------------------------------------------
     public UCE_UI_AssetBundleDownloader()
     {
@@ -32,21 +32,26 @@ public class UCE_UI_AssetBundleDownloader : MonoBehaviour
     }
 
     // -------------------------------------------------------------------------------
-    // 
+    // Show
     // -------------------------------------------------------------------------------
     public void Show()
     {
-
         cancelButton.onClick.SetListener(() => {
             NetworkManagerMMO.Quit();
         });
-
         panel.SetActive(true);
-
     }
 
     // -------------------------------------------------------------------------------
-    // 
+    // Hide
+    // -------------------------------------------------------------------------------
+    public void Hide()
+    {
+        panel.SetActive(false);
+    }
+
+    // -------------------------------------------------------------------------------
+    // UpdateUI
     // -------------------------------------------------------------------------------
     public void UpdateUI(string sMessage, float fAmount=0f, string sText="")
     {

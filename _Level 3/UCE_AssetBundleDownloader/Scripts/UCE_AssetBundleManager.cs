@@ -27,10 +27,10 @@ public class UCE_AssetBundleManager : MonoBehaviour
     public string[] bundleNames;
 
     [Header("Labels")]
-    public string labelUncache      = "Unloading cache...";
-    public string labelVersions     = "Updating versions numbers...";
-    public string labelBundles      = "Starting bundle download... ";
-    public string labelBundle       = "Downloading Bundle: ";
+    public string labelUncache = "Unloading cache...";
+    public string labelVersions = "Updating versions numbers...";
+    public string labelBundles = "Starting bundle download... ";
+    public string labelBundle = "Downloading Bundle: ";
 
     private int index = -1;
     private AssetBundleMagic.Progress p = null;
@@ -49,12 +49,14 @@ public class UCE_AssetBundleManager : MonoBehaviour
     // -------------------------------------------------------------------------------
     void Update()
     {
+#if _CLIENT
         if (p != null)
         {
             float fProgress = Mathf.Max(0, p.GetProgress());
             string sText = ((int)(100 * fProgress)).ToString() + "%";
             UCE_UI_AssetBundleDownloader.singleton.UpdateUI("", fProgress, sText);
         }
+#endif
     }
 
     // ===============================================================================
@@ -66,7 +68,6 @@ public class UCE_AssetBundleManager : MonoBehaviour
     // -------------------------------------------------------------------------------
     protected void StartBundleManager()
     {
-        //UnloadBundles();
         DownloadVersions();
     }
 
@@ -75,6 +76,8 @@ public class UCE_AssetBundleManager : MonoBehaviour
     // -------------------------------------------------------------------------------
     protected bool CheckBuildTarget()
     {
+
+        if (bundleNames.Length <= 0) return false;
 
 #if _SERVER
         if (activeOnServer) return true;
@@ -94,7 +97,9 @@ public class UCE_AssetBundleManager : MonoBehaviour
     {
         if (!CheckBuildTarget()) return;
 
+#if _CLIENT
         UCE_UI_AssetBundleDownloader.singleton.UpdateUI(labelUncache);
+#endif
 
         AssetBundleMagic.CleanBundlesCache();
 
@@ -110,7 +115,9 @@ public class UCE_AssetBundleManager : MonoBehaviour
 
         if (!CheckBuildTarget()) return;
 
+#if _CLIENT
         UCE_UI_AssetBundleDownloader.singleton.UpdateUI(labelVersions);
+#endif
 
         AssetBundleMagic.DownloadVersions(delegate (string versions) {
             LoadBundles();
@@ -127,9 +134,13 @@ public class UCE_AssetBundleManager : MonoBehaviour
 
         if (!CheckBuildTarget()) return;
 
+        UnloadBundles();
+
+#if _CLIENT
         UCE_UI_AssetBundleDownloader.singleton.UpdateUI(labelBundles);
+#endif
 
-
+        LoadNextBundle();
 
     }
 
@@ -141,17 +152,41 @@ public class UCE_AssetBundleManager : MonoBehaviour
 
         if (!CheckBuildTarget()) return;
 
+#if _CLIENT
         UCE_UI_AssetBundleDownloader.singleton.UpdateUI(labelBundle + sBundleName);
+#endif
 
         p = AssetBundleMagic.DownloadBundle(
                     sBundleName,
                     delegate (AssetBundle ab2) {
-                        index++;
+                        LoadNextBundle();
                     },
                     delegate (string error) {
                         Debug.LogError(error);
                     }
                 );
+
+    }
+
+    // -------------------------------------------------------------------------------
+    // LoadNextBundle
+    // -------------------------------------------------------------------------------
+    protected void LoadNextBundle()
+    {
+        if (!CheckBuildTarget()) return;
+
+        index++;
+
+        if (index > bundleNames.Length-1)
+        {
+#if _CLIENT
+            UCE_UI_AssetBundleDownloader.singleton.Hide();
+#endif
+            index = -1;
+        }
+        else {
+            LoadBundle(bundleNames[index]);
+        }
 
     }
 
