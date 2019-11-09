@@ -15,6 +15,7 @@ public partial class Entity
     private float rubberbandTimer;
     private Vector3 oldPosition;
     private Vector3 rubberbandPosition;
+    private Quaternion rubberbandRotation;
     private bool isRubberbanding;
 
     public void LateUpdate_Zindex()
@@ -32,6 +33,7 @@ public partial class Entity
                 else
                 {
                     agent.Warp(rubberbandPosition);
+                    transform.rotation = rubberbandRotation;
                     isRubberbanding = false;
                 }
             }
@@ -44,7 +46,7 @@ public partial class Entity
     	if (agent.hasPath)
     	{
         	agent.ResetMovement();
-        	RpcResetMovement(transform.position);
+        	RpcResetMovement(transform.position, transform.rotation);
     		return;
     	}
     	agent.ResetMovement();
@@ -52,7 +54,7 @@ public partial class Entity
     }
 
     [ClientRpc]
-    public void RpcResetMovement(Vector3 resetPosition)
+    public void RpcResetMovement(Vector3 resetPosition, Quaternion resetRotation)
     {
         // reset path and velocity
         //Debug.LogWarning(name + "(local=" + isLocalPlayer + ") TargetResetMovement @ " + resetPosition);
@@ -61,6 +63,7 @@ public partial class Entity
         rubberbandTimer = Time.time;
         oldPosition = transform.position;
         rubberbandPosition = resetPosition;
+        rubberbandRotation = resetRotation;
         isRubberbanding = true;
     }
 }
