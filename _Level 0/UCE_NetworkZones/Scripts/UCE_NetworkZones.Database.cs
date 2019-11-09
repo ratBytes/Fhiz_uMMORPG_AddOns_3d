@@ -107,8 +107,9 @@ public partial class Database
         object obj = ExecuteScalarMySql("SELECT scene FROM character_scene WHERE `character`=@character", new SqlParameter("@character", characterName));
         return obj != null ? (string)obj : "";
 #elif _SQLITE && _SERVER
-        string sceneName = connection.FindWithQuery<character_scene>("SELECT scene FROM character_scene WHERE character=?", characterName);
-        return sceneName != null ? sceneName : "";
+        character_scene characterScene = connection.FindWithQuery<character_scene>("SELECT scene FROM character_scene WHERE character=?", characterName);
+        if (characterScene != null)
+            return characterScene.scene;
 #endif
         return "";
     }
