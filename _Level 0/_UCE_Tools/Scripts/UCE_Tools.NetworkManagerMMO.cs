@@ -8,9 +8,6 @@
 // =======================================================================================
 using UnityEngine;
 
-#if UNITY_EDITOR
-#endif
-
 // NetworkManagerMMO
 
 public partial class NetworkManagerMMO

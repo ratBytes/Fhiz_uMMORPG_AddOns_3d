@@ -20,7 +20,7 @@ public partial class UCE_TemplateConfiguration : ScriptableObject
     public bool isServer = true;
     public bool isClient = true;
 
-    [Header("ScriptableObjects")]
+    [Header("Scriptable Object Folders")]
     public UCE_ScripableObjectEntry[] scriptableObjects;
 
     protected const string IS_SERVER = "_SERVER";

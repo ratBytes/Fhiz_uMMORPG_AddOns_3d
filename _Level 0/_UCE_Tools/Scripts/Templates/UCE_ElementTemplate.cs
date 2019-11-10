@@ -30,7 +30,7 @@ public partial class UCE_ElementTemplate : ScriptableObject
         get
         {
             if (cache == null)
-                cache = Resources.LoadAll<UCE_ElementTemplate>("").ToDictionary(
+                cache = Resources.LoadAll<UCE_ElementTemplate>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_ElementTemplate))).ToDictionary(
                     x => x.name, x => x
                 );
             return cache;
