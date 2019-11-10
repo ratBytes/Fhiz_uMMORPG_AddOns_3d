@@ -14,18 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isServer: 1
   isClient: 1
-  scriptableObjects:
-  - scriptableObject: {fileID: 11400000, guid: 1af3f37a6c2464799a5dae43e912d4c8, type: 2}
-    folderName: UCE Attributes
-  - scriptableObject: {fileID: 11400000, guid: a6e78a41c2ad846d98bbf0296a8a75ab, type: 2}
-    folderName: UCE Currencies
-  - scriptableObject: {fileID: 11400000, guid: 6e996ba78eee343aa9207dd59a6c01e6, type: 2}
-    folderName: UCE Harvesting Professions
-  - scriptableObject: {fileID: 11400000, guid: b6c17d8795b0e446ab59a4440cc30b77, type: 2}
-    folderName: UCE Craft Professions
-  - scriptableObject: {fileID: 11400000, guid: caf4e469bebab4340ac3978499e43196, type: 2}
-    folderName: UCE Recipes
-  - scriptableObject: {fileID: 11400000, guid: aaba03178b9fd477ba56b15b47354943, type: 2}
-    folderName: UCE Products
-  - scriptableObject: {fileID: 11400000, guid: 666e63cbcce614d74952d9015efc907a, type: 2}
-    folderName: UCE Quests
+  scriptableObjects: []
