@@ -127,7 +127,7 @@ public class UCE_Tmpl_PayPalProduct : ScriptableObject
     {
         get
         {
-            return cache ?? (cache = Resources.LoadAll<UCE_Tmpl_PayPalProduct>("").ToDictionary(
+            return cache ?? (cache = Resources.LoadAll<UCE_Tmpl_PayPalProduct>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_Tmpl_PayPalProduct))).ToDictionary(
                 item => item.name.GetStableHashCode(), item => item)
             );
         }

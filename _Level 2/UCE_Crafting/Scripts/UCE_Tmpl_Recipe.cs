@@ -182,7 +182,7 @@ public class UCE_Tmpl_Recipe : ScriptableObject
     {
         get
         {
-            return cache ?? (cache = Resources.LoadAll<UCE_Tmpl_Recipe>("").ToDictionary(
+            return cache ?? (cache = Resources.LoadAll<UCE_Tmpl_Recipe>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_Tmpl_Recipe))).ToDictionary(
                 x => x.name.GetStableHashCode(), x => x)
             );
         }

@@ -41,7 +41,7 @@ public class UCE_CraftingProfessionTemplate : ScriptableObject
     {
         get
         {
-            return cache ?? (cache = Resources.LoadAll<UCE_CraftingProfessionTemplate>("").ToDictionary(
+            return cache ?? (cache = Resources.LoadAll<UCE_CraftingProfessionTemplate>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_CraftingProfessionTemplate))).ToDictionary(
                 x => x.name.GetStableHashCode(), x => x)
             );
         }

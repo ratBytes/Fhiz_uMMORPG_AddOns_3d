@@ -27,7 +27,7 @@ public partial class UCE_WorldEventTemplate : ScriptableObject
     {
         get
         {
-            return cache ?? (cache = Resources.LoadAll<UCE_WorldEventTemplate>("").ToDictionary(
+            return cache ?? (cache = Resources.LoadAll<UCE_WorldEventTemplate>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_WorldEventTemplate))).ToDictionary(
                 x => x.name.GetStableHashCode(), x => x)
             );
         }

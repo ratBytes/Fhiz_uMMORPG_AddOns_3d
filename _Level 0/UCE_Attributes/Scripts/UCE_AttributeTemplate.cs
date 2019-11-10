@@ -146,9 +146,10 @@ public partial class UCE_AttributeTemplate : ScriptableObject
     {
         get
         {
-            return cache ?? (cache = Resources.LoadAll<UCE_AttributeTemplate>("").ToDictionary(
+            return cache ?? (cache = Resources.LoadAll<UCE_AttributeTemplate>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_AttributeTemplate))).ToDictionary(
                 x => x.name.GetStableHashCode(), x => x)
             );
         }
     }
+
 }

@@ -28,7 +28,7 @@ public class UCE_PrestigeClassTemplate : ScriptableObject
             if (cache == null)
             {
                 // get all ScriptableItems in resources
-                UCE_PrestigeClassTemplate[] items = Resources.LoadAll<UCE_PrestigeClassTemplate>("");
+                UCE_PrestigeClassTemplate[] items = Resources.LoadAll<UCE_PrestigeClassTemplate>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_PrestigeClassTemplate)));
 
                 // check for duplicates, then add to cache
                 List<string> duplicates = items.ToList().FindDuplicates(item => item.name);

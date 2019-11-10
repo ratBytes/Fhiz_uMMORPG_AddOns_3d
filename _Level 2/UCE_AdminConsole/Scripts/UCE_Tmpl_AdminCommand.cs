@@ -50,7 +50,7 @@ public class UCE_Tmpl_AdminCommand : ScriptableObject
         get
         {
             // load if not loaded yet
-            return cache ?? (cache = Resources.LoadAll<UCE_Tmpl_AdminCommand>("").ToDictionary(
+            return cache ?? (cache = Resources.LoadAll<UCE_Tmpl_AdminCommand>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_Tmpl_AdminCommand))).ToDictionary(
                 item => item.name.GetStableHashCode(), item => item)
             );
         }

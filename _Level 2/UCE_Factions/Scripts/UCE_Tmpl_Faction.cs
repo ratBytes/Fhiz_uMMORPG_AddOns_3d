@@ -72,7 +72,7 @@ public class UCE_Tmpl_Faction : ScriptableObject
         get
         {
             // load if not loaded yet
-            return cache ?? (cache = Resources.LoadAll<UCE_Tmpl_Faction>("").ToDictionary(
+            return cache ?? (cache = Resources.LoadAll<UCE_Tmpl_Faction>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_Tmpl_Faction))).ToDictionary(
                 item => item.name.GetStableHashCode(), item => item)
             );
         }

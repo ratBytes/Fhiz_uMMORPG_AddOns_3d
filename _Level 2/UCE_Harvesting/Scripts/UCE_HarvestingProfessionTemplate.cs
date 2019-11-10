@@ -106,7 +106,7 @@ public class UCE_HarvestingProfessionTemplate : ScriptableObject
     {
         get
         {
-            return cache ?? (cache = Resources.LoadAll<UCE_HarvestingProfessionTemplate>("").ToDictionary(
+            return cache ?? (cache = Resources.LoadAll<UCE_HarvestingProfessionTemplate>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_HarvestingProfessionTemplate))).ToDictionary(
                 x => x.name.GetStableHashCode(), x => x)
             );
         }

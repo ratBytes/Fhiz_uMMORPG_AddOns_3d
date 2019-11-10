@@ -86,7 +86,7 @@ public class UCE_TraitTemplate : ScriptableObject
         {
             // load if not loaded yet
             if (cache == null)
-                cache = Resources.LoadAll<UCE_TraitTemplate>("").ToDictionary(
+                cache = Resources.LoadAll<UCE_TraitTemplate>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_TraitTemplate))).ToDictionary(
                     x => x.name.GetStableHashCode(), x => x
                 );
             return cache;

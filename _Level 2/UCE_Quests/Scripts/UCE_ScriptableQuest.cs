@@ -128,7 +128,7 @@ public partial class UCE_ScriptableQuest : ScriptableObject
         get
         {
             // load if not loaded yet
-            return cache ?? (cache = Resources.LoadAll<UCE_ScriptableQuest>("").ToDictionary(
+            return cache ?? (cache = Resources.LoadAll<UCE_ScriptableQuest>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_ScriptableQuest))).ToDictionary(
                 quest => quest.name.GetStableHashCode(), quest => quest)
             );
         }

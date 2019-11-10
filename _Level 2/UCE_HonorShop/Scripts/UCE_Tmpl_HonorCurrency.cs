@@ -46,7 +46,7 @@ public class UCE_Tmpl_HonorCurrency : ScriptableObject
     {
         get
         {
-            return cache ?? (cache = Resources.LoadAll<UCE_Tmpl_HonorCurrency>("").ToDictionary(
+            return cache ?? (cache = Resources.LoadAll<UCE_Tmpl_HonorCurrency>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_Tmpl_HonorCurrency))).ToDictionary(
                 item => item.name.GetStableHashCode(), item => item)
             );
         }
