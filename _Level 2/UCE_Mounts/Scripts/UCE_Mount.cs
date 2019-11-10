@@ -38,9 +38,11 @@ public partial class UCE_Mount : Summonable
     [Header("Behaviour")]
     [SyncVar] public bool defendOwner = true; 		// attack what attacks the owner
 
-    [SyncVar] public bool autoAttack = true; 		// attack what the owner attacks
+    [SyncVar] public bool autoAttack = true;        // attack what the owner attacks
 
+#if !_iMMOCONDITIONALSKILLS
     private int lastSkill = -1;
+#endif
 
     [HideInInspector] public long experience;
     [HideInInspector] public bool autoRide;
