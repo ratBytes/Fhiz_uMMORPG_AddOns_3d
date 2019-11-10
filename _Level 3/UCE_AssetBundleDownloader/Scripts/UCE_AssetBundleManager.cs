@@ -32,7 +32,7 @@ public class UCE_AssetBundleManager : MonoBehaviour
     public string labelBundles = "Starting bundle download... ";
     public string labelBundle = "Downloading Bundle: ";
 
-    private int index = -1;
+    [HideInInspector]public int index = -1;
     private AssetBundleMagic.Progress p = null;
 
     // -------------------------------------------------------------------------------
