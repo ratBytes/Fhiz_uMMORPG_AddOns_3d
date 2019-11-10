@@ -52,7 +52,7 @@ public partial class Database
 		}
 #elif _SQLITE && _SERVER
         var results = connection.FindWithQuery<character_lastonline>("SELECT lastOnline FROM character_lastonline WHERE character=?", player.name);
-        string row = results.lastOnline;
+        string row = (results != null) ? results.lastOnline : "";
         if (!string.IsNullOrWhiteSpace(row))
         {
             DateTime time = DateTime.Parse(row);
