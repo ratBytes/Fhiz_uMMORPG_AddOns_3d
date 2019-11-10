@@ -7,10 +7,7 @@ using UnityEngine;
 public abstract partial class ScriptableSkill
 {
 
-
     [Header("AI")]
     public UCE_ConditionalSkill skillConditions;
-
-   
 
 }
