@@ -571,7 +571,8 @@ public partial class UCE_Mount : Summonable
         return 0 <= currentSkill && currentSkill < skills.Count ? skills[currentSkill].castRange : 0;
     }
 
-    private int NextSkill()
+#if !_iMMOCONDITIONALSKILLS
+    protected int NextSkill()
     {
         for (int i = 0; i < skills.Count; ++i)
         {
@@ -581,6 +582,7 @@ public partial class UCE_Mount : Summonable
         }
         return -1;
     }
+#endif
 
     // -----------------------------------------------------------------------------------
 }
