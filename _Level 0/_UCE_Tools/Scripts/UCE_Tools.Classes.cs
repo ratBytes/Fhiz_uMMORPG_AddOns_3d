@@ -14,6 +14,15 @@ public enum ThresholdType { None, Below, Above }
 
 public enum GroupType { None, Party, Guild, Realm }
 
+// SCRIPTABLE OBJECT BY FOLDER
+
+[System.Serializable]
+public partial class UCE_ScripableObjectEntry
+{
+    public ScriptableObject scriptableObject;
+    public string folderName;
+}
+
 // MUTABLE WRAPPER
 
 [System.Serializable]

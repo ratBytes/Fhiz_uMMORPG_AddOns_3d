@@ -6,24 +6,27 @@
 // * Pledge on Patreon for VIP AddOns...: https://www.patreon.com/IndieMMO
 // * Instructions.......................: https://indie-mmo.net/knowledge-base/
 // =======================================================================================
+using System;
 using UnityEngine;
+using System.Linq;
 
 // TemplateConfiguration
 
 [CreateAssetMenu(menuName = "UCE Other/UCE Configuration", fileName = "New UCE Configuration", order = 999)]
 public partial class UCE_TemplateConfiguration : ScriptableObject
 {
-    /*
-		reserved for future functionality
-		the settings here have no effect yet, but will have later when starting client/server
-		seperation. in addition, global settings can be added here easily (its partial too).
-	*/
 
+    [Header("Build")]
     public bool isServer = true;
     public bool isClient = true;
 
+    [Header("ScriptableObjects")]
+    public UCE_ScripableObjectEntry[] scriptableObjects;
+
     protected const string IS_SERVER = "_SERVER";
     protected const string IS_CLIENT = "_CLIENT";
+
+    static UCE_TemplateConfiguration _instance;
 
     // -----------------------------------------------------------------------------------
     // OnValidate
@@ -47,6 +50,33 @@ public partial class UCE_TemplateConfiguration : ScriptableObject
             UCE_EditorTools.AddScriptingDefine(IS_SERVER);
         }
 #endif
+    }
+
+    // -----------------------------------------------------------------------------------
+    // OnValidate
+    // -----------------------------------------------------------------------------------
+    public static UCE_TemplateConfiguration singleton
+    {
+        get 
+        {
+            if (!_instance)
+                _instance = Resources.FindObjectsOfTypeAll<UCE_TemplateConfiguration>().FirstOrDefault();
+            return _instance;
+        }
+    }
+
+    // -----------------------------------------------------------------------------------
+    // GetTemplatePath
+    // -----------------------------------------------------------------------------------
+    public string GetTemplatePath(Type type)
+    {
+        foreach (UCE_ScripableObjectEntry entry in scriptableObjects)
+        {
+            if (entry.scriptableObject.GetType() == type)
+                return entry.folderName;
+        }
+
+        return "";
     }
 
     // -----------------------------------------------------------------------------------

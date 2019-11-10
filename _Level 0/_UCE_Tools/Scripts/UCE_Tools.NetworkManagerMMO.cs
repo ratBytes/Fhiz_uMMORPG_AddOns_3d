@@ -17,7 +17,10 @@ public partial class NetworkManagerMMO
 {
     public enum DatabaseType { SQLite, mySQL }
 
-    [Header("[-=-=- UCE DATABASE TYPE -=-=-]")]
+    [Header("Configuration")]
+    public UCE_TemplateConfiguration configTemplate;
+
+    [Header("Database Type")]
     public DatabaseType databaseType = DatabaseType.SQLite;
 
     // uses Suriyun Editor tools to toggle visiblity of the following fields
