@@ -135,10 +135,11 @@ public partial class Database
 			return (DateTime.UtcNow - time).TotalSeconds/3600;
 		}
 #elif _SQLITE && _SERVER
-        var row = connection.FindWithQuery<character_lastonline>("SELECT lastOnline FROM character_lastonline WHERE character=?", player.name);
-        if (!string.IsNullOrWhiteSpace(row.lastOnline))
+        var results = connection.FindWithQuery<character_lastonline>("SELECT lastOnline FROM character_lastonline WHERE character=?", player.name);
+        string row = (results != null) ? results.lastOnline : "";
+        if (!string.IsNullOrWhiteSpace(row))
         {
-            DateTime time = DateTime.Parse(row.lastOnline);
+            DateTime time = DateTime.Parse(row);
             return (DateTime.UtcNow - time).TotalSeconds / 3600;
         }
 #endif
