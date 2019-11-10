@@ -10,7 +10,10 @@
 
 public partial class Player
 {
+
+#if !_iMMOCONDITIONALSKILLS
     private int lastSkill = -1;
+#endif
 
     // -----------------------------------------------------------------------------------
     // UCE_StateSkillFinished
