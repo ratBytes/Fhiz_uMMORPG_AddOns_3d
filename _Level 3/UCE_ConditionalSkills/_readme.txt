@@ -1,5 +1,7 @@
 Install
 
+NOTE: This AddOn also requires "UCE Attache" (free) - it wont work without
+
 1. CORE CHANGES
 1.1 In "Monster.cs" go to the very bottom of the file and delete (or comment out) the whole "NextSkill" function.
 1.2 Do the same for "Pet.cs"
