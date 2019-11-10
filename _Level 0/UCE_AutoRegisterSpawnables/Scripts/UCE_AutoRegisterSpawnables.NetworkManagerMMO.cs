@@ -16,6 +16,10 @@ using System;
 
 public partial class NetworkManagerMMO
 {
+
+    [Header("Spawnable Categories")]
+    public string[] spawnableCategories;
+
     // -----------------------------------------------------------------------------------
     // AutoRegisterSpawnables
     // @Editor
@@ -43,8 +47,19 @@ public partial class NetworkManagerMMO
                 NetworkIdentity comp = go.GetComponent<NetworkIdentity>();
                 if (comp != null && !comp.serverOnly)
                 {
-                    toSelect.Add(go);
+
+                    UCE_NetworkSpawnable sp = go.GetComponent<UCE_NetworkSpawnable>();
+
+                    if (sp == null)
+                    {
+                        toSelect.Add(go);
+                    }
+                    else if (UCE_Tools.ArrayContains(spawnableCategories, sp.networkSpawnTag))
+                    {
+                        toSelect.Add(go);
+                    }
                 }
+
             }
         }
 
