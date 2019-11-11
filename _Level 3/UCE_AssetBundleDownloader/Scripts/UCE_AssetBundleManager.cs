@@ -50,8 +50,10 @@ public class UCE_AssetBundleManager : MonoBehaviour
     void Update()
     {
 #if _CLIENT
-        if (p != null)
+        if (index == -1 || index > bundleNames.Length - 1)
         {
+            UCE_UI_AssetBundleDownloader.singleton.Hide();
+        } else if (p != null) {
             float fProgress = Mathf.Max(0, p.GetProgress());
             string sText = ((int)(100 * fProgress)).ToString() + "%";
             UCE_UI_AssetBundleDownloader.singleton.UpdateUI("", fProgress, sText);
