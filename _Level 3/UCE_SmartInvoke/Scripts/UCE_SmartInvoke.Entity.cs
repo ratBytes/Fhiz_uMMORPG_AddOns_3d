@@ -88,18 +88,12 @@ public partial class Entity
         if (healthRecovery &&
             (healthRecoveryRate < 0 ||
             healthRecoveryRate > 0
-#if _iMMOSTAMINA
-            && stamina > 0
-#endif
             ))
             health += healthRecoveryRate;
 
         if (manaRecovery && 
             (manaRecoveryRate < 0 ||
             manaRecoveryRate > 0
-#if _iMMOSTAMINA
-            && stamina > 0
-#endif
             ))
             mana += manaRecoveryRate;
 
