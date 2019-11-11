@@ -11,9 +11,8 @@ once it is depleted. But players are never incapaciated or die due to the loss o
 
 When stamina is depleted:
 
-- Character gains less experience
-- Character cannot recover health per tick
-- Character cannot recover mana per tick
+- The character is affected by a Buff as long as stamina == 0
+- This buff can be defined in any way like a typical Buff
 
 Stamina can be recovered:
 
