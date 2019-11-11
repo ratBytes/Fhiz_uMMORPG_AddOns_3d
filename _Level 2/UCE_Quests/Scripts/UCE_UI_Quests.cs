@@ -15,6 +15,8 @@ using UnityEngine.UI;
 
 public partial class UCE_UI_Quests : MonoBehaviour
 {
+    public static UCE_UI_Quests singleton;
+
     public KeyCode hotKey = KeyCode.Q;
     public GameObject panel;
     public Transform content;
@@ -39,6 +41,13 @@ public partial class UCE_UI_Quests : MonoBehaviour
 
     protected string[] cacheTooltip;
     protected float[] cacheTimer;
+
+    public UCE_UI_Quests()
+    {
+        // assign singleton only once (to work with DontDestroyOnLoad when
+        // using Zones / switching scenes)
+        if (singleton == null) singleton = this;
+    }
 
     // -----------------------------------------------------------------------------------
     // OnEnable
@@ -161,6 +170,21 @@ public partial class UCE_UI_Quests : MonoBehaviour
                     {
                         descriptionPanel.SetActive(!descriptionPanel.activeSelf);
                     });
+
+                    // -- share button
+                    if (showActiveQuests && player.InParty())
+                    {
+                        slot.shareButton.gameObject.SetActive(true);
+                        slot.shareButton.onClick.SetListener(() =>
+                        {
+                            player.Cmd_UCE_ShareQuest(quest.name);
+                            panel.gameObject.SetActive(false);
+                        });
+                    }
+                    else
+                    {
+                        slot.shareButton.gameObject.SetActive(false);
+                    }
 
                     // -- cancel button
                     if (showActiveQuests)

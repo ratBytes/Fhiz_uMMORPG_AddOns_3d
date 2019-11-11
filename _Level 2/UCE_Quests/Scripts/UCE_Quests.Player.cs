@@ -10,6 +10,7 @@ using Mirror;
 using System;
 using System.Linq;
 using UnityEngine;
+using System.Collections.Generic;
 
 // PLAYER
 
@@ -18,6 +19,8 @@ public partial class Player
     [Header("[-=-=-=- UCE QUESTS -=-=-=-]")]
     [Tooltip("[Required] Contains active and completed quests (=all)")]
     public int UCE_activeQuestLimit = 100;
+
+    public string shareQuestMessage = "Quest shared: ";
 
     public UCE_PopupClass questCompletePopup;
 
@@ -528,6 +531,45 @@ public partial class Player
     }
 
     // -----------------------------------------------------------------------------------
+    // UCE_AcceptQuest
+    // -----------------------------------------------------------------------------------
+    public void UCE_AcceptQuest(string questName)
+    {
+
+        int idx = UCE_GetQuestIndexByName(questName);
+
+        // -- only if we don't have the quest already
+        if (idx == -1)
+        {
+
+            UCE_ScriptableQuest newQuest;
+
+            if (UCE_ScriptableQuest.dict.TryGetValue(questName.GetStableHashCode(), out newQuest))
+            {
+
+                if (UCE_CanAcceptQuest(newQuest))
+                {
+
+                    UCE_quests.Add(new UCE_Quest(newQuest));
+
+                    // -- accept items
+                    if (newQuest.acceptItems != null && newQuest.acceptItems.Length > 0)
+                    {
+                        foreach (UCE_rewardItem rewardItem in newQuest.acceptItems)
+                            InventoryAdd(new Item(rewardItem.item), rewardItem.amount);
+                    }
+
+                    UCE_ShowPopup(shareQuestMessage + newQuest.name);
+
+                }
+
+            }
+
+        }
+
+    }
+
+    // -----------------------------------------------------------------------------------
     // UCE_CanCompleteQuest
     // -----------------------------------------------------------------------------------
     public bool UCE_CanCompleteQuest(string questName)
@@ -585,6 +627,34 @@ public partial class Player
 
             UCE_quests.RemoveAt(index);
         }
+    }
+
+    // -----------------------------------------------------------------------------------
+    // Cmd_UCE_ShareQuest
+    // @Client -> @Server
+    // -----------------------------------------------------------------------------------
+    [Command]
+    public void Cmd_UCE_ShareQuest(string questName)
+    {
+        if (!InParty()) return;
+
+        if (!UCE_HasCompletedQuest(questName))
+            UCE_ShareQuest(questName);
+    }
+
+    // -----------------------------------------------------------------------------------
+    // UCE_ShareQuest
+    // @Server
+    // -----------------------------------------------------------------------------------
+    [Server]
+    protected void UCE_ShareQuest(string questName)
+    {
+
+        List<Player> closeMembers = InParty() ? GetPartyMembersInProximity() : new List<Player>();
+
+        foreach (Player member in closeMembers)
+            member.UCE_AcceptQuest(questName);
+
     }
 
     // -----------------------------------------------------------------------------------

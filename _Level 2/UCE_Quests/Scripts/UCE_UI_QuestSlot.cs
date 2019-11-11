@@ -14,6 +14,7 @@ using UnityEngine.UI;
 public partial class UCE_UI_QuestSlot : MonoBehaviour
 {
     public Button nameButton;
+    public Button shareButton;
     public Button cancelButton;
     public Text descriptionText;
 }
