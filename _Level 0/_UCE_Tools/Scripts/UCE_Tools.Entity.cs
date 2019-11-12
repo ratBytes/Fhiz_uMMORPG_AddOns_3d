@@ -178,7 +178,7 @@ public partial class Entity
             Utils.InvokeMany(typeof(Player), entity, "OnDamageDealt_");
 
         if (entity is Monster)
-            Utils.InvokeMany(typeof(Monster), entity, "OnDamageDealt_");
+            Utils.InvokeMany(typeof(Monster), entity, "OnDamageDealt_", amount);
 
         if (entity is Pet)
             Utils.InvokeMany(typeof(Pet), entity, "OnDamageDealt_");
