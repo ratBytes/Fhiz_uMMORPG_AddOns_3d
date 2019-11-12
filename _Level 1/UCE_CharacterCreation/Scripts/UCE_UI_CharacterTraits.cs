@@ -15,7 +15,7 @@ public partial class UCE_UI_CharacterTraits : MonoBehaviour
 {
 #if _iMMOTRAITS
 
-    public UCE_UI_CharacterTraits singleton;
+    public static UCE_UI_CharacterTraits singleton;
 
     public UCE_UI_CharacterCreation parentPanel;
     public Text traitPointsText;
