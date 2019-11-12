@@ -103,14 +103,14 @@ public partial class Entity
                 }
             }
 
+            Utils.InvokeMany(typeof(Entity), this, "DealDamageAt_", entity, amount, damageDealt, damageType);
+
             entity.OnAggro(this);
             entity.RpcOnDamageReceived(damageDealt, damageType);
 
             // reset last combat time for both
             lastCombatTime = NetworkTime.time;
             entity.lastCombatTime = NetworkTime.time;
-
-            Utils.InvokeMany(typeof(Entity), this, "DealDamageAt_", entity, amount, damageDealt, damageType);
         }
     }
 
