@@ -144,7 +144,7 @@ public abstract partial class UCE_Projectile : SkillEffect
             caster.DealDamageAt(target, damage, stunChance, UnityEngine.Random.Range(data.minStunTime, data.maxStunTime));
 
             // ------ Skip remaining calculations if target is dead already
-            if (!target.isAlive) continue;
+            if (target == null) continue;
 
             // ------ Remove random Buff
             if (data.removeRandomBuff > 0 && caster.target.buffs.Count > 0)
