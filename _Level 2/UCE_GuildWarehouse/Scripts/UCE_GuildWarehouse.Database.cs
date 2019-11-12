@@ -19,6 +19,36 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // UCE Guild Warehouse
+    // -----------------------------------------------------------------------------------
+    class UCE_guild_warehouse
+    {
+        [PrimaryKey] // important for performance: O(log n) instead of O(n)
+        public string guild { get; set; }
+        public int gold { get; set; }
+        public int level { get; set; }
+        public int locked { get; set; }
+        public int busy { get; set; }
+    }
+    
+    // -----------------------------------------------------------------------------------
+    // UCE Guild Warehouse Items
+    // -----------------------------------------------------------------------------------
+    class UCE_guild_warehouse_items
+    {
+        public string guild { get; set; }
+        public int slot { get; set; }
+        public string name { get; set; }
+        public int amount { get; set; }
+        public int summonedHealth { get; set; }
+        public int summonedLevel { get; set; }
+        public long summonedExperience { get; set; }
+    }
+#endif
+
     // -----------------------------------------------------------------------------------
     // Connect_UCE_GuildWareHouse
     // -----------------------------------------------------------------------------------

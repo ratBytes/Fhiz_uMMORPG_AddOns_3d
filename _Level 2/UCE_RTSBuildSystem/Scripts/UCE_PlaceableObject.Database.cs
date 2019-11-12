@@ -20,6 +20,27 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+    // -----------------------------------------------------------------------------------
+    // Placeable Objects
+    // -----------------------------------------------------------------------------------
+    public class placeable_objects
+    {
+        public string character { get; set; }
+        public string guild { get; set; }
+        public float x { get; set; }
+        public float y { get; set; }
+        public float z { get; set; }
+        public float xRot { get; set; }
+        public float yRot { get; set; }
+        public float zRot { get; set; }
+        public int level { get; set; }
+        public string item { get; set; }
+        public int id { get; set; }
+    }
+#endif
+
     // -----------------------------------------------------------------------------------
     // Connect_UCE_PlaceableObject
     // -----------------------------------------------------------------------------------

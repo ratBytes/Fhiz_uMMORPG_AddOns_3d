@@ -19,6 +19,19 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // Character Professions
+    // -----------------------------------------------------------------------------------
+    class character_professions
+    {
+        public string character { get; set; }
+        public string profession { get; set; }
+        public long experience { get; set; }
+    }
+#endif
+    
     // -----------------------------------------------------------------------------------
     // Connect_UCE_Harvesting
     // -----------------------------------------------------------------------------------

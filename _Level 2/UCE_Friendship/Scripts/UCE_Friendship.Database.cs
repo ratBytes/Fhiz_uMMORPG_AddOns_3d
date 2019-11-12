@@ -17,6 +17,19 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // Character Friends
+    // -----------------------------------------------------------------------------------
+    class character_friends
+    {
+        public string character { get; set; }
+        public string friendName { get; set; }
+        public string lastGifted { get; set; }
+    }
+#endif
+
     // -----------------------------------------------------------------------------------
     // Connect_UCE_Friendlist
     // -----------------------------------------------------------------------------------

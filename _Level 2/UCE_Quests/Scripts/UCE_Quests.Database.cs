@@ -20,6 +20,31 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // Character UCE Quests
+    // -----------------------------------------------------------------------------------
+    class character_UCE_quests
+    {
+        [PrimaryKey] // important for performance: O(log n) instead of O(n)
+        public string character { get; set; }
+        [Indexed]
+        public string name { get; set; }
+        public string pvped { get; set; }
+        public string killed { get; set; }
+        public string gathered { get; set; }
+        public string harvested { get; set; }
+        public string visited { get; set; }
+        public string crafted { get; set; }
+        public string looted { get; set; }
+        public bool completed { get; set; }
+        public bool completedAgain { get; set; }
+        public string lastCompleted { get; set; }
+        public int counter { get; set; }
+    }
+#endif
+
     // -----------------------------------------------------------------------------------
     // Connect_UCE_Quest
     // -----------------------------------------------------------------------------------

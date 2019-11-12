@@ -22,6 +22,20 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // UCE Attributes
+    // -----------------------------------------------------------------------------------
+    class UCE_attributes
+    {
+        public string character { get; set; }
+        public int slot { get; set; }
+        public string name { get; set; }
+        public int points { get; set; }
+    }
+#endif
+
     // -----------------------------------------------------------------------------------
     // Connect_UCE_Attributes
     // -----------------------------------------------------------------------------------

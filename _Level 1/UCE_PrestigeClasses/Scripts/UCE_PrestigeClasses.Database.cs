@@ -17,6 +17,19 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // Character Prestige Classes
+    // -----------------------------------------------------------------------------------
+    class character_prestigeclasses
+    {
+        public string character { get; set; }
+        public string class1 { get; set; }
+        public string class2 { get; set; }
+    }
+#endif
+
     // -----------------------------------------------------------------------------------
     // Connect_UCE_PrestigeClasses
     // -----------------------------------------------------------------------------------

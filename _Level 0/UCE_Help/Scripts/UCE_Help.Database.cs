@@ -20,6 +20,24 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // UCE Reports
+    // -----------------------------------------------------------------------------------
+    class UCE_reports
+    {
+        public string senderAcc { get; set; }
+        public string senderCharacter { get; set; }
+        public bool readBefore { get; set; }
+        public string title { get; set; }
+        public string message { get; set; }
+        public bool solved { get; set; }
+        public string time { get; set; }
+        public string position { get; set; }
+    }
+    #endif
+
     #region Functions
 
     // -----------------------------------------------------------------------------------

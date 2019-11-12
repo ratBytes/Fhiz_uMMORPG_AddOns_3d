@@ -19,6 +19,20 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // Character Timegates
+    // -----------------------------------------------------------------------------------
+    class character_timegates
+    {
+        public string character { get; set; }
+        public string timegateName { get; set; }
+        public int timegateCount { get; set; }
+        public string timegateHours { get; set; }
+    }
+#endif
+
     // -----------------------------------------------------------------------------------
     // Connect_UCE_SimpleTimegate
     // -----------------------------------------------------------------------------------

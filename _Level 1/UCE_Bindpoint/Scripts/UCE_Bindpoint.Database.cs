@@ -19,6 +19,23 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // Character Bindpoint
+    // -----------------------------------------------------------------------------------
+    class character_bindpoint
+    {
+        [PrimaryKey] // important for performance: O(log n) instead of O(n)
+        public string character { get; set; }
+        public string name { get; set; }
+        public float x { get; set; }
+        public float y { get; set; }
+        public float z { get; set; }
+        public string sceneName { get; set; }
+    }
+#endif
+	
     // -----------------------------------------------------------------------------------
     // Connect_UCE_Bindpoint
     // -----------------------------------------------------------------------------------

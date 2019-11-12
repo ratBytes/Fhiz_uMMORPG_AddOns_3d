@@ -21,6 +21,19 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // UCE World Events
+    // -----------------------------------------------------------------------------------
+    class uce_worldevents
+    {
+        [PrimaryKey] // important for performance: O(log n) instead of O(n)
+        public string name { get; set; }
+        public int count { get; set; }
+    }
+#endif
+
     // -----------------------------------------------------------------------------------
     // Connect_UCE_WorldEvents
     // -----------------------------------------------------------------------------------

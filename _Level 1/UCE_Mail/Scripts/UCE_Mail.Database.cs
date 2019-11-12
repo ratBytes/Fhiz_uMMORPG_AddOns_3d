@@ -20,8 +20,29 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+ 	// -----------------------------------------------------------------------------------
+    // Mail
     // -----------------------------------------------------------------------------------
-    //
+    public class mail
+    {
+        [PrimaryKey] // important for performance: O(log n) instead of O(n)
+        public int id { get; set; }
+        public string messageFrom { get; set; }
+        public string messageTo { get; set; }
+        public string subject { get; set; }
+        public string body { get; set; }
+        public long sent { get; set; }
+        public long expires { get; set; }
+        public int read { get; set; }
+        public int deleted { get; set; }
+        public string item { get; set; }
+    }
+#endif
+    
+    // -----------------------------------------------------------------------------------
+    // Connect_Mail
     // -----------------------------------------------------------------------------------
     [DevExtMethods("Connect")]
     private void Connect_Mail()

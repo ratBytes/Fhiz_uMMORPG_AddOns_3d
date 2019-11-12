@@ -21,6 +21,18 @@ public partial class Database
 {
     protected long accountCount = -1;
 
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // Account Admin
+    // -----------------------------------------------------------------------------------
+    class account_admin
+    {
+        [PrimaryKey] // important for performance: O(log n) instead of O(n)
+        public string account { get; set; }
+        public int admin { get; set; }
+    }
+#endif
+
     // -----------------------------------------------------------------------------------
     // Connect_UCE_Administration
     // -----------------------------------------------------------------------------------

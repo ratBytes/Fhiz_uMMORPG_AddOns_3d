@@ -25,6 +25,27 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // Character Scene
+    // -----------------------------------------------------------------------------------
+    class character_scene
+    {
+        [PrimaryKey] // important for performance: O(log n) instead of O(n)
+        public string character { get; set; }
+        public string scene { get; set; }
+    }
+
+    // -----------------------------------------------------------------------------------
+    // Zones Online
+    // -----------------------------------------------------------------------------------
+    class zones_online
+    {
+        public string online { get; set; }
+    }
+#endif
+    
     // -----------------------------------------------------------------------------------
     // Connect_UCE_NetworkZone
     // -----------------------------------------------------------------------------------

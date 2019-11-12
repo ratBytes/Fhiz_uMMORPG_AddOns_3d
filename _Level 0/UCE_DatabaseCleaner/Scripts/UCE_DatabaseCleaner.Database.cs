@@ -22,6 +22,19 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+ 	// -----------------------------------------------------------------------------------
+    // Account Last Online
+    // -----------------------------------------------------------------------------------
+    class account_lastonline
+    {
+        [PrimaryKey] // important for performance: O(log n) instead of O(n)
+        public string account { get; set; }
+        public string lastOnline { get; set; }
+    }
+#endif
+
     // -----------------------------------------------------------------------------------
     // Connect_UCE_DatabaseCleaner
     // -----------------------------------------------------------------------------------

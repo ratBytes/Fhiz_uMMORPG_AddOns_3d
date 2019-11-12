@@ -19,6 +19,18 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // Account Unlocked Classes
+    // -----------------------------------------------------------------------------------
+    class account_unlockedclasses
+    {
+        public string account { get; set; }
+        public string classname { get; set; }
+    }
+#endif
+
     // -----------------------------------------------------------------------------------
     // Connect_UCE_UnlockableClasses
     // -----------------------------------------------------------------------------------

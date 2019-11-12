@@ -18,6 +18,20 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // Character Factions
+    // -----------------------------------------------------------------------------------
+    class character_factions
+    {
+        public string character { get; set; }
+        public string faction { get; set; }
+        public int rating { get; set; }
+    }
+
+#endif
+
     // -----------------------------------------------------------------------------------
     // Connect_UCE_Factions
     // -----------------------------------------------------------------------------------

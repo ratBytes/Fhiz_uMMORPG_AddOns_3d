@@ -18,6 +18,19 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // UCE Guild Upgrades
+    // -----------------------------------------------------------------------------------
+    class UCE_guild_upgrades
+    {
+        [PrimaryKey] // important for performance: O(log n) instead of O(n)
+        public string guild { get; set; }
+        public int level { get; set; }
+    }
+#endif
+
     // -----------------------------------------------------------------------------------
     // Connect_UCE_GuildUpgrades
     // -----------------------------------------------------------------------------------

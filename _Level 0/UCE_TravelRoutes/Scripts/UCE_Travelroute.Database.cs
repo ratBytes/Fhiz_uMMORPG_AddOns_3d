@@ -18,6 +18,18 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // Character Travel Routes
+    // -----------------------------------------------------------------------------------
+    class character_travelroutes
+    {
+        public string character { get; set; }
+        public string travelroute { get; set; }
+    }
+#endif
+
     // -----------------------------------------------------------------------------------
     // Connect_UCE_Travelroutes
     // -----------------------------------------------------------------------------------

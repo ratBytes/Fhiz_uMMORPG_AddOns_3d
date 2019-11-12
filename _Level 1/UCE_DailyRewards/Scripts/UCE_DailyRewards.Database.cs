@@ -19,6 +19,30 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // Character Last Online
+    // -----------------------------------------------------------------------------------
+    class character_lastonline
+    {
+        [PrimaryKey] // important for performance: O(log n) instead of O(n)
+        public string character { get; set; }
+        public string lastOnline { get; set; }
+    }
+
+    // -----------------------------------------------------------------------------------
+    // Character Daily Rewards
+    // -----------------------------------------------------------------------------------
+    class character_dailyrewards
+    {
+        [PrimaryKey] // important for performance: O(log n) instead of O(n)
+        public string character { get; set; }
+        public int counter { get; set; }
+        public double resetTime { get; set; }
+    }
+#endif
+
     // -----------------------------------------------------------------------------------
     // Connect_UCE_DailyRewards
     // -----------------------------------------------------------------------------------

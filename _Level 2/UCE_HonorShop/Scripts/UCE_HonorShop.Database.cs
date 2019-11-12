@@ -17,6 +17,20 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // Character Currencies
+    // -----------------------------------------------------------------------------------
+    class character_currencies
+    {
+        public string character { get; set; }
+        public string currency { get; set; }
+        public long amount { get; set; }
+        public long total { get; set; }
+    }
+#endif
+
     // -----------------------------------------------------------------------------------
     // Connect_UCE_HonorShop
     // -----------------------------------------------------------------------------------

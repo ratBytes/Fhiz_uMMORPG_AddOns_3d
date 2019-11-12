@@ -17,6 +17,19 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // Character Pvp Zones
+    // -----------------------------------------------------------------------------------
+    class character_pvpzones
+    {
+        public string character { get; set; }
+        public string realm { get; set; }
+        public string alliedrealm { get; set; }
+    }
+#endif
+
     // -----------------------------------------------------------------------------------
     // Connect_UCE_PVPZone
     // -----------------------------------------------------------------------------------

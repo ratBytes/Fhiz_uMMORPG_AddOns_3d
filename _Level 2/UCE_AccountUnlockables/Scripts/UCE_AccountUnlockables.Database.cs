@@ -19,6 +19,18 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+	// -----------------------------------------------------------------------------------
+    // Account Unlockables
+    // -----------------------------------------------------------------------------------
+    class account_unlockables
+    {
+        public string account { get; set; }
+        public string unlockable { get; set; }
+    }
+#endif
+
     // -----------------------------------------------------------------------------------
     // Connect_UCE_AccountUnlockables
     // -----------------------------------------------------------------------------------

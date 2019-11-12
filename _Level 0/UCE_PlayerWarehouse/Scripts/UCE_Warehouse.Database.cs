@@ -24,6 +24,34 @@ using SQLite;
 
 public partial class Database
 {
+
+#if _SQLITE && _SERVER
+    // -----------------------------------------------------------------------------------
+    // UCE Warehouse
+    // -----------------------------------------------------------------------------------
+    class uce_warehouse
+    {
+        [PrimaryKey] // important for performance: O(log n) instead of O(n)
+        public string character { get; set; }
+        public int gold { get; set; }
+        public int level { get; set; }
+    }
+
+    // -----------------------------------------------------------------------------------
+    // UCE Warehouse Items
+    // -----------------------------------------------------------------------------------
+    class uce_warehouse_items
+    {
+        public string character { get; set; }
+        public int slot { get; set; }
+        public string name { get; set; }
+        public int amount { get; set; }
+        public int summonedHealth { get; set; }
+        public int summonedLevel { get; set; }
+        public long summonedExperience { get; set; }
+    }
+#endif
+
     // -----------------------------------------------------------------------------------
     // Connect_UCE_Warehouse
     // -----------------------------------------------------------------------------------
