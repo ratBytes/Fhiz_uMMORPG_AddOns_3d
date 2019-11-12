@@ -50,7 +50,7 @@ public partial class NetworkManagerMMO : NetworkManager
 #if _MYSQL && _SERVER
 		long maxID = Convert.ToInt32(Database.singleton.ExecuteScalarMySql("SELECT IFNULL (id, 0) FROM (SELECT MAX(id)  AS id FROM mail) AS id"));
 #elif _SQLITE && _SERVER
-        var results = Database.singleton.connection.FindWithQuery<Database.mail>("SELECT IFNULL(id, 0) FROM (SELECT MAX(id) AS id FROM mail)");
+        var results = Database.singleton.UCE_connection.FindWithQuery<Database.mail>("SELECT IFNULL(id, 0) FROM (SELECT MAX(id) AS id FROM mail)");
         long maxID = results.id;
 #endif
 

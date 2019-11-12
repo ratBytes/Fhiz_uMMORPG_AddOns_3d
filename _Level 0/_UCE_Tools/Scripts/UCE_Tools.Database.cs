@@ -12,6 +12,17 @@ using SQLite;
 
 public partial class Database
 {
+
+	// -----------------------------------------------------------------------------------
+    // UCE_connection
+    // @ workaround because uMMORPGs default database connection is private.
+    // -----------------------------------------------------------------------------------
+	public SQLiteConnection UCE_connection {
+		get {
+			return connection;
+		}
+	}
+
     #region Custom Database Classes
 
 #if _SQLITE && _SERVER
