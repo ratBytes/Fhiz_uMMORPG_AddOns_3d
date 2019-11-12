@@ -1,6 +1,18 @@
 Introduction
 
+The "Asset Bundle Downloader" AddOn allows you to add, manage and update your game content
+(Art, Models, Textures, Sound, Music etc.) using the Unity Asset Bundles.
 
+First of all, make sure you know how Asset Bundles work:
+
+https://learn.unity.com/tutorial/assets-resources-and-assetbundles?_ga=2.236684993.1525409092.1573501000-332933643.1573501000
+
+Second, prepare your projects assets to support asset bundles (see link above).
+
+Now, download the free "Asset Bundle Magic" asset from Asset store and import it into
+your project.
+
+Check out the PDF that comes with "Asset Bundle Magic" for more details.
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
