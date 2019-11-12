@@ -42,10 +42,11 @@ public partial class UCE_UI_Quests : MonoBehaviour
     protected string[] cacheTooltip;
     protected float[] cacheTimer;
 
-    public UCE_UI_Quests()
+    // -----------------------------------------------------------------------------------
+    // Awake
+    // -----------------------------------------------------------------------------------
+    void Awake()
     {
-        // assign singleton only once (to work with DontDestroyOnLoad when
-        // using Zones / switching scenes)
         if (singleton == null) singleton = this;
     }
 
