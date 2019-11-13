@@ -6,30 +6,18 @@
 // * Pledge on Patreon for VIP AddOns...: https://www.patreon.com/IndieMMO
 // * Instructions.......................: https://indie-mmo.net/knowledge-base/
 // =======================================================================================
-using UnityEngine;
 using Mirror;
+using System;
+using UnityEngine;
 
-// ENTITY
+// UCE_Statistic
 
-public partial class Entity
+[Serializable]
+public partial struct UCE_Statistic
 {
-
-    protected int lastSkill = -1;
-
-    // -------------------------------------------------------------------------
-    // NextSkill
-    // -------------------------------------------------------------------------
-    protected int NextSkill()
-    {
-
-        for (int i = 0; i < skills.Count; ++i)
-        {
-            int index = (lastSkill + 1 + i) % skills.Count;
-            if (CastCheckSelf(skills[index]) && skills[index].UCE_CheckSkillConditions(this))
-                return index;
-
-        }
-        return -1;
-    }
-
+    public string name;
+    public long amount;
+    public long total;
 }
+
+public class SyncListUCE_Statistic : SyncList<UCE_Statistic> { }

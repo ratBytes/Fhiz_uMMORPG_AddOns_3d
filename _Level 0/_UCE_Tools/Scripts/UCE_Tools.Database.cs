@@ -17,12 +17,14 @@ public partial class Database
     // UCE_connection
     // @ workaround because uMMORPGs default database connection is private.
     // -----------------------------------------------------------------------------------
-#if _SQLITE && _SERVER
     public SQLiteConnection UCE_connection {
 		get {
-			return connection;
-		}
-	}
+#if _SQLITE && _SERVER
+        return connection;
+#else
+        return null;
 #endif
+		}
+    }
 
 }

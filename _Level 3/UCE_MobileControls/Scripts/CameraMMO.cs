@@ -6,9 +6,7 @@
 // * Pledge on Patreon for VIP AddOns...: https://www.patreon.com/IndieMMO
 // * Instructions.......................: https://indie-mmo.net/knowledge-base/
 // =======================================================================================
-// We developed a simple but useful MMORPG style camera. The player can zoom in
-// and out with the mouse wheel and rotate the camera around the hero by holding
-// down the right mouse button.
+
 using UnityEngine;
 
 public partial class CameraMMO : MonoBehaviour
@@ -27,14 +25,12 @@ public partial class CameraMMO : MonoBehaviour
     public float rotationSpeed = 2;
 
 #if _iMMOMOBILECONTROLS
-
     [Tooltip("[Optional] Manual rotation speed (via touch input)")]
     public float rotationSpeedTouch = 0.2f;
-
 #endif
 
     [Tooltip("[Optional] Automatic follow speed (0 to disable lerp)")]
-    public float autoFollowSpeed = 3;
+    public float autoFollowSpeed = 0;
 
     public float xMinAngle = -40;
     public float xMaxAngle = 80;

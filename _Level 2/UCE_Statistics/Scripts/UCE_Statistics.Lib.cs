@@ -6,30 +6,20 @@
 // * Pledge on Patreon for VIP AddOns...: https://www.patreon.com/IndieMMO
 // * Instructions.......................: https://indie-mmo.net/knowledge-base/
 // =======================================================================================
+#if UNITY_EDITOR
+
+using UnityEditor;
 using UnityEngine;
-using Mirror;
 
-// ENTITY
-
-public partial class Entity
+public partial class UCE_DefinesManager
 {
 
-    protected int lastSkill = -1;
-
-    // -------------------------------------------------------------------------
-    // NextSkill
-    // -------------------------------------------------------------------------
-    protected int NextSkill()
+    [DevExtMethods("Constructor")]
+    public static void Constructor_UCE_Statistics()
     {
-
-        for (int i = 0; i < skills.Count; ++i)
-        {
-            int index = (lastSkill + 1 + i) % skills.Count;
-            if (CastCheckSelf(skills[index]) && skills[index].UCE_CheckSkillConditions(this))
-                return index;
-
-        }
-        return -1;
+        defines.Add("_iMMOSTATISTICS");
     }
 
 }
+
+#endif
