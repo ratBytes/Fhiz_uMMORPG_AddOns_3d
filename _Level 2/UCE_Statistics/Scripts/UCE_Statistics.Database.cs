@@ -58,7 +58,7 @@ public partial class Database
 #if _MYSQL && _SERVER
 		var table = ExecuteReaderMySql("SELECT statistic, amount, total FROM character_statistics WHERE `character`=@name", new MySqlParameter("@name", player.name));
         foreach (var row in table)
-            player.GetComponent<UCE_PlayerStatistics>().AddStatistic(row[0], row[1], row[2]);
+            player.GetComponent<UCE_PlayerStatistics>().AddStatistic((string)row[0], (int)row[1], (int)row[2]);
 #elif _SQLITE && _SERVER
         var table = UCE_connection.Query<character_statistics>("SELECT statistic, amount, total FROM character_statistics WHERE character=?", player.name);
         foreach (var row in table)
