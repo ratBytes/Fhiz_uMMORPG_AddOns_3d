@@ -25,7 +25,7 @@ public partial struct Skill
        
        	bool bValid = CheckSelf(caster);
        
-        if (UnityEngine.Random.value > data.skillConditions.activationChance);
+        if (UnityEngine.Random.value > data.skillConditions.activationChance)
 			bValid = false;
 			
         if (data.skillConditions.healthThreshold == Monster.ParentThreshold.Above && (caster.health < caster.healthMax * data.skillConditions.casterHealth))
