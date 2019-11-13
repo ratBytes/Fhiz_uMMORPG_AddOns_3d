@@ -897,7 +897,9 @@ public partial class Player
 
             // -- Bonus: Traits
             int iTraitBonus = 0;
+#if _iMMOTRAITS
             iTraitBonus = UCE_Traits.Sum(trait => trait.staminaBonus);
+#endif
 
             // -- Bonus: Equipment Sets
             int iSetBonus = 0;
