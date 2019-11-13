@@ -106,6 +106,17 @@ public partial class NetworkManagerMMO : NetworkManager
 #if _iMMOPVP
                     player.UCE_setRealm(trait.changeRealm, trait.changeAlliedRealm);
 #endif
+					
+					// ------------ Recalculate all Maxes here again (in case of bonusses)
+					
+					player.health = player.healthMax;
+					player.mana = player.manaMax;
+#if _iMMOSTAMINA
+					player.stamina = player.staminaMax;
+#endif
+					
+					// ----------------------------------------------------------------------
+					
                 }
             }
         }
