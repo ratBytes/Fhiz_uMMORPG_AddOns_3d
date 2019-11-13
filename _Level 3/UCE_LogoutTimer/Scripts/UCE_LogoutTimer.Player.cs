@@ -39,7 +39,11 @@ public partial class Player
         else
         {
             _logoutTimer = 0;
-            UCE_UI_LogoutTimer_Popup.singleton.Hide();
+            
+            if (UCE_UI_LogoutTimer_Popup.singleton)
+            	UCE_UI_LogoutTimer_Popup.singleton.Hide();
+            else
+            	Debug.LogWarning("You forgot to add UCE_UI_LogoutTimer_Popup to your canvas!");
         }
 
         if (_logoutTimer > logoutKickTime)
