@@ -15,6 +15,8 @@ using SQLite;
 
 // DATABASE (SQLite / mySQL Hybrid)
 
+#if _iMMOSTATISTICS
+
 public partial class Database
 {
 
@@ -98,3 +100,5 @@ public partial class Database
 
     // -----------------------------------------------------------------------------------
 }
+
+#endif
