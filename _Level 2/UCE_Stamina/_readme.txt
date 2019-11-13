@@ -53,7 +53,9 @@ About line 693, add this line after
 "mana -= skill.manaCosts"
 in FinishCastSkill function:
 
+#if _iMMOSTAMINA
 stamina -= skill.staminaCosts;
+#endif
 
 ------------------------------------------------------------------------------------------
 ---- if you are using mySQL, skip the database changes below, we did already for you! ----
