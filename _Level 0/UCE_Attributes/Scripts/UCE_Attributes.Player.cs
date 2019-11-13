@@ -29,19 +29,37 @@ public partial class Player
 
     public SyncListUCE_Attribute UCE_Attributes = new SyncListUCE_Attribute();
 
+    // -----------------------------------------------------------------------------------
+    // OnServerCharacterCreate_UCE_Attributes
+    // -----------------------------------------------------------------------------------
+    [DevExtMethods("OnServerCharacterCreate")]
+    private void OnServerCharacterCreate_UCE_Attributes(Player player)
+    {
 
+        // -- this is to make sure the maximum value is calculated before loading to the player
 
-	// -----------------------------------------------------------------------------------
+        player.health   = player.healthMax;
+        player.mana     = player.manaMax;
+
+#if _iMMOSTAMINA
+        player.stamina  = player.staminaMax;
+#endif
+    }
+
+    // -----------------------------------------------------------------------------------
     // CharacterLoad_UCE_Attributes
     // -----------------------------------------------------------------------------------
     [DevExtMethods("CharacterLoad")]
     private void CharacterLoad_UCE_Attributes(Player player)
     {
-    	
-    	// -- this is to make sure the maximum value is calculated before loading stamina to the player
-    	
+
+        // -- this is to make sure the maximum value is calculated before loading to the player
+
+        int tmpHealth   = player.healthMax;
+        int tmpMana     = player.manaMax;
+
 #if _iMMOSTAMINA
-    	int tmpStamina = player.staminaMax;
+    	int tmpStamina  = player.staminaMax;
 #endif
     }
     
