@@ -29,6 +29,22 @@ public partial class Player
 
     public SyncListUCE_Attribute UCE_Attributes = new SyncListUCE_Attribute();
 
+
+
+	// -----------------------------------------------------------------------------------
+    // CharacterLoad_UCE_Attributes
+    // -----------------------------------------------------------------------------------
+    [DevExtMethods("CharacterLoad")]
+    private void CharacterLoad_UCE_Attributes(Player player)
+    {
+    	
+    	// -- this is to make sure the maximum value is calculated before loading stamina to the player
+    	
+#if _iMMOSTAMINA
+    	int tmpStamina = player.staminaMax;
+#endif
+    }
+    
     // ============================== ATTRIBUTE GETTERS ==================================
 
     // -----------------------------------------------------------------------------------
