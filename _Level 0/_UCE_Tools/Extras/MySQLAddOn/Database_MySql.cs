@@ -749,16 +749,16 @@ public partial class Database : MonoBehaviour
 #endif
                 LoadGuildOnDemand(player);
 
-                player.health           = health;
-                player.mana             = mana;
-#if _iMMOSTAMINA
-                player.stamina          = stamina;
-#endif
-
                 if (!isPreview)
                     ExecuteNonQueryMySql("UPDATE characters SET online=1, lastsaved=@lastsaved WHERE name=@name",new SqlParameter("@name", characterName), new SqlParameter("@lastsaved", DateTime.UtcNow));
 
                 Utils.InvokeMany(typeof(Database), this, "CharacterLoad_", player);
+
+                player.health = health;
+                player.mana = mana;
+#if _iMMOSTAMINA
+                player.stamina = stamina;
+#endif
 
                 return go;
             }
