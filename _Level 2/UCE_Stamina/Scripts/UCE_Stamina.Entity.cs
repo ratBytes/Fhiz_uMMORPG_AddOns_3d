@@ -14,7 +14,7 @@ public partial class Entity
     public bool _staminaRecovery = true;
     [SerializeField] protected LinearInt _staminaRecoveryRate = new LinearInt { baseValue = -1 };
     [SerializeField] protected LinearInt _staminaMax = new LinearInt { baseValue = 100 };
-    [SyncVar] int _stamina = 1;
+    [SyncVar] protected int _stamina = 1;
 
     // -----------------------------------------------------------------------------------
     // StaminaPercent
@@ -49,7 +49,7 @@ public partial class Entity
     // -----------------------------------------------------------------------------------
     // stamina
     // -----------------------------------------------------------------------------------
-    public int stamina
+    public virtual int stamina
     {
         get { return Mathf.Min(_stamina, staminaMax); } // min in case hp>hpmax after buff ends etc.
         set { _stamina = Mathf.Clamp(value, 0, staminaMax); }

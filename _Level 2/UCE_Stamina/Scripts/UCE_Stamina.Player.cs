@@ -19,7 +19,16 @@ public partial class Player
     public int maxExhaustedBuffLevel = 1;
 
     protected float _updateTimerStamina;
-
+    
+	// -----------------------------------------------------------------------------------
+    // stamina
+    // -----------------------------------------------------------------------------------
+    public override int stamina
+    {
+        get { return Mathf.Min(_stamina, staminaMax); } // min in case hp>hpmax after buff ends etc.
+        set { _stamina = Mathf.Clamp(value, 0, staminaMax); }
+    }
+    
     // -----------------------------------------------------------------------------------
     // Update_UCE_Stamina
     // @Server
