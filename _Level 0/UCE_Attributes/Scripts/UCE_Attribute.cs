@@ -128,6 +128,7 @@ public partial struct UCE_Attribute
         tip.Replace("{PERCENTABSORBMANAFACTOR}", (percentAbsorbManaFactor * 100).ToString("0.0"));
         tip.Replace("{FLATABSORBMANAFACTOR}", flatAbsorbManaFactor.ToString());
 
+        //this.InvokeInstanceDevExtMethods("ToolTip", tip);
         Utils.InvokeMany(typeof(UCE_Attribute), this, "ToolTip_", tip);
 
         return tip.ToString();

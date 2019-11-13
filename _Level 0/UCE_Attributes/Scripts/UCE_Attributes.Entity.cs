@@ -65,6 +65,7 @@ public partial class Entity
             if (damageDealt > 0)
             {
                 MutableWrapper<int> damageBonus = new MutableWrapper<int>(0);
+                //this.InvokeInstanceDevExtMethods("OnDealDamage", entity, element, damageDealt, damageBonus);
                 Utils.InvokeMany(typeof(Entity), this, "OnDealDamage_", entity, element, damageDealt, damageBonus);
                 damageDealt += damageBonus.Value;
             }
@@ -103,6 +104,7 @@ public partial class Entity
                 }
             }
 
+            //this.InvokeInstanceDevExtMethods("DealDamageAt", entity, amount, damageDealt, damageType);
             Utils.InvokeMany(typeof(Entity), this, "DealDamageAt_", entity, amount, damageDealt, damageType);
 
             entity.OnAggro(this);
