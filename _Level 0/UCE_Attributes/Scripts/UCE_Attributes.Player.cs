@@ -1119,7 +1119,7 @@ public partial class Player
             }
 
             total += flatBonus;
-            total += (int)Mathf.Round(_manaMax.Get(level) * pctBonus);
+            total += (int)Mathf.Round(_staminaMax.Get(level) * pctBonus);
         }
 
         return total;
