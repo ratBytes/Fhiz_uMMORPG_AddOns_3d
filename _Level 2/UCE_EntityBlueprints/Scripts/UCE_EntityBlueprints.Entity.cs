@@ -40,7 +40,7 @@ public partial class Entity
             bonusPerLevel   += blueprint.healthMax.bonusPerLevel;
         }
 
-        if (baseValue != 0 && bonusPerLevel != 0)
+        if (baseValue != 0)
             _healthMax = new LinearInt { baseValue = baseValue, bonusPerLevel = bonusPerLevel };
 
         // -------- 
