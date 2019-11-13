@@ -60,10 +60,10 @@ public class UCE_StatModifier
             return
                     (
 #if _iMMOATTRIBUTES
-                    UCE_AttributeModifiers.Length > 0 ||
+                    (UCE_AttributeModifiers != null && UCE_AttributeModifiers.Length > 0) ||
 #endif
 #if _iMMOELEMENTS
-                    elementalResistances.Length > 0 ||
+                    (elementalResistances != null && elementalResistances.Length > 0) ||
 #endif
 #if _iMMOATTRIBUTES
                     bonusBlockFactor != 0 ||
