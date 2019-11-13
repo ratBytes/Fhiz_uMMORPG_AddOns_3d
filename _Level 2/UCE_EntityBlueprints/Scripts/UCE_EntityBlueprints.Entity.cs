@@ -34,11 +34,14 @@ public partial class Entity
         // -------- Health
         foreach (UCE_TemplateEntityBlueprint blueprint in blueprints)
         {
+            if (!blueprint) continue;
+
             baseValue       += blueprint.healthMax.baseValue;
             bonusPerLevel   += blueprint.healthMax.bonusPerLevel;
         }
 
-        _healthMax = new LinearInt { baseValue = baseValue, bonusPerLevel = bonusPerLevel };
+        if (baseValue != 0 && bonusPerLevel != 0)
+            _healthMax = new LinearInt { baseValue = baseValue, bonusPerLevel = bonusPerLevel };
 
         // -------- 
 
