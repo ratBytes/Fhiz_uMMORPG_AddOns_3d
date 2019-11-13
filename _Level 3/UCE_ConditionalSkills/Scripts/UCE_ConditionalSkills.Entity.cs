@@ -25,7 +25,7 @@ public partial class Entity
         for (int i = 0; i < skills.Count; ++i)
         {
             int index = (lastSkill + 1 + i) % skills.Count;
-            if (skills[index].UCE_CheckSkillConditions(this))
+            if (CastCheckSelf(skills[index]) && skills[index].UCE_CheckSkillConditions(this))
                 return index;
 
         }
