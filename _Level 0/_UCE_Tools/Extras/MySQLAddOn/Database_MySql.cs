@@ -920,6 +920,9 @@ public partial class Database : MonoBehaviour
                 level = @level,
                 health = @health,
                 mana = @mana,
+#if _iMMOSTAMINA
+                stamina = @stamina,
+#endif
                 strength = @strength,
                 intelligence = @intelligence,
                 experience = @experience,
