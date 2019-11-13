@@ -23,14 +23,15 @@ public partial struct Skill
     public bool UCE_CheckSkillConditions(Entity caster)
     {
        
-        bool bValid = UnityEngine.Random.value <= data.skillConditions.activationChance;
+       	bool bValid = CheckSelf(caster);
+       
+        bValid = UnityEngine.Random.value <= data.skillConditions.activationChance;
 
         if (data.skillConditions.healthThreshold == Monster.ParentThreshold.Above && (caster.health < caster.healthMax * data.skillConditions.casterHealth))
             bValid = false;
 
         if (data.skillConditions.healthThreshold == Monster.ParentThreshold.Below && (caster.health > caster.healthMax * data.skillConditions.casterHealth))
             bValid = false;
-
 
 #if _iMMOMORALE
         if (data.skillConditions.moraleThreshold == Monster.ParentThreshold.Above && (caster.morale < caster.moraleMax * data.skillConditions.casterMorale))
