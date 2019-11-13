@@ -31,12 +31,12 @@ public partial class Database : MonoBehaviour
             {
                 MySqlConnectionStringBuilder connectionStringBuilder = new MySqlConnectionStringBuilder
                 {
-                    Server 			= string.IsNullOrWhiteSpace(((NetworkManagerMMO)NetworkManager.singleton).dbHost) 			? "127.0.0.1" 	: ((NetworkManagerMMO)NetworkManager.singleton).dbHost,
-                    Database 		= string.IsNullOrWhiteSpace(((NetworkManagerMMO)NetworkManager.singleton).dbName) 			? "database" 	: ((NetworkManagerMMO)NetworkManager.singleton).dbName,
-                    UserID 			= string.IsNullOrWhiteSpace(((NetworkManagerMMO)NetworkManager.singleton).dbUser) 			? "user" 		: ((NetworkManagerMMO)NetworkManager.singleton).dbUser,
-                    Password 		= string.IsNullOrWhiteSpace(((NetworkManagerMMO)NetworkManager.singleton).dbPassword) 		? "password" 	: ((NetworkManagerMMO)NetworkManager.singleton).dbPassword,
-                    Port 			= ((NetworkManagerMMO)NetworkManager.singleton).dbPort,
-                    CharacterSet 	= string.IsNullOrWhiteSpace(((NetworkManagerMMO)NetworkManager.singleton).dbCharacterSet) 	? "utf8mb4" 	: ((NetworkManagerMMO)NetworkManager.singleton).dbCharacterSet
+                    Server 			= string.IsNullOrWhiteSpace(dbHost) 			? "127.0.0.1" 	: dbHost,
+                    Database 		= string.IsNullOrWhiteSpace(dbName) 			? "database" 	: dbName,
+                    UserID 			= string.IsNullOrWhiteSpace(dbUser) 			? "user" 		: dbUser,
+                    Password 		= string.IsNullOrWhiteSpace(dbPassword) 		? "password" 	: dbPassword,
+                    Port 			= dbPort,
+                    CharacterSet 	= string.IsNullOrWhiteSpace(dbCharacterSet) 	? "utf8mb4" 	: dbCharacterSet
                 };
                 connectionString = connectionStringBuilder.ConnectionString;
             }
