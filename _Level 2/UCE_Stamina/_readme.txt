@@ -79,7 +79,17 @@ insert below
 this:
 player.stamina = stamina;
 
-2.3.4 CharacterSave
+2.3.4 CharacterLoad
+at the same spot, move all 3 lines:
+"player.health = row.health;"
+"player.mana = row.mana;"
+"player.stamina = row.stamina;"
+
+below this line:
+
+Utils.InvokeMany(typeof(Database), this, "CharacterLoad_", player);
+
+2.3.5 CharacterSave
 insert after @mana in the ExecuteNonQuery
 , @stamina
 and further below after @mana insert new line:
