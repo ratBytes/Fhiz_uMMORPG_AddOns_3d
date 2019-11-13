@@ -19,7 +19,7 @@ public partial class UCE_UI_CharacterTraits : MonoBehaviour
 
     public UCE_UI_CharacterCreation parentPanel;
     public Text traitPointsText;
-    public UCE_UI_TraitSlot slotPrefab;
+    public GameObject slotPrefab;
     public Transform content;
 
     protected List<UCE_TraitTemplate> traitPool;

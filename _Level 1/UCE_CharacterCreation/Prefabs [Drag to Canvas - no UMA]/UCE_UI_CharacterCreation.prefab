@@ -169,6 +169,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 1893876703667266}
+  centerPanel: {fileID: 0}
+  centerPanel2: {fileID: 0}
   traitsPanel: {fileID: 114185383814116520}
   classList:
   - button: {fileID: 114761005876481274}
@@ -180,12 +182,14 @@ MonoBehaviour:
   lookAtCamera: 0
   SpawnPoint: {fileID: 0}
   manager: {fileID: 0}
-  mainCamera: {fileID: 0}
-  creationCamera: {fileID: 0}
+  creationCameraLocation: {fileID: 0}
   nameInput: {fileID: 114690004054531914}
   createButton: {fileID: 114703735437518296}
   cancelButton: {fileID: 114747559376584374}
-  currentPlayer: {fileID: 0}
+  maleIndex: 0
+  femaleIndex: 0
+  maleClothingIndex: 0
+  femaleClothingIndex: 0
 --- !u!1 &1095099777028158
 GameObject:
   m_ObjectHideFlags: 0
@@ -1811,8 +1815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentPanel: {fileID: 114429127183885940}
   traitPointsText: {fileID: 114008329141144592}
-  slotPrefab: {fileID: 114528040033862932, guid: 4da61d3cab3e04cf582376f596e8b2bb,
-    type: 3}
+  slotPrefab: {fileID: 146432, guid: 4da61d3cab3e04cf582376f596e8b2bb, type: 3}
   content: {fileID: 224341207793508334}
   currentTraits: []
 --- !u!1 &1862580036705742

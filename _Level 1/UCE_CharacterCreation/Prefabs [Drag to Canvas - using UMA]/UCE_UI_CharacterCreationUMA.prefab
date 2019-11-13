@@ -874,8 +874,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentPanel: {fileID: 3090978709659253525}
   traitPointsText: {fileID: 3091401828666757489}
-  slotPrefab: {fileID: 114528040033862932, guid: 4da61d3cab3e04cf582376f596e8b2bb,
-    type: 3}
+  slotPrefab: {fileID: 146432, guid: 4da61d3cab3e04cf582376f596e8b2bb, type: 3}
   content: {fileID: 2913496145773429391}
   currentTraits: []
 --- !u!1 &3131490946260926639
