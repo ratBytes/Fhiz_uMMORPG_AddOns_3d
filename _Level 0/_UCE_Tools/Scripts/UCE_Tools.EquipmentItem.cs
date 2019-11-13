@@ -17,6 +17,7 @@ public partial class EquipmentItem
     public bool CanUnequip(Player player, int inventoryIndex, int equipmentIndex)
     {
         MutableWrapper<bool> bValid = new MutableWrapper<bool>(true);
+        //this.InvokeInstanceDevExtMethods("CanUnequip", player, inventoryIndex, equipmentIndex, bValid);
         Utils.InvokeMany(typeof(EquipmentItem), this, "CanUnequip_", player, inventoryIndex, equipmentIndex, bValid);
         return bValid.Value;
     }
@@ -27,6 +28,7 @@ public partial class EquipmentItem
     public bool CanUnequipClick(Player player, EquipmentItem item)
     {
         MutableWrapper<bool> bValid = new MutableWrapper<bool>(true);
+        //this.InvokeInstanceDevExtMethods("CanUnequipClick", player, item, bValid);
         Utils.InvokeMany(typeof(EquipmentItem), this, "CanUnequipClick_", player, item, bValid);
         return bValid.Value;
     }

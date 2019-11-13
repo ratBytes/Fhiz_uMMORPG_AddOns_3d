@@ -54,6 +54,7 @@ public partial class UCE_Mount : Summonable
         base.Awake();
 
         // addon system hooks
+        //this.InvokeInstanceDevExtMethods("Awake");
         Utils.InvokeMany(typeof(UCE_Mount), this, "Awake_");
     }
 
@@ -65,6 +66,7 @@ public partial class UCE_Mount : Summonable
             skills.Add(new Skill(template));
 
         // addon system hooks
+        //this.InvokeInstanceDevExtMethods("OnStartServer");
         Utils.InvokeMany(typeof(UCE_Mount), this, "OnStartServer_");
     }
 
@@ -76,6 +78,7 @@ public partial class UCE_Mount : Summonable
             nameOverlay.text = owner.name + "'s " + this.name;
 
         // addon system hooks
+        //this.InvokeInstanceDevExtMethods("Start");
         Utils.InvokeMany(typeof(UCE_Mount), this, "Start_");
     }
 
@@ -122,6 +125,7 @@ public partial class UCE_Mount : Summonable
         }
 
         // addon system hooks
+        //this.InvokeInstanceDevExtMethods("LateUpdate");
         Utils.InvokeMany(typeof(UCE_Mount), this, "LateUpdate_");
     }
 
@@ -136,6 +140,7 @@ public partial class UCE_Mount : Summonable
         }
 
         // addon system hooks
+        //this.InvokeInstanceDevExtMethods("OnDestroy");
         Utils.InvokeMany(typeof(UCE_Mount), this, "OnDestroy_");
     }
 
@@ -485,6 +490,7 @@ public partial class UCE_Mount : Summonable
         }
 
         // addon system hooks
+        //this.InvokeInstanceDevExtMethods("UpdateClient");
         Utils.InvokeMany(typeof(UCE_Mount), this, "UpdateClient_");
     }
 
@@ -518,6 +524,7 @@ public partial class UCE_Mount : Summonable
         SyncToOwnerItem();
 
         // addon system hooks
+        //this.InvokeInstanceDevExtMethods("OnDeath");
         Utils.InvokeMany(typeof(UCE_Mount), this, "OnDeath_");
     }
 
@@ -550,6 +557,7 @@ public partial class UCE_Mount : Summonable
         }
 
         // addon system hooks
+        //this.InvokeInstanceDevExtMethods("DealDamageAt", entity, amount, stunChance, stunTime);
         Utils.InvokeMany(typeof(UCE_Mount), this, "DealDamageAt_", entity, amount, stunChance, stunTime);
     }
 

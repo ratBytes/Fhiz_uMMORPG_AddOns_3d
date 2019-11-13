@@ -140,6 +140,7 @@ public partial class UCE_TargetHealSkill : HealSkill
 
             SpawnEffect(caster, caster.target);
 
+            //this.InvokeInstanceDevExtMethods("OnApply", caster, skillLevel);
             Utils.InvokeMany(typeof(ScriptableSkill), this, "OnApply_", caster, skillLevel);
         }
     }

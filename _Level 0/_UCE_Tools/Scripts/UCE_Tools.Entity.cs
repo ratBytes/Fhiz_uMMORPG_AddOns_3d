@@ -175,13 +175,23 @@ public partial class Entity
         entity.lastAggressor = this;
 
         if (entity is Player)
+        {
+            //this.InvokeInstanceDevExtMethods("OnDamageDealt", amount);
             Utils.InvokeMany(typeof(Player), entity, "OnDamageDealt_");
+        }
 
         if (entity is Monster)
-            Utils.InvokeMany(typeof(Monster), entity, "OnDamageDealt_", amount);
+        {
+            //this.InvokeInstanceDevExtMethods("OnDamageDealt", amount);
+            Utils.InvokeMany(typeof(Monster), entity, "OnDamageDealt_", amount); //only monster has amount parameter!
+        }
 
         if (entity is Pet)
+        {
+            //this.InvokeInstanceDevExtMethods("OnDamageDealt", amount);
             Utils.InvokeMany(typeof(Pet), entity, "OnDamageDealt_");
+        }
+
     }
 
     // -----------------------------------------------------------------------------------
@@ -201,13 +211,22 @@ public partial class Entity
         if (Time.time > _cacheTimer)
         {
             if (this is Player)
+            {
+                //this.InvokeInstanceDevExtMethods("Update");
                 Utils.InvokeMany(typeof(Player), this, "Update_");
+            }
 
             if (this is Monster)
+            {
+                //this.InvokeInstanceDevExtMethods("Update");
                 Utils.InvokeMany(typeof(Monster), this, "Update_");
+            }
 
             if (this is Pet)
+            {
+                //this.InvokeInstanceDevExtMethods("Update");
                 Utils.InvokeMany(typeof(Pet), this, "Update_");
+            }
 
             _cacheTimer = Time.time + cacheTimerInterval;
         }
@@ -226,16 +245,28 @@ public partial class Entity
         _lastAggressor = null;
 
         if (this is Player)
+        {
+            //this.InvokeInstanceDevExtMethods("Update");
             Utils.InvokeMany(typeof(Player), this, "Awake_");
+        }
 
         if (this is Monster)
+        {
+            //this.InvokeInstanceDevExtMethods("Update");
             Utils.InvokeMany(typeof(Monster), this, "Awake_");
+        }
 
-        if (this is Pet)
+        if (this is Pet) {
+            //this.InvokeInstanceDevExtMethods("Update");
             Utils.InvokeMany(typeof(Pet), this, "Awake_");
+        }
 
         if (this is Npc)
+        {
+            //this.InvokeInstanceDevExtMethods("Update");
             Utils.InvokeMany(typeof(Npc), this, "Awake_");
+        }
+
     }
 
     // -----------------------------------------------------------------------------------

@@ -51,6 +51,7 @@ public partial class Player
                     ++level;
 
                     // addon system hooks
+                    //this.InvokeInstanceDevExtMethods("OnLevelUp");
                     Utils.InvokeMany(typeof(Player), this, "OnLevelUp_");
                 }
 

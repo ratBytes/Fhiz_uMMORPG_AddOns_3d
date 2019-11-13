@@ -20,7 +20,7 @@ public partial class UCE_DefinesManager
 
     static UCE_DefinesManager()
     {
-        Utils.InvokeMany(typeof(UCE_DefinesManager), null, "Constructor_");
+        DevExtUtils.InvokeStaticDevExtMethods(typeof(UCE_DefinesManager), "Constructor");
 
         foreach (string define in defines)
             UCE_EditorTools.AddScriptingDefine(define);

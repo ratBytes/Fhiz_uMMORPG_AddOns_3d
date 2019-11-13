@@ -101,6 +101,7 @@ public partial struct UCE_Trait
         tip.Replace("{PERCENTCRITICAL}", percentCritical.ToString("0.0"));
 
         // addon system hooks
+        //this.InvokeInstanceDevExtMethods("ToolTip", tip);       
         Utils.InvokeMany(typeof(UCE_Attribute), this, "ToolTip_", tip);
 
         return tip.ToString();

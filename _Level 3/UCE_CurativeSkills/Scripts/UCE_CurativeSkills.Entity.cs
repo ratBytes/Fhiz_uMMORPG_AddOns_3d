@@ -56,6 +56,7 @@ public partial class Entity
         ShowHealingPopup(amount);
 
         // addon system hooks
+        //this.InvokeInstanceDevExtMethods("OnHealingReceived", amount);
         Utils.InvokeMany(typeof(Entity), this, "OnHealingReceived_", amount);
     }
 	

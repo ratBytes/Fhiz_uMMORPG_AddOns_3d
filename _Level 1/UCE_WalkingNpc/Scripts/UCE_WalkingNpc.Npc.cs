@@ -73,6 +73,7 @@ public partial class Npc
         }
 
         // addon system hooks
+        //this.InvokeInstanceDevExtMethods("LateUpdate"); 
         Utils.InvokeMany(typeof(Npc), this, "LateUpdate_");
     }
 
