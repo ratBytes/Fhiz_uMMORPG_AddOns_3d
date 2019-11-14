@@ -40,7 +40,7 @@ public partial class UCE_TemplateDefines : ScriptableObject
     {
 #if UNITY_EDITOR
      	
-     	if (defines.Count() <= 0)
+     	if (defines.Count() != UCE_DefinesManager.defines.Count())
         {
 
             // -- build list from defines
@@ -57,6 +57,8 @@ public partial class UCE_TemplateDefines : ScriptableObject
             // -- copy list to defines
             for (int i = 0; i < defines.Count(); ++i)
             {
+
+                if (UCE_DefinesManager.active[i] == defines[i].active) continue;
 
                 UCE_DefinesManager.active[i] = defines[i].active;
 

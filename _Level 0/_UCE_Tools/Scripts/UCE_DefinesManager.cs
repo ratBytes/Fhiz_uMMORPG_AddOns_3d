@@ -33,7 +33,7 @@ public partial class UCE_DefinesManager
         foreach (string define in defines)
         {
         	active.Add(true);
-            UCE_EditorTools.AddScriptingDefine(define);
+            //UCE_EditorTools.AddScriptingDefine(define);
 		}
 		
     }
