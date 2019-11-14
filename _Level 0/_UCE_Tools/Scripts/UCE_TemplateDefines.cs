@@ -16,7 +16,7 @@ using UnityEditor;
 
 // TemplateDefines
 
-[CreateAssetMenu(menuName = "UCE Other/UCE Defines", fileName = "New UCE Defines", order = 999)]
+[CreateAssetMenu(menuName = "UCE Other/UCE Defines", fileName = "UCE_Defines", order = 999)]
 public partial class UCE_TemplateDefines : ScriptableObject
 {
 	
@@ -24,33 +24,51 @@ public partial class UCE_TemplateDefines : ScriptableObject
 
 	[SerializeField]
 	public List<UCE_DefinesAddOn> defines = new List<UCE_DefinesAddOn>();
-	
+
 	[Serializable]
 	public partial class UCE_DefinesAddOn
 	{
-		public string name;
+		[HideInInspector]public string name;
 		public bool active;
 	}
    	
     // -----------------------------------------------------------------------------------
     // OnValidate
     // -----------------------------------------------------------------------------------
-    public void OnValidate()
+
+    void OnValidate()
     {
 #if UNITY_EDITOR
      	
-     	// save first?
-     	
-     	defines.Clear();
-     	
-     	for (int i = 0; i < UCE_DefinesManager.defines.Count(); ++i)
-     	{
-     		UCE_DefinesAddOn addon 	= new UCE_DefinesAddOn();
-     		addon.name 				= UCE_DefinesManager.defines[i];
-     		addon.active 			= UCE_DefinesManager.active[i];
-     		defines.Add(addon);
-     	}
-     	
+     	if (defines.Count() <= 0)
+        {
+
+            // -- build list from defines
+            for(int i = 0; i < UCE_DefinesManager.defines.Count(); ++i)
+            {
+                UCE_DefinesAddOn addon = new UCE_DefinesAddOn();
+                addon.name = UCE_DefinesManager.defines[i];
+                addon.active = UCE_DefinesManager.active[i];
+                defines.Add(addon);
+            }
+
+        } else {
+
+            // -- copy list to defines
+            for (int i = 0; i < defines.Count(); ++i)
+            {
+
+                UCE_DefinesManager.active[i] = defines[i].active;
+
+                if (!defines[i].active)
+                    UCE_EditorTools.RemoveScriptingDefine(defines[i].name);
+                else
+                    UCE_EditorTools.AddScriptingDefine(defines[i].name);
+
+            }
+
+        }
+             	
 #endif
     }
 

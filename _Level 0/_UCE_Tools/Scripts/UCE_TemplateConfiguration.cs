@@ -12,7 +12,7 @@ using System.Linq;
 
 // TemplateConfiguration
 
-[CreateAssetMenu(menuName = "UCE Other/UCE Configuration", fileName = "New UCE Configuration", order = 999)]
+[CreateAssetMenu(menuName = "UCE Other/UCE Configuration", fileName = "UCE_Configuration", order = 999)]
 public partial class UCE_TemplateConfiguration : ScriptableObject
 {
 

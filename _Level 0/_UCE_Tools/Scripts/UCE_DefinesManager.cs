@@ -8,6 +8,7 @@
 // =======================================================================================
 #if UNITY_EDITOR
 
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -20,10 +21,10 @@ public partial class UCE_DefinesManager
 
     public static List<string> defines = new List<string>();
 	public static List<bool> active = new List<bool>();
-	
-	// -----------------------------------------------------------------------------------
-	// UCE_DefinesManager
-	// -----------------------------------------------------------------------------------
+
+    // -----------------------------------------------------------------------------------
+    // UCE_DefinesManager
+    // -----------------------------------------------------------------------------------
     static UCE_DefinesManager()
     {
     
