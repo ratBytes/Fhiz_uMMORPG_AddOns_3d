@@ -58,7 +58,7 @@ public partial class Database
         foreach (var row in table)
         {
 #if _MYSQL
-            UCE_TraitTemplate tmpl = UCE_TraitTemplate.dict[((string)row[0]).GetStableHashCode()];
+            UCE_TraitTemplate tmpl = UCE_TraitTemplate.dict[((string)row[0]).GetDeterministicHashCode()];
             player.UCE_Traits.Add(new UCE_Trait(tmpl));
 #elif _SQLITE
             UCE_TraitTemplate tmpl = UCE_TraitTemplate.dict[row.name.GetStableHashCode()];

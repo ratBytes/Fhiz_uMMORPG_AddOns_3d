@@ -25,13 +25,13 @@ public partial struct UCE_Trait
     // does the template still exist?
     public bool TemplateExists()
     {
-        return UCE_TraitTemplate.dict.ContainsKey(name.GetStableHashCode());
+        return UCE_TraitTemplate.dict.ContainsKey(name.GetDeterministicHashCode());
     }
 
     // attribute property access
     public UCE_TraitTemplate data
     {
-        get { return UCE_TraitTemplate.dict[name.GetStableHashCode()]; }
+        get { return UCE_TraitTemplate.dict[name.GetDeterministicHashCode()]; }
     }
 
     // --------------------------------- STAT MODIFIERS ----------------------------------
