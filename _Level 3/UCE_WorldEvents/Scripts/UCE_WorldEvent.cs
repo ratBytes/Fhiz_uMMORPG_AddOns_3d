@@ -72,7 +72,7 @@ public partial struct UCE_WorldEvent
     // -----------------------------------------------------------------------------------
     public UCE_WorldEventTemplate template
     {
-        get { return UCE_WorldEventTemplate.dict[name.GetStableHashCode()]; }
+        get { return UCE_WorldEventTemplate.dict[name.GetDeterministicHashCode()]; }
     }
 
     // -----------------------------------------------------------------------------------
