@@ -186,7 +186,7 @@ public partial class UCE_UI_CharacterCreation : MonoBehaviour
 
         for (int i = 0; i < traitsPanel.currentTraits.Count; i++)
         {
-            iTraits[i] = traitsPanel.currentTraits[i].name.GetStableHashCode();
+            iTraits[i] = traitsPanel.currentTraits[i].name.GetDeterministicHashCode();
         }
 
         CharacterCreateMsg message = new CharacterCreateMsg
