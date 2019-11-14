@@ -13,9 +13,6 @@ using UnityEngine;
 public partial class NetworkManagerMMO
 {
 
-    [Header("Configuration")]
-    public UCE_TemplateConfiguration configTemplate;
-
     // -----------------------------------------------------------------------------------
     // Start_UCE_Tools
     // -----------------------------------------------------------------------------------
