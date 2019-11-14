@@ -61,7 +61,7 @@ public partial class Database
             UCE_TraitTemplate tmpl = UCE_TraitTemplate.dict[((string)row[0]).GetDeterministicHashCode()];
             player.UCE_Traits.Add(new UCE_Trait(tmpl));
 #elif _SQLITE
-            UCE_TraitTemplate tmpl = UCE_TraitTemplate.dict[row.name.GetStableHashCode()];
+            UCE_TraitTemplate tmpl = UCE_TraitTemplate.dict[row.name.GetDeterministicHashCode()];
             player.UCE_Traits.Add(new UCE_Trait(tmpl));
 #endif
         }
