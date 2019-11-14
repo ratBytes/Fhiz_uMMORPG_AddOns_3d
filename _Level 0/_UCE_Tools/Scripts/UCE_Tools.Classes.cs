@@ -21,6 +21,10 @@ public partial class UCE_ScripableObjectEntry
 {
     public ScriptableObject scriptableObject;
     public string folderName;
+#if _iMMOASSETBUNDLEMANAGER
+    public string bundleName;
+    public bool loadFromAssetBundle;
+#endif
 }
 
 // MUTABLE WRAPPER

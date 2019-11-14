@@ -14,8 +14,8 @@ using Mirror;
 [System.Serializable]
 public partial struct UCE_Attribute
 {
-    public string name;				// name used to reference the database entry (cant save template directly because synclist only support simple types)
-    public int points;				// dynamic stats
+    public string name;
+    public int points;
 
     // constructor
     public UCE_Attribute(UCE_AttributeTemplate template)
@@ -27,13 +27,13 @@ public partial struct UCE_Attribute
     // does the template still exist?
     public bool TemplateExists()
     {
-        return UCE_AttributeTemplate.dict.ContainsKey(name.GetStableHashCode());
+        return UCE_AttributeTemplate.dict.ContainsKey(name.GetDeterministicHashCode());
     }
 
     // attribute property access
     public UCE_AttributeTemplate template
     {
-        get { return UCE_AttributeTemplate.dict[name.GetStableHashCode()]; }
+        get { return UCE_AttributeTemplate.dict[name.GetDeterministicHashCode()]; }
     }
 
     public float    percentHealth                   { get { return template.percentHealth; } }

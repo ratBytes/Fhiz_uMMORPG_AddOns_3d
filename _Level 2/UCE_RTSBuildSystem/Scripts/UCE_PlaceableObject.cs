@@ -40,7 +40,7 @@ public partial class UCE_PlaceableObject : NetworkBehaviour
             if (_id == 0)
             {
                 string sId = ownerCharacter + ownerGuild + itemName + transform.position.x.ToString() + transform.position.y.ToString() + transform.position.z.ToString();
-                _id = UCE_Tools.GetDeterministicHashCode(sId);
+                _id = sId.GetDeterministicHashCode();
             }
             return _id;
         }

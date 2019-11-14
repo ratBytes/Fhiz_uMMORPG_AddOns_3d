@@ -9,6 +9,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+#if _iMMOASSETBUNDLEMANAGER
+using Jacovone.AssetBundleMagic;
+#endif
 
 // UCE ATTRIBUTE
 
@@ -140,16 +143,30 @@ public partial class UCE_AttributeTemplate : ScriptableObject
     // -----------------------------------------------------------------------------------
     // Caching
     // -----------------------------------------------------------------------------------
-    private static Dictionary<int, UCE_AttributeTemplate> cache;
+    private static Dictionary<int, UCE_AttributeTemplate> _cache;
 
     public static Dictionary<int, UCE_AttributeTemplate> dict
     {
         get
         {
-            return cache ?? (cache = Resources.LoadAll<UCE_AttributeTemplate>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_AttributeTemplate))).ToDictionary(
-                x => x.name.GetStableHashCode(), x => x)
-            );
+            if (_cache == null) {
+                UCE_ScripableObjectEntry entry = UCE_TemplateConfiguration.singleton.GetEntry(typeof(UCE_AttributeTemplate));
+                string folderName = entry != null ? entry.folderName : "";
+#if _iMMOASSETBUNDLEMANAGER
+                if (entry != null && entry.loadFromAssetBundle)
+                    _cache = AssetBundleMagic.LoadBundle(entry.bundleName).LoadAllAssets<UCE_AttributeTemplate>().ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+                else
+                    _cache = Resources.LoadAll<UCE_AttributeTemplate>(folderName).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#else
+                _cache = Resources.LoadAll<UCE_AttributeTemplate>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_AttributeTemplate))).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#endif
+            }
+
+            return _cache;
+
         }
     }
+
+    // -----------------------------------------------------------------------------------
 
 }

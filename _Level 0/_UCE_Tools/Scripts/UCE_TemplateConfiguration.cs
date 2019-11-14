@@ -66,6 +66,20 @@ public partial class UCE_TemplateConfiguration : ScriptableObject
     }
 
     // -----------------------------------------------------------------------------------
+    // GetEntry
+    // -----------------------------------------------------------------------------------
+    public UCE_ScripableObjectEntry GetEntry(Type type)
+    {
+        foreach (UCE_ScripableObjectEntry entry in scriptableObjects)
+        {
+            if (entry.scriptableObject.GetType() == type)
+                return entry;
+        }
+
+        return null;
+    }
+
+    // -----------------------------------------------------------------------------------
     // GetTemplatePath
     // -----------------------------------------------------------------------------------
     public string GetTemplatePath(Type type)
@@ -77,6 +91,34 @@ public partial class UCE_TemplateConfiguration : ScriptableObject
         }
 
         return "";
+    }
+
+    // -----------------------------------------------------------------------------------
+    // GetBundlePath
+    // -----------------------------------------------------------------------------------
+    public string GetBundlePath(Type type)
+    {
+        foreach (UCE_ScripableObjectEntry entry in scriptableObjects)
+        {
+            if (entry.scriptableObject.GetType() == type)
+                return entry.bundleName;
+        }
+
+        return "";
+    }
+
+    // -----------------------------------------------------------------------------------
+    // GetLoadFromBundle
+    // -----------------------------------------------------------------------------------
+    public bool GetLoadFromBundle(Type type)
+    {
+        foreach (UCE_ScripableObjectEntry entry in scriptableObjects)
+        {
+            if (entry.scriptableObject.GetType() == type)
+                return entry.loadFromAssetBundle;
+        }
+
+        return false;
     }
 
     // -----------------------------------------------------------------------------------
