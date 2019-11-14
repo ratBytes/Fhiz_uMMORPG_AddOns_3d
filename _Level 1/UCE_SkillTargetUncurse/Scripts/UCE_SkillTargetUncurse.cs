@@ -8,8 +8,6 @@
 // =======================================================================================
 using UnityEngine;
 
-#if _iMMOTOOLS
-
 // SKILL TARGET UNCURSE
 
 [CreateAssetMenu(menuName = "UCE Skills/UCE Skill Target Uncurse", order = 999)]
@@ -111,5 +109,3 @@ public class UCE_SkillTargetUncurse : HealSkill
 
     // -----------------------------------------------------------------------------------
 }
-
-#endif
