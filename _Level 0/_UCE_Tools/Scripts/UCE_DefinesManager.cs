@@ -19,23 +19,14 @@ using UnityEngine;
 public partial class UCE_DefinesManager
 {
 
-    public static List<string> defines = new List<string>();
-	public static List<bool> active = new List<bool>();
+    public static List<UCE_AddOn> addons = new List<UCE_AddOn>();
 
     // -----------------------------------------------------------------------------------
     // UCE_DefinesManager
     // -----------------------------------------------------------------------------------
     static UCE_DefinesManager()
     {
-    
         DevExtUtils.InvokeStaticDevExtMethods(typeof(UCE_DefinesManager), "Constructor");
-
-        foreach (string define in defines)
-        {
-        	active.Add(true);
-            //UCE_EditorTools.AddScriptingDefine(define);
-		}
-		
     }
 	
 	// -----------------------------------------------------------------------------------

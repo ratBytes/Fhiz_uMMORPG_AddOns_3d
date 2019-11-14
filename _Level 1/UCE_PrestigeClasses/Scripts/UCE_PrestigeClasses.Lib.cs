@@ -17,7 +17,19 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_PrestigeClasses()
     {
-        defines.Add("_iMMOPRESTIGECLASSES");
+        
+        UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE PrestigeClasses";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOPRESTIGECLASSES";
+        addon.author        = "Fhiz";
+        addon.version       = "2019.202";
+        addon.dependencies  = "none";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
     }
 
 }

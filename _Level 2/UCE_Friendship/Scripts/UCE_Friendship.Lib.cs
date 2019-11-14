@@ -17,7 +17,18 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_Friendship()
     {
-        defines.Add("_iMMOFRIENDS");
+         UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE Friendship";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOFRIENDS";
+        addon.author        = "Fhiz";
+        addon.version       = "2019.202";
+        addon.dependencies  = "none";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
     }
 
 }

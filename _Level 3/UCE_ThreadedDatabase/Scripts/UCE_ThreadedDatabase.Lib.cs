@@ -17,7 +17,19 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_ThreadedDatabase()
     {
-        defines.Add("_iMMOTHREADDB");
+        
+        UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE Threaded Database";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOTHREADDB";
+        addon.author        = "Fhiz";
+        addon.version       = "2019.202";
+        addon.dependencies  = "none";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
     }
 
 }

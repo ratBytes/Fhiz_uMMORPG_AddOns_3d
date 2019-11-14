@@ -17,8 +17,22 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_Tools()
     {
-        defines.Add("_iMMOTOOLS");
-        //defines.Add("_SQLITE");
+
+        UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE Tools";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOTOOLS";
+        addon.author        = "Fhiz";
+        addon.version       = "2019.206";
+        addon.dependencies  = "none";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
+
+        UCE_EditorTools.AddScriptingDefine(addon.define); // mandatory
+
     }
 
 }

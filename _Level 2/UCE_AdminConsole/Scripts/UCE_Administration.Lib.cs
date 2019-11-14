@@ -17,7 +17,19 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_Administration()
     {
-        defines.Add("_iMMOADMINCONSOLE");
+        
+        UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE AdminConsole";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOADMINCONSOLE";
+        addon.author        = "Fhiz";
+        addon.version       = "2019.203";
+        addon.dependencies  = "none";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
     }
 
 }

@@ -17,7 +17,18 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_Help()
     {
-        defines.Add("_iMMOHELP");
+         UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE Help";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOHELP";
+        addon.author        = "Obscured Crow";
+        addon.version       = "2019.202";
+        addon.dependencies  = "none";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
     }
 
 }

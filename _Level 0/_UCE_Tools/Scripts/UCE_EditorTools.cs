@@ -8,8 +8,37 @@
 // =======================================================================================
 #if UNITY_EDITOR
 
+using System;
 using UnityEditor;
 using UnityEngine;
+
+// UCE ADDON
+
+[Serializable]
+public partial class UCE_AddOn
+{
+    [HideInInspector] public string name;
+    [HideInInspector] public string define;
+    public string basis;
+    public string author;
+    public string version;
+    public string dependencies;
+    [TextArea(1, 30)]public string comments;
+    public bool active;
+
+    public void Copy(UCE_AddOn addon)
+    {
+        name            = addon.name;
+        define          = addon.define;
+        basis           = addon.basis;
+        author          = addon.author;
+        version         = addon.version;
+        dependencies    = addon.dependencies;
+        comments        = addon.comments;
+        active          = addon.active;
+    }
+
+}
 
 // UCE EDITOR TOOLS
 

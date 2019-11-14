@@ -17,7 +17,19 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_UsageRequirements()
     {
-        defines.Add("_iMMOUSAGEREQUIREMENTS");
+       
+        UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE Usage Requirements";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOUSAGEREQUIREMENTS";
+        addon.author        = "Fhiz";
+        addon.version       = "2019.201";
+        addon.dependencies  = "none";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
     }
 
 }

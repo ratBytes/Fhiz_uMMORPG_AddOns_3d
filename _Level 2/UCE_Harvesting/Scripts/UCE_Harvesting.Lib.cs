@@ -17,7 +17,18 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_Harvesting()
     {
-        defines.Add("_iMMOHARVESTING");
+         UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE Harvesting";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOHARVESTING";
+        addon.author        = "Fhiz";
+        addon.version       = "2019.204";
+        addon.dependencies  = "none";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
     }
 
 }

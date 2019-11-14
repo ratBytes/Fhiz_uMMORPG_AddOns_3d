@@ -17,7 +17,18 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_Lootcrate()
     {
-        defines.Add("_iMMOCHEST");
+         UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE Lootcrate";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOCHEST";
+        addon.author        = "Fhiz";
+        addon.version       = "2019.201";
+        addon.dependencies  = "none";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
     }
 
 }

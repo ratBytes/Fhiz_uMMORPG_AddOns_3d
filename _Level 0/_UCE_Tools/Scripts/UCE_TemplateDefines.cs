@@ -19,62 +19,57 @@ using UnityEditor;
 [CreateAssetMenu(menuName = "UCE Other/UCE Defines", fileName = "UCE_Defines", order = 999)]
 public partial class UCE_TemplateDefines : ScriptableObject
 {
-	
-	static UCE_TemplateDefines _instance;
 
-	[SerializeField]
-	public List<UCE_DefinesAddOn> defines = new List<UCE_DefinesAddOn>();
+    static UCE_TemplateDefines _instance;
 
-	[Serializable]
-	public partial class UCE_DefinesAddOn
-	{
-		[HideInInspector]public string name;
-		public bool active;
-	}
-   	
+    [SerializeField]
+    public List<UCE_AddOn> addons = new List<UCE_AddOn>();
+
     // -----------------------------------------------------------------------------------
     // OnValidate
     // -----------------------------------------------------------------------------------
     void OnValidate()
     {
 #if UNITY_EDITOR
-     	
-     	if (UCE_DefinesManager.defines.Count() > 0 && defines.Count() != UCE_DefinesManager.defines.Count()-1 )
+
+        if (UCE_DefinesManager.addons.Count() > 0 && addons.Count() != UCE_DefinesManager.addons.Count() - 1)
         {
 
-            defines.Clear();
+            addons.Clear();
 
-            // -- build list from defines
-            for(int i = 0; i < UCE_DefinesManager.defines.Count(); ++i)
-            {
-                if (UCE_DefinesManager.defines[i] == "_iMMOTOOLS" || UCE_DefinesManager.defines[i] == "_iMMOCORE") continue;
-
-                UCE_DefinesAddOn addon = new UCE_DefinesAddOn();
-                addon.name = UCE_DefinesManager.defines[i];
-                addon.active = UCE_DefinesManager.active[i];
-                defines.Add(addon);
-            }
-
-        } else {
-
-            // -- copy list to defines
-            for (int i = 0; i < defines.Count(); ++i)
+            for (int i = 0; i < UCE_DefinesManager.addons.Count(); ++i)
             {
 
-                if (UCE_DefinesManager.active[i] == defines[i].active) continue;
+                UCE_AddOn addon = new UCE_AddOn();
+                addon.Copy(UCE_DefinesManager.addons[i]);
 
-                UCE_DefinesManager.active[i] = defines[i].active;
-
-                if (!defines[i].active)
-                    UCE_EditorTools.RemoveScriptingDefine(defines[i].name);
+                if (addon.define != "_iMMOTOOLS" && addon.define != "_iMMOCORE")
+                    addons.Add(addon);
                 else
-                    UCE_EditorTools.AddScriptingDefine(defines[i].name);
-
+                    UCE_EditorTools.AddScriptingDefine(addon.define);
             }
 
         }
-             	
+
+        UpdateDefines();
+
 #endif
+    }
+
+    // -----------------------------------------------------------------------------------
+    // UpdateDefines
+    // -----------------------------------------------------------------------------------
+    public void UpdateDefines()
+    {
+        for (int i = 0; i < addons.Count(); ++i)
+        {
+            if (addons[i].define == "_iMMOTOOLS" && addons[i].define == "_iMMOCORE") continue;
+
+            if (!addons[i].active)
+                UCE_EditorTools.RemoveScriptingDefine(addons[i].define);
+            else
+                UCE_EditorTools.AddScriptingDefine(addons[i].define);
+        }
     }
 
     // -----------------------------------------------------------------------------------
@@ -90,6 +85,6 @@ public partial class UCE_TemplateDefines : ScriptableObject
         }
     }
 
-
     // -----------------------------------------------------------------------------------
+
 }

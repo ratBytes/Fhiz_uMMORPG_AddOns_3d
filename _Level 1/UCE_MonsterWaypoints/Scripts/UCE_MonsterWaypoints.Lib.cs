@@ -17,7 +17,18 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_MonsterWaypoints()
     {
-        defines.Add("_iMMOMONSTERWAYPOINTS");
+         UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE MonsterWaypoints";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOMONSTERWAYPOINTS";
+        addon.author        = "Fhiz";
+        addon.version       = "2019.201";
+        addon.dependencies  = "none";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
     }
 
 }

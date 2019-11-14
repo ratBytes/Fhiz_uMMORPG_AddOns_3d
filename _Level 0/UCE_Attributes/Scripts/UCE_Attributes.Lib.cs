@@ -17,7 +17,20 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_Attributes()
     {
-        defines.Add("_iMMOATTRIBUTES");
+        
+        UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE Attributes";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOATTRIBUTES";
+        addon.author        = "Fhiz (Original by Iamallama)";
+        addon.version       = "2019.204";
+        addon.dependencies  = "none";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
+        
     }
 
 }

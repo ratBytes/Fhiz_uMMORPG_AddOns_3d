@@ -17,7 +17,19 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_UmaIntegration()
     {
-        defines.Add("_iMMOUMA");
+        
+        UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE UMA Integration";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOUMA";
+        addon.author        = "Pierce, ObscuredCrow";
+        addon.version       = "2019.204";
+        addon.dependencies  = "UCE Character Creation";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
     }
 
 }

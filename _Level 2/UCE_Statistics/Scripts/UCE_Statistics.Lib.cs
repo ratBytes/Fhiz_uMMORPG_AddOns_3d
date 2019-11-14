@@ -17,7 +17,19 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_Statistics()
     {
-        defines.Add("_iMMOSTATISTICS");
+        
+        UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE Statistics";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOSTATISTICS";
+        addon.author        = "Fhiz";
+        addon.version       = "2019.200";
+        addon.dependencies  = "none";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
     }
 
 }

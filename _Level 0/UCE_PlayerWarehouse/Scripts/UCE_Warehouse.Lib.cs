@@ -18,7 +18,18 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_PlayerWarehouse()
     {
-        defines.Add("_iMMOWAREHOUSE");
+        UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE Player Warehouse";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOWAREHOUSE";
+        addon.author        = "Fhiz (Original by Cioa)";
+        addon.version       = "2019.202";
+        addon.dependencies  = "none";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
     }
 
 }

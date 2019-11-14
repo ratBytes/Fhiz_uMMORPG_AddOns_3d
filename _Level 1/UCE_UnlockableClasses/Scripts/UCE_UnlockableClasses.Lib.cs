@@ -18,7 +18,19 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_UnlockableClasses()
     {
-        defines.Add("_iMMOUNLOCKABLECLASSES");
+       
+        UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE Unlockable Classes";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOUNLOCKABLECLASSES";
+        addon.author        = "Fhiz";
+        addon.version       = "2019.203";
+        addon.dependencies  = "UCE Character Creation";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
     }
 
 }

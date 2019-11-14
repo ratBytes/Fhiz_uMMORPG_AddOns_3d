@@ -17,7 +17,19 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_ConditionalSkills()
     {
-        defines.Add("_iMMOCONDITIONALSKILLS");
+        
+        UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE ConditionalSkills";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOCONDITIONALSKILLS";
+        addon.author        = "Fhiz";
+        addon.version       = "2019.200";
+        addon.dependencies  = "none";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
     }
 
 }

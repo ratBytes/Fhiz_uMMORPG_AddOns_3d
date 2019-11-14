@@ -17,7 +17,18 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_Jukebox()
     {
-        defines.Add("_iMMOJUKEBOX");
+         UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE Jukebox";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOJUKEBOX";
+        addon.author        = "Fhiz";
+        addon.version       = "2019.201";
+        addon.dependencies  = "none";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
     }
 
 }

@@ -17,7 +17,20 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_BuffBlockManaRecovery()
     {
-        defines.Add("_iMMOBUFFBLOCKMANARECOVERY");
+        
+        UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE BuffBlockManaRecovery";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOBUFFBLOCKMANARECOVERY";
+        addon.author        = "Fhiz";
+        addon.version       = "2019.201";
+        addon.dependencies  = "none";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
+        
     }
 
 }

@@ -18,7 +18,19 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_StatsOverlay()
     {
-        defines.Add("_iMMOSTATSOVERLAY");
+        
+        UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE StatOverlays";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOSTATSOVERLAY";
+        addon.author        = "ObscuredCrow";
+        addon.version       = "2019.201";
+        addon.dependencies  = "none";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
     }
 
 }

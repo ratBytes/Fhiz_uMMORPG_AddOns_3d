@@ -17,7 +17,20 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_BuffInvincibility()
     {
-        defines.Add("_iMMOBUFFINVINCIBILITY");
+    
+        UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE BuffInvincibility";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOBUFFINVINCIBILITY";
+        addon.author        = "Fhiz";
+        addon.version       = "2019.201";
+        addon.dependencies  = "none";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
+        
     }
 
 }

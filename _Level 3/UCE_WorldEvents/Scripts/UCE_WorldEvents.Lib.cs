@@ -17,7 +17,18 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_WorldEvents()
     {
-        defines.Add("_iMMOWORLDEVENTS");
+        UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE World Events";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOWORLDEVENTS";
+        addon.author        = "Fhiz";
+        addon.version       = "2019.202";
+        addon.dependencies  = "UCE Quests";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
     }
 
 }

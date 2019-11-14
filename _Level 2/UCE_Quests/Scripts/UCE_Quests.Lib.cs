@@ -17,7 +17,18 @@ public partial class UCE_DefinesManager
     [DevExtMethods("Constructor")]
     public static void Constructor_UCE_Quests()
     {
-        defines.Add("_iMMOQUESTS");
+         UCE_AddOn addon = new UCE_AddOn();
+
+        addon.name          = "UCE Quests";
+        addon.basis         = "uMMORPG3d V1";
+        addon.define        = "_iMMOQUESTS";
+        addon.author        = "Fhiz";
+        addon.version       = "2019.203";
+        addon.dependencies  = "none";
+        addon.comments      = "none";
+        addon.active        = true;
+
+        addons.Add(addon);
     }
 
 }
