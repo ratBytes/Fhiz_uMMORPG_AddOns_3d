@@ -10,6 +10,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+#if _iMMOASSETBUNDLEMANAGER
+using Jacovone.AssetBundleMagic;
+#endif
 
 #if _iMMOHARVESTING
 
@@ -18,7 +21,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New UCE Harvesting Profession", menuName = "UCE Templates/New UCE Harvesting Profession", order = 999)]
 public class UCE_HarvestingProfessionTemplate : ScriptableObject
 {
-    [Header("[-=-=-=- UCE Harvesting Profession -=-=-=-]")]
+    [Header("Harvesting Profession")]
     public int[] levels;
 
     public Sprite image;
@@ -100,19 +103,33 @@ public class UCE_HarvestingProfessionTemplate : ScriptableObject
     // -----------------------------------------------------------------------------------
     // Caching
     // -----------------------------------------------------------------------------------
-    private static Dictionary<int, UCE_HarvestingProfessionTemplate> cache;
+    private static Dictionary<int, UCE_HarvestingProfessionTemplate> _cache;
 
     public static Dictionary<int, UCE_HarvestingProfessionTemplate> dict
     {
         get
         {
-            return cache ?? (cache = Resources.LoadAll<UCE_HarvestingProfessionTemplate>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_HarvestingProfessionTemplate))).ToDictionary(
-                x => x.name.GetStableHashCode(), x => x)
-            );
+            if (_cache == null)
+            {
+                UCE_ScripableObjectEntry entry = UCE_TemplateConfiguration.singleton.GetEntry(typeof(UCE_HarvestingProfessionTemplate));
+                string folderName = entry != null ? entry.folderName : "";
+#if _iMMOASSETBUNDLEMANAGER
+                if (entry != null && entry.loadFromAssetBundle)
+                    _cache = AssetBundleMagic.LoadBundle(entry.bundleName).LoadAllAssets<UCE_HarvestingProfessionTemplate>().ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+                else
+                    _cache = Resources.LoadAll<UCE_HarvestingProfessionTemplate>(folderName).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#else
+                _cache = Resources.LoadAll<UCE_HarvestingProfessionTemplate>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_HarvestingProfessionTemplate))).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#endif
+            }
+
+            return _cache;
+
         }
     }
 
     // -----------------------------------------------------------------------------------
+
 }
 
 #endif

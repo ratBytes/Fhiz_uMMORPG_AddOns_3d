@@ -9,6 +9,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+#if _iMMOASSETBUNDLEMANAGER
+using Jacovone.AssetBundleMagic;
+#endif
 
 // REALM - TEMPLATE
 
@@ -23,18 +26,31 @@ public class UCE_Tmpl_Realm : ScriptableObject
     // -----------------------------------------------------------------------------------
     // Caching
     // -----------------------------------------------------------------------------------
-    private static Dictionary<int, UCE_Tmpl_Realm> cache;
+    private static Dictionary<int, UCE_Tmpl_Realm> _cache;
 
     public static Dictionary<int, UCE_Tmpl_Realm> dict
     {
         get
         {
-            // load if not loaded yet
-            return cache ?? (cache = Resources.LoadAll<UCE_Tmpl_Realm>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_TemplateConfiguration))).ToDictionary(
-                x => x.name.GetStableHashCode(), x => x)
-            );
+            if (_cache == null)
+            {
+                UCE_ScripableObjectEntry entry = UCE_TemplateConfiguration.singleton.GetEntry(typeof(UCE_Tmpl_Realm));
+                string folderName = entry != null ? entry.folderName : "";
+#if _iMMOASSETBUNDLEMANAGER
+                if (entry != null && entry.loadFromAssetBundle)
+                    _cache = AssetBundleMagic.LoadBundle(entry.bundleName).LoadAllAssets<UCE_Tmpl_Realm>().ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+                else
+                    _cache = Resources.LoadAll<UCE_Tmpl_Realm>(folderName).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#else
+                _cache = Resources.LoadAll<UCE_Tmpl_Realm>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_Tmpl_Realm))).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#endif
+            }
+
+            return _cache;
+
         }
     }
 
     // -----------------------------------------------------------------------------------
+
 }

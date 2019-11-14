@@ -9,6 +9,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+#if _iMMOASSETBUNDLEMANAGER
+using Jacovone.AssetBundleMagic;
+#endif
 
 // PRESTIGE CLASS - TEMPLATE
 
@@ -65,18 +68,31 @@ public class UCE_Tmpl_Faction : ScriptableObject
     // -----------------------------------------------------------------------------------
     // Caching
     // -----------------------------------------------------------------------------------
-    private static Dictionary<int, UCE_Tmpl_Faction> cache;
+    private static Dictionary<int, UCE_Tmpl_Faction> _cache;
 
     public static Dictionary<int, UCE_Tmpl_Faction> dict
     {
         get
         {
-            // load if not loaded yet
-            return cache ?? (cache = Resources.LoadAll<UCE_Tmpl_Faction>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_Tmpl_Faction))).ToDictionary(
-                item => item.name.GetStableHashCode(), item => item)
-            );
+            if (_cache == null)
+            {
+                UCE_ScripableObjectEntry entry = UCE_TemplateConfiguration.singleton.GetEntry(typeof(UCE_Tmpl_Faction));
+                string folderName = entry != null ? entry.folderName : "";
+#if _iMMOASSETBUNDLEMANAGER
+                if (entry != null && entry.loadFromAssetBundle)
+                    _cache = AssetBundleMagic.LoadBundle(entry.bundleName).LoadAllAssets<UCE_Tmpl_Faction>().ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+                else
+                    _cache = Resources.LoadAll<UCE_Tmpl_Faction>(folderName).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#else
+                _cache = Resources.LoadAll<UCE_Tmpl_Faction>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_Tmpl_Faction))).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#endif
+            }
+
+            return _cache;
+
         }
     }
 
     // -----------------------------------------------------------------------------------
+
 }

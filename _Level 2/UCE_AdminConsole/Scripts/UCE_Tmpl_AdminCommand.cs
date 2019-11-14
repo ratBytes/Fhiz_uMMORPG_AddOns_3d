@@ -9,6 +9,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+#if _iMMOASSETBUNDLEMANAGER
+using Jacovone.AssetBundleMagic;
+#endif
 
 // ADMIN COMMAND - TEMPLATE
 
@@ -41,18 +44,33 @@ public class UCE_Tmpl_AdminCommand : ScriptableObject
     }
 
     // -----------------------------------------------------------------------------------
-    // Cache
+    // Caching
     // -----------------------------------------------------------------------------------
-    private Dictionary<int, UCE_Tmpl_AdminCommand> cache;
+    private static Dictionary<int, UCE_Tmpl_AdminCommand> _cache;
 
-    public Dictionary<int, UCE_Tmpl_AdminCommand> dict
+    public static Dictionary<int, UCE_Tmpl_AdminCommand> dict
     {
         get
         {
-            // load if not loaded yet
-            return cache ?? (cache = Resources.LoadAll<UCE_Tmpl_AdminCommand>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_Tmpl_AdminCommand))).ToDictionary(
-                item => item.name.GetStableHashCode(), item => item)
-            );
+            if (_cache == null)
+            {
+                UCE_ScripableObjectEntry entry = UCE_TemplateConfiguration.singleton.GetEntry(typeof(UCE_Tmpl_AdminCommand));
+                string folderName = entry != null ? entry.folderName : "";
+#if _iMMOASSETBUNDLEMANAGER
+                if (entry != null && entry.loadFromAssetBundle)
+                    _cache = AssetBundleMagic.LoadBundle(entry.bundleName).LoadAllAssets<UCE_Tmpl_AdminCommand>().ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+                else
+                    _cache = Resources.LoadAll<UCE_Tmpl_AdminCommand>(folderName).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#else
+                _cache = Resources.LoadAll<UCE_Tmpl_AdminCommand>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_Tmpl_AdminCommand))).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#endif
+            }
+
+            return _cache;
+
         }
     }
+
+    // -----------------------------------------------------------------------------------
+
 }

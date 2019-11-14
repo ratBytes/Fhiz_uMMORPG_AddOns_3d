@@ -9,8 +9,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+#if _iMMOASSETBUNDLEMANAGER
+using Jacovone.AssetBundleMagic;
+#endif
 
-// UCE ATTRIBUTE
+// UCE WORLD EVENT
 
 [CreateAssetMenu(fileName = "New UCE WorldEvent", menuName = "UCE Templates/New UCE WorldEvent", order = 999)]
 public partial class UCE_WorldEventTemplate : ScriptableObject
@@ -21,15 +24,28 @@ public partial class UCE_WorldEventTemplate : ScriptableObject
     // -----------------------------------------------------------------------------------
     // Caching
     // -----------------------------------------------------------------------------------
-    private static Dictionary<int, UCE_WorldEventTemplate> cache;
+    private static Dictionary<int, UCE_WorldEventTemplate> _cache;
 
     public static Dictionary<int, UCE_WorldEventTemplate> dict
     {
         get
         {
-            return cache ?? (cache = Resources.LoadAll<UCE_WorldEventTemplate>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_WorldEventTemplate))).ToDictionary(
-                x => x.name.GetStableHashCode(), x => x)
-            );
+            if (_cache == null)
+            {
+                UCE_ScripableObjectEntry entry = UCE_TemplateConfiguration.singleton.GetEntry(typeof(UCE_WorldEventTemplate));
+                string folderName = entry != null ? entry.folderName : "";
+#if _iMMOASSETBUNDLEMANAGER
+                if (entry != null && entry.loadFromAssetBundle)
+                    _cache = AssetBundleMagic.LoadBundle(entry.bundleName).LoadAllAssets<UCE_WorldEventTemplate>().ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+                else
+                    _cache = Resources.LoadAll<UCE_WorldEventTemplate>(folderName).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#else
+                _cache = Resources.LoadAll<UCE_WorldEventTemplate>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_WorldEventTemplate))).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#endif
+            }
+
+            return _cache;
+
         }
     }
 

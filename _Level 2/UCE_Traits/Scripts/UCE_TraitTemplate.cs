@@ -10,6 +10,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+#if _iMMOASSETBUNDLEMANAGER
+using Jacovone.AssetBundleMagic;
+#endif
 
 // UCE TRAIT TEMPLATE
 
@@ -76,20 +79,30 @@ public class UCE_TraitTemplate : ScriptableObject
     public UCE_StatModifier statModifiers;
 
     // -----------------------------------------------------------------------------------
-    // Cache
+    // Caching
     // -----------------------------------------------------------------------------------
-    private static Dictionary<int, UCE_TraitTemplate> cache = null;
+    private static Dictionary<int, UCE_TraitTemplate> _cache;
 
     public static Dictionary<int, UCE_TraitTemplate> dict
     {
         get
         {
-            // load if not loaded yet
-            if (cache == null)
-                cache = Resources.LoadAll<UCE_TraitTemplate>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_TraitTemplate))).ToDictionary(
-                    x => x.name.GetStableHashCode(), x => x
-                );
-            return cache;
+            if (_cache == null)
+            {
+                UCE_ScripableObjectEntry entry = UCE_TemplateConfiguration.singleton.GetEntry(typeof(UCE_TraitTemplate));
+                string folderName = entry != null ? entry.folderName : "";
+#if _iMMOASSETBUNDLEMANAGER
+                if (entry != null && entry.loadFromAssetBundle)
+                    _cache = AssetBundleMagic.LoadBundle(entry.bundleName).LoadAllAssets<UCE_TraitTemplate>().ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+                else
+                    _cache = Resources.LoadAll<UCE_TraitTemplate>(folderName).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#else
+                _cache = Resources.LoadAll<UCE_TraitTemplate>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_TraitTemplate))).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#endif
+            }
+
+            return _cache;
+
         }
     }
 

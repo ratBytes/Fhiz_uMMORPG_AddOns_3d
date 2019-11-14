@@ -9,6 +9,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+#if _iMMOASSETBUNDLEMANAGER
+using Jacovone.AssetBundleMagic;
+#endif
 
 // HONOR CURRENCY - TEMPLATE
 
@@ -40,17 +43,31 @@ public class UCE_Tmpl_HonorCurrency : ScriptableObject
     // -----------------------------------------------------------------------------------
     // Caching
     // -----------------------------------------------------------------------------------
-    private static Dictionary<int, UCE_Tmpl_HonorCurrency> cache;
+    private static Dictionary<int, UCE_Tmpl_HonorCurrency> _cache;
 
     public static Dictionary<int, UCE_Tmpl_HonorCurrency> dict
     {
         get
         {
-            return cache ?? (cache = Resources.LoadAll<UCE_Tmpl_HonorCurrency>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_Tmpl_HonorCurrency))).ToDictionary(
-                item => item.name.GetStableHashCode(), item => item)
-            );
+            if (_cache == null)
+            {
+                UCE_ScripableObjectEntry entry = UCE_TemplateConfiguration.singleton.GetEntry(typeof(UCE_Tmpl_HonorCurrency));
+                string folderName = entry != null ? entry.folderName : "";
+#if _iMMOASSETBUNDLEMANAGER
+                if (entry != null && entry.loadFromAssetBundle)
+                    _cache = AssetBundleMagic.LoadBundle(entry.bundleName).LoadAllAssets<UCE_Tmpl_HonorCurrency>().ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+                else
+                    _cache = Resources.LoadAll<UCE_Tmpl_HonorCurrency>(folderName).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#else
+                _cache = Resources.LoadAll<UCE_Tmpl_HonorCurrency>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_Tmpl_HonorCurrency))).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#endif
+            }
+
+            return _cache;
+
         }
     }
 
     // -----------------------------------------------------------------------------------
+
 }

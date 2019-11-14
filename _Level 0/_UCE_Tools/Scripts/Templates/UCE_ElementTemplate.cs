@@ -9,6 +9,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+#if _iMMOASSETBUNDLEMANAGER
+using Jacovone.AssetBundleMagic;
+#endif
 
 // ELEMENT TEMPLATE
 
@@ -21,21 +24,33 @@ public partial class UCE_ElementTemplate : ScriptableObject
     public Sprite image;
 
     // -----------------------------------------------------------------------------------
-    // Cache
+    // Caching
     // -----------------------------------------------------------------------------------
-    private static Dictionary<string, UCE_ElementTemplate> cache = null;
+    private static Dictionary<int, UCE_ElementTemplate> _cache;
 
-    public static Dictionary<string, UCE_ElementTemplate> dict
+    public static Dictionary<int, UCE_ElementTemplate> dict
     {
         get
         {
-            if (cache == null)
-                cache = Resources.LoadAll<UCE_ElementTemplate>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_ElementTemplate))).ToDictionary(
-                    x => x.name, x => x
-                );
-            return cache;
+            if (_cache == null)
+            {
+                UCE_ScripableObjectEntry entry = UCE_TemplateConfiguration.singleton.GetEntry(typeof(UCE_ElementTemplate));
+                string folderName = entry != null ? entry.folderName : "";
+#if _iMMOASSETBUNDLEMANAGER
+                if (entry != null && entry.loadFromAssetBundle)
+                    _cache = AssetBundleMagic.LoadBundle(entry.bundleName).LoadAllAssets<UCE_ElementTemplate>().ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+                else
+                    _cache = Resources.LoadAll<UCE_ElementTemplate>(folderName).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#else
+                _cache = Resources.LoadAll<UCE_ElementTemplate>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_ElementTemplate))).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#endif
+            }
+
+            return _cache;
+
         }
     }
 
     // -----------------------------------------------------------------------------------
+
 }

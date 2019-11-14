@@ -98,12 +98,13 @@ public partial class UCE_TemplateConfiguration : ScriptableObject
     // -----------------------------------------------------------------------------------
     public string GetBundlePath(Type type)
     {
+#if _iMMOASSETBUNDLEMANAGER
         foreach (UCE_ScripableObjectEntry entry in scriptableObjects)
         {
             if (entry.scriptableObject.GetType() == type)
                 return entry.bundleName;
         }
-
+#endif
         return "";
     }
 
@@ -112,12 +113,13 @@ public partial class UCE_TemplateConfiguration : ScriptableObject
     // -----------------------------------------------------------------------------------
     public bool GetLoadFromBundle(Type type)
     {
+#if _iMMOASSETBUNDLEMANAGER
         foreach (UCE_ScripableObjectEntry entry in scriptableObjects)
         {
             if (entry.scriptableObject.GetType() == type)
                 return entry.loadFromAssetBundle;
         }
-
+#endif
         return false;
     }
 

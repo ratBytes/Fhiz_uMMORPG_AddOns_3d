@@ -9,10 +9,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+#if _iMMOASSETBUNDLEMANAGER
+using Jacovone.AssetBundleMagic;
+#endif
 
-// ===================================================================================
-// UCE SCRIPTABLE QUEST
-// ===================================================================================
+// UCE SCRIPTABLE QUEST TEMPLATE
+
 [CreateAssetMenu(fileName = "New UCE Quest", menuName = "UCE Templates/New UCE Quest", order = 999)]
 public partial class UCE_ScriptableQuest : ScriptableObject
 {
@@ -118,21 +120,34 @@ public partial class UCE_ScriptableQuest : ScriptableObject
 
 #endif
 
-    // -------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------
     // Caching
-    // -------------------------------------------------------------------------------
-    private static Dictionary<int, UCE_ScriptableQuest> cache;
+    // -----------------------------------------------------------------------------------
+    private static Dictionary<int, UCE_ScriptableQuest> _cache;
 
     public static Dictionary<int, UCE_ScriptableQuest> dict
     {
         get
         {
-            // load if not loaded yet
-            return cache ?? (cache = Resources.LoadAll<UCE_ScriptableQuest>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_ScriptableQuest))).ToDictionary(
-                quest => quest.name.GetStableHashCode(), quest => quest)
-            );
+            if (_cache == null)
+            {
+                UCE_ScripableObjectEntry entry = UCE_TemplateConfiguration.singleton.GetEntry(typeof(UCE_ScriptableQuest));
+                string folderName = entry != null ? entry.folderName : "";
+#if _iMMOASSETBUNDLEMANAGER
+                if (entry != null && entry.loadFromAssetBundle)
+                    _cache = AssetBundleMagic.LoadBundle(entry.bundleName).LoadAllAssets<UCE_ScriptableQuest>().ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+                else
+                    _cache = Resources.LoadAll<UCE_ScriptableQuest>(folderName).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#else
+                _cache = Resources.LoadAll<UCE_ScriptableQuest>(UCE_TemplateConfiguration.singleton.GetTemplatePath(typeof(UCE_ScriptableQuest))).ToDictionary(x => x.name.GetDeterministicHashCode(), x => x);
+#endif
+            }
+
+            return _cache;
+
         }
     }
 
-    // -------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------
+
 }
