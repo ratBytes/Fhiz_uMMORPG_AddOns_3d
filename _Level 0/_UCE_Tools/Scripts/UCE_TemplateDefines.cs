@@ -35,17 +35,20 @@ public partial class UCE_TemplateDefines : ScriptableObject
     // -----------------------------------------------------------------------------------
     // OnValidate
     // -----------------------------------------------------------------------------------
-
     void OnValidate()
     {
 #if UNITY_EDITOR
      	
-     	if (defines.Count() != UCE_DefinesManager.defines.Count())
+     	if (UCE_DefinesManager.defines.Count() > 0 && defines.Count() != UCE_DefinesManager.defines.Count()-1 )
         {
+
+            defines.Clear();
 
             // -- build list from defines
             for(int i = 0; i < UCE_DefinesManager.defines.Count(); ++i)
             {
+                if (UCE_DefinesManager.defines[i] == "_iMMOTOOLS" || UCE_DefinesManager.defines[i] == "_iMMOCORE") continue;
+
                 UCE_DefinesAddOn addon = new UCE_DefinesAddOn();
                 addon.name = UCE_DefinesManager.defines[i];
                 addon.active = UCE_DefinesManager.active[i];
