@@ -92,6 +92,7 @@ public class UCE_SkillTargetUncurse : HealSkill
     // (has corrected target already)
     public override void Apply(Entity caster, int skillLevel)
     {
+#if _iMMOCURSEDEQUIPMENT
         // apply only to alive people
         if (caster.target != null && caster.target is Player && caster.target.isAlive)
         {
@@ -105,6 +106,7 @@ public class UCE_SkillTargetUncurse : HealSkill
             // show effect on target
             SpawnEffect(caster, caster.target);
         }
+#endif
     }
 
     // -----------------------------------------------------------------------------------
