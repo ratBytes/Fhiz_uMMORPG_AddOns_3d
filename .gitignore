@@ -40,4 +40,5 @@ sysinfo.txt
 # Misc
 ThirdParty/
 .DS_Store
-UCE*Configuration.asset
+UCE_Configuration.asset
+UCE_Configuration.asset.meta
