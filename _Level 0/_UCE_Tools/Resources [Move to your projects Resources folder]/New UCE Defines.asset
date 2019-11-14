@@ -1,0 +1,161 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a31ae0e4ab59c42ea9301250c85fb24a, type: 3}
+  m_Name: New UCE Defines
+  m_EditorClassIdentifier: 
+  defines:
+  - name: _iMMOTOOLS
+    active: 1
+  - name: _iMMOATTACHE
+    active: 1
+  - name: _iMMOATTRIBUTES
+    active: 1
+  - name: _iMMODBCLEANER
+    active: 1
+  - name: _iMMODOORS
+    active: 1
+  - name: _iMMOEMOTES
+    active: 1
+  - name: _iMMOEXPLORATION
+    active: 1
+  - name: _iMMOHELP
+    active: 1
+  - name: _iMMOITEMRARITY
+    active: 1
+  - name: _iMMOJUKEBOX
+    active: 1
+  - name: _iMMOMAINMENU
+    active: 1
+  - name: _iMMOMESHSWITCHER
+    active: 1
+  - name: _iMMOMINION
+    active: 1
+  - name: _iMMOZONES
+    active: 1
+  - name: _iMMOWAREHOUSE
+    active: 1
+  - name: _iMMOSTATSOVERLAY
+    active: 1
+  - name: _iMMOTIMEGATE
+    active: 1
+  - name: _iMMOTRAVEL
+    active: 1
+  - name: _iMMOBINDPOINT
+    active: 1
+  - name: _iMMOCURSEDEQUIPMENT
+    active: 1
+  - name: _iMMODAILYREWARDS
+    active: 1
+  - name: _iMMOELEMENTS
+    active: 1
+  - name: _iMMOEQUIPABLEBAG
+    active: 1
+  - name: _iMMOLOOTRULES
+    active: 1
+  - name: _iMMOMAIL
+    active: 1
+  - name: _iMMOMONSTERWAYPOINTS
+    active: 1
+  - name: _iMMONPCRESTRICTIONS
+    active: 1
+  - name: _iMMOPRESTIGECLASSES
+    active: 1
+  - name: _iMMOPVP
+    active: 1
+  - name: _iMMOSANCTUARY
+    active: 1
+  - name: _iMMOSKILLCATEGORY
+    active: 1
+  - name: _iMMOTELEPORTER
+    active: 1
+  - name: _iMMOTIMEDSKILLFINISH
+    active: 1
+  - name: _iMMOUNLOCKABLECLASSES
+    active: 1
+  - name: _iMMOUSAGEREQUIREMENTS
+    active: 1
+  - name: _iMMOACCOUNTUNLOCKABLES
+    active: 1
+  - name: _iMMOADMINCONSOLE
+    active: 1
+  - name: _iMMOCRAFTING
+    active: 1
+  - name: _iMMOEQUIPMENTSETS
+    active: 1
+  - name: _iMMOFACTIONS
+    active: 1
+  - name: _iMMOFRIENDS
+    active: 1
+  - name: _iMMOGUILDWAREHOUSE
+    active: 1
+  - name: _iMMOHARVESTING
+    active: 1
+  - name: _iMMOHONORSHOP
+    active: 1
+  - name: _iMMOCHEST
+    active: 1
+  - name: _iMMOMELEE
+    active: 1
+  - name: _iMMOMORALE
+    active: 1
+  - name: _iMMOMOUNTS
+    active: 1
+  - name: _iMMOPAYPAL
+    active: 1
+  - name: _iMMOPROJECTILES
+    active: 1
+  - name: _iMMOQUESTS
+    active: 1
+  - name: _iMMOBUILDSYSTEM
+    active: 1
+  - name: _iMMOSPEECHBUBBLES
+    active: 1
+  - name: _iMMOSTAMINA
+    active: 1
+  - name: _iMMOSTATISTICS
+    active: 1
+  - name: _iMMOTRAITS
+    active: 1
+  - name: _iMMOASSETBUNDLEMANAGER
+    active: 1
+  - name: _iMMOBUFFBLOCKHEALTHRECOVERY
+    active: 1
+  - name: _iMMOBUFFBLOCKMANARECOVERY
+    active: 1
+  - name: _iMMOBUFFENDURE
+    active: 1
+  - name: _iMMOBUFFEXPERIENCE
+    active: 1
+  - name: _iMMOBUFFGOLD
+    active: 1
+  - name: _iMMOBUFFINVINCIBILITY
+    active: 1
+  - name: _iMMOCONDITIONALSKILLS
+    active: 1
+  - name: _iMMOCURATIVE
+    active: 1
+  - name: _iMMOGUILDUPGRADES
+    active: 1
+  - name: _iMMOITEMDROP
+    active: 1
+  - name: _iMMOLIMITEDZONES
+    active: 1
+  - name: _iMMOMOBILECONTROLS
+    active: 1
+  - name: _iMMOPATREON
+    active: 1
+  - name: _iMMOTHREADDB
+    active: 1
+  - name: _iMMOUMA
+    active: 1
+  - name: _iMMOWORLDEVENTS
+    active: 1
