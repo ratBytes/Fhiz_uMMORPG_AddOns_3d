@@ -6,39 +6,41 @@
 // * Pledge on Patreon for VIP AddOns...: https://www.patreon.com/IndieMMO
 // * Instructions.......................: https://indie-mmo.net/knowledge-base/
 // =======================================================================================
-#if UNITY_EDITOR
-
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
-// DEFINES MANAGER
+// ConfigurationManager
 
-[InitializeOnLoad]
-public partial class UCE_DefinesManager
+public partial class ConfigurationManager : MonoBehaviour
 {
 
-    public static List<string> defines = new List<string>();
-	public static List<bool> active = new List<bool>();
+    [Header("Configuration")]
+    public UCE_TemplateConfiguration configTemplate;
+	
+	[Header("Defines")]
+	public UCE_TemplateDefines addonTemplate;
+
 	
 	// -----------------------------------------------------------------------------------
-	// UCE_DefinesManager
+	// 
 	// -----------------------------------------------------------------------------------
-    static UCE_DefinesManager()
-    {
-    
-        DevExtUtils.InvokeStaticDevExtMethods(typeof(UCE_DefinesManager), "Constructor");
-
-        foreach (string define in defines)
-        {
-        	active.Add(true);
-            UCE_EditorTools.AddScriptingDefine(define);
-		}
+	void OnValidate()
+	{
+	
 		
-    }
+	
+	}
+	
 	
 	// -----------------------------------------------------------------------------------
-	
-}
+	// 
+	// -----------------------------------------------------------------------------------
 
-#endif
+
+
+
+    // -----------------------------------------------------------------------------------
+    
+}
