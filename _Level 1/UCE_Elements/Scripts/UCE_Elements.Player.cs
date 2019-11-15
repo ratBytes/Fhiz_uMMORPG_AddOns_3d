@@ -55,7 +55,7 @@ public partial class Player
 
         // -- Bonus: Equipment Sets
         float fSetBonus = 0f;
-#if _iMMOTRAITS && _iMMOEQUIPMENTSETS
+#if _iMMOTRAITS && _iMMOEQUIPMENTSETS && _iMMOELEMENTS
         // -- Equipment Bonus (Set Bonus)
         foreach (ItemSlot slot in equipment)
         {
