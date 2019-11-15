@@ -23,6 +23,7 @@ public partial class UCE_TemplateDefines : ScriptableObject
     static UCE_TemplateDefines _instance;
 
     [SerializeField]
+    [Header("(Change list size to force refresh)")]
     public List<UCE_AddOn> addons = new List<UCE_AddOn>();
 
     // -----------------------------------------------------------------------------------

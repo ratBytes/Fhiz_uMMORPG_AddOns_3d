@@ -53,7 +53,7 @@ public partial class UCE_TemplateConfiguration : ScriptableObject
     }
 
     // -----------------------------------------------------------------------------------
-    // OnValidate
+    // singleton
     // -----------------------------------------------------------------------------------
     public static UCE_TemplateConfiguration singleton
     {

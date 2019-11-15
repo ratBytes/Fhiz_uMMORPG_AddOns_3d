@@ -19,6 +19,7 @@ using Mirror;
 public partial class UCE_playerAttributes
 {
     public UCE_AttributeTemplate[] UCE_AttributeTypes = { };
+    //public UCE_AttributeValue[] UCE_AttributeValues = { };
 
     [Tooltip("[Optional] Number of attribute points a new character starts with.")]
     public int startingAttributePoints = 0;
@@ -32,6 +33,16 @@ public partial class UCE_playerAttributes
     [Tooltip("[Optional] First level when the rewards start (not counting the initial level).")]
     public int startingRewardLevel = 1;
 }
+
+// UCE ATTRIBUTE VALUE
+/*
+[System.Serializable]
+public class UCE_AttributeValue
+{
+    public TemplateWrapper attributeTemplate;
+    public int defaultValue = 0;
+}
+*/
 
 // UCE ATTRIBUTE CACHE
 

@@ -6,43 +6,32 @@
 // * Pledge on Patreon for VIP AddOns...: https://www.patreon.com/IndieMMO
 // * Instructions.......................: https://indie-mmo.net/knowledge-base/
 // =======================================================================================
+using System;
 using UnityEngine;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using System.Linq;
 
-// ConfigurationManager
+// TemplateGameRules
 
-public partial class ConfigurationManager : MonoBehaviour
+[CreateAssetMenu(menuName = "UCE Other/UCE GameRules", fileName = "UCE_GameRules", order = 999)]
+public partial class UCE_TemplateGameRules : ScriptableObject
 {
 
-    [Header("Configuration")]
-    public UCE_TemplateConfiguration configTemplate;
-	
-	[Header("Defines")]
-	public UCE_TemplateDefines addonTemplate;
-
-    [Header("Game Rules")]
-    public UCE_TemplateGameRules rulesTemplate;
-
-    // -----------------------------------------------------------------------------------
-    // 
-    // -----------------------------------------------------------------------------------
-    void OnValidate()
-	{
-	
-		
-	
-	}
-	
-	
-	// -----------------------------------------------------------------------------------
-	// 
-	// -----------------------------------------------------------------------------------
-
+    static UCE_TemplateGameRules _instance;
 
 
 
     // -----------------------------------------------------------------------------------
-    
+    // singleton
+    // -----------------------------------------------------------------------------------
+    public static UCE_TemplateGameRules singleton
+    {
+        get
+        {
+            if (!_instance)
+                _instance = Resources.FindObjectsOfTypeAll<UCE_TemplateGameRules>().FirstOrDefault();
+            return _instance;
+        }
+    }
+
+    // -----------------------------------------------------------------------------------
 }
