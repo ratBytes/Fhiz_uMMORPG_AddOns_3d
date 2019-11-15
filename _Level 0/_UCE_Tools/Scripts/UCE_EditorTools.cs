@@ -19,11 +19,11 @@ public partial class UCE_AddOn
 {
     [HideInInspector] public string name;
     [HideInInspector] public string define;
-    public string basis;
-    public string author;
-    public string version;
-    public string dependencies;
-    [TextArea(1, 30)]public string comments;
+    [ReadOnly] public string basis;
+    [ReadOnly] public string author;
+    [ReadOnly] public string version;
+    [ReadOnly] public string dependencies;
+    [ReadOnly] [TextArea(1, 30)]public string comments;
     public bool active;
 
     public void Copy(UCE_AddOn addon)
