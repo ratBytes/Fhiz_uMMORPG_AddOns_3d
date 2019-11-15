@@ -185,6 +185,7 @@ public class UCE_AssetBundleManager : MonoBehaviour
             UCE_UI_AssetBundleDownloader.singleton.Hide();
 #endif
             index = -1;
+            UnloadBundles();
         }
         else {
             LoadBundle(bundleNames[index]);
