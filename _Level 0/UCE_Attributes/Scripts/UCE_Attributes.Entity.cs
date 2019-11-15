@@ -24,8 +24,10 @@ public partial class Entity
     [DevExtMethods("Awake")]
     private void Awake_UCE_Attributes()
     {
+#if _iMMOATTRIBUTES
         UCE_randomDamageDeviation = UCE_TemplateGameRules.singleton.randomDamageDeviation;
         UCE_relationalDamage = UCE_TemplateGameRules.singleton.relationalDamage;
+#endif
     }
 
     // -----------------------------------------------------------------------------------
