@@ -14,12 +14,19 @@ using System;
 
 public partial class Entity
 {
-    [Header("[-=-=- UCE ATTRIBUTES -=-=-]")]
-    [Tooltip("[Optional] All damage dealt can vary randomly (0.25 = +/- 25%) (0 to disable)")]
-    [Range(0, 1)] public float UCE_randomDamageDeviation = 0.25f;
 
-    [Tooltip("[Optional] Check to use new relational damage formula, uncheck to use old (attack-defense=damage) formula. ")]
-    public bool UCE_relationalDamage = true;
+    protected float UCE_randomDamageDeviation = 0.25f;
+    protected bool UCE_relationalDamage = true;
+
+    // -----------------------------------------------------------------------------------
+    // Awake_UCE_Attributes
+    // -----------------------------------------------------------------------------------
+    [DevExtMethods("Awake")]
+    private void Awake_UCE_Attributes()
+    {
+        UCE_randomDamageDeviation = UCE_TemplateGameRules.singleton.randomDamageDeviation;
+        UCE_relationalDamage = UCE_TemplateGameRules.singleton.relationalDamage;
+    }
 
     // -----------------------------------------------------------------------------------
     // DealDamageAt
