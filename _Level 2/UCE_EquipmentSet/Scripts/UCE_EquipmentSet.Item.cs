@@ -637,10 +637,12 @@ public partial struct Item
                 if (((EquipmentItem)data).setItems[j] != null) tip.Append("* " + ((EquipmentItem)data).setItems[j].name + "\n");
             }
 
+#if _iMMOATTRIBUTES
             foreach (UCE_AttributeModifier modifier in ((EquipmentItem)data).individualStatModifiers.UCE_AttributeModifiers)
             {
                 tip.Append(modifier.template.name + " Bonus: " + modifier.flatBonus.ToString() + "/ " + Mathf.RoundToInt(modifier.percentBonus * 100).ToString() + "%\n");
             }
+#endif
 
 #if _iMMOELEMENTS
             foreach (UCE_ElementModifier modifier in ((EquipmentItem)data).individualStatModifiers.elementalResistances)
@@ -681,10 +683,12 @@ public partial struct Item
             tip.Append("<b>-=- Partial Set Bonus -=-</b>\n");
             tip.Append(((EquipmentItem)data).equipmentSet.partialSetItemsCount + " / " + ((EquipmentItem)data).equipmentSet.setItems.Length + " Item(s) equipped.\n");
 
+#if _iMMOATTRIBUTES
             foreach (UCE_AttributeModifier modifier in ((EquipmentItem)data).equipmentSet.partialStatModifiers.UCE_AttributeModifiers)
             {
                 tip.Append(modifier.template.name + " Bonus: " + modifier.flatBonus.ToString() + "/ " + Mathf.RoundToInt(modifier.percentBonus * 100).ToString() + "%\n");
             }
+#endif
 
 #if _iMMOELEMENTS
             foreach (UCE_ElementModifier modifier in ((EquipmentItem)data).equipmentSet.partialStatModifiers.elementalResistances)
@@ -724,15 +728,18 @@ public partial struct Item
             tip.Append("\n");
             tip.Append("<b>-=- Complete Set Bonus -=-</b>\n");
             tip.Append(((EquipmentItem)data).equipmentSet.setItems.Length + " / " + ((EquipmentItem)data).equipmentSet.setItems.Length + " Item(s) equipped:.\n");
+            
             for (int j = 0; j < ((EquipmentItem)data).equipmentSet.setItems.Length; ++j)
             {
                 if (((EquipmentItem)data).equipmentSet.setItems[j] != null) tip.Append("* " + ((EquipmentItem)data).equipmentSet.setItems[j].name + "\n");
             }
 
+#if _iMMOATTRIBUTES
             foreach (UCE_AttributeModifier modifier in ((EquipmentItem)data).equipmentSet.completeStatModifiers.UCE_AttributeModifiers)
             {
                 tip.Append(modifier.template.name + " Bonus: " + modifier.flatBonus.ToString() + "/ " + Mathf.RoundToInt(modifier.percentBonus * 100).ToString() + "%\n");
             }
+#endif
 
 #if _iMMOELEMENTS
             foreach (UCE_ElementModifier modifier in ((EquipmentItem)data).equipmentSet.completeStatModifiers.elementalResistances)
