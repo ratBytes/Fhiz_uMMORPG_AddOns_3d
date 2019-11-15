@@ -10,14 +10,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public partial class Entity
+public partial class Npc
 {
     public AudioClip interactAudio;
     public AudioClip questAudio;
 
     public void PlayInteractSound()
     {
-        AudioSource tempSource = FindObjectOfType<AudioSource>();
+        AudioSource tempSource = GetComponentInParent<AudioSource>();
         if(tempSource == null) return;
 
         tempSource.PlayOneShot(interactAudio);
@@ -25,29 +25,42 @@ public partial class Entity
 
     public void PlayQuestAudio()
     {
-        AudioSource tempSource = FindObjectOfType<AudioSource>();
+        AudioSource tempSource = GetComponentInParent<AudioSource>();
         if(tempSource == null) return;
 
         tempSource.PlayOneShot(questAudio);
-        Debug.Log("Play Quest Audio.");
     }
 
 }
 
 public partial class UINpcDialogue
 {
+
     public void interactAudio()
     {
         Player player = Player.localPlayer;
         if(player == null || player.target == null) return;
-        if(player.target.interactAudio == null) return;
-        player.target.PlayInteractSound();
+
+        if (player.target is Npc)
+        {
+            Npc npc = (Npc)player.target;
+            if (npc.interactAudio == null) return;
+            npc.PlayInteractSound();
+        }
+
     }
+
     public void questAudio()
     {
         Player player = Player.localPlayer;
         if(player == null || player.target == null) return;
-        if(player.target.questAudio == null) return;
-        player.target.PlayQuestAudio();
+
+        if (player.target is Npc)
+        {
+            Npc npc = (Npc)player.target;
+            if (npc.questAudio == null) return;
+            npc.PlayQuestAudio();
+        }
+
     }
 }
