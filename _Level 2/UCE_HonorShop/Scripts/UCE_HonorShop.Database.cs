@@ -62,7 +62,7 @@ public partial class Database
             string tmplName = (string)row[0];
             UCE_Tmpl_HonorCurrency tmplCurrency;
 
-            if (UCE_Tmpl_HonorCurrency.dict.TryGetValue(tmplName.GetStableHashCode(), out tmplCurrency))
+            if (UCE_Tmpl_HonorCurrency.dict.TryGetValue(tmplName.GetDeterministicHashCode(), out tmplCurrency))
             {
                 UCE_HonorShopCurrency hsc = new UCE_HonorShopCurrency();
                 hsc.honorCurrency = tmplCurrency;
@@ -78,7 +78,7 @@ public partial class Database
             string tmplName = row.currency;
             UCE_Tmpl_HonorCurrency tmplCurrency;
 
-            if (UCE_Tmpl_HonorCurrency.dict.TryGetValue(tmplName.GetStableHashCode(), out tmplCurrency))
+            if (UCE_Tmpl_HonorCurrency.dict.TryGetValue(tmplName.GetDeterministicHashCode(), out tmplCurrency))
             {
                 UCE_HonorShopCurrency hsc = new UCE_HonorShopCurrency();
                 hsc.honorCurrency = tmplCurrency;

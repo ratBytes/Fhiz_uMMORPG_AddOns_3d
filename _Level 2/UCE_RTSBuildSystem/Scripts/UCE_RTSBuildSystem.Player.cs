@@ -120,7 +120,7 @@ public partial class Player
 
                 ScriptableItem item;
 
-                if (ScriptableItem.dict.TryGetValue(po.itemName.GetStableHashCode(), out item))
+                if (ScriptableItem.dict.TryGetValue(po.itemName.GetDeterministicHashCode(), out item))
                 {
                     // -- enough inventory space?
 
@@ -299,7 +299,7 @@ public partial class Player
     public void PrepareSpawnPlaceableObject(UCE_Item_PlaceableObject item)
     {
         UCE_myPlaceableObjectItem = item;
-        Target_UCE_PrepareSpawnPlaceableObjectClient(connectionToClient, item.name.GetStableHashCode());
+        Target_UCE_PrepareSpawnPlaceableObjectClient(connectionToClient, item.name.GetDeterministicHashCode());
     }
 
     // -----------------------------------------------------------------------------------
@@ -371,7 +371,7 @@ public partial class Player
         if (UCE_CanSpawnPlaceableObject())
         {
             UCE_addTask();
-            Target_UCE_StartSpawnPlaceableObjectClient(connectionToClient, UCE_myPlaceableObjectItem.name.GetStableHashCode());
+            Target_UCE_StartSpawnPlaceableObjectClient(connectionToClient, UCE_myPlaceableObjectItem.name.GetDeterministicHashCode());
             SetIndicatorViaPosition(UCE_getSpawnDestination());
             UCE_setTimer(UCE_myPlaceableObjectItem.placementTime);
         }

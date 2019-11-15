@@ -70,7 +70,7 @@ public partial class Database
             string class2 = row.class2;
 #endif
             UCE_PrestigeClassTemplate prestigeClass1 = null;
-            if (UCE_PrestigeClassTemplate.dict.TryGetValue(class1.GetStableHashCode(), out prestigeClass1))
+            if (UCE_PrestigeClassTemplate.dict.TryGetValue(class1.GetDeterministicHashCode(), out prestigeClass1))
                 player.UCE_prestigeClass = prestigeClass1;
         }
 #endif

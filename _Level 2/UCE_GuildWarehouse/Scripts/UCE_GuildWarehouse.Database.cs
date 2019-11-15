@@ -137,7 +137,7 @@ public partial class Database
                 string itemName 	= (string)row[0];
                 int slot 			= Convert.ToInt32(row[1]);
                 ScriptableItem template;
-                if (slot < player.guildWarehouseStorageItems && ScriptableItem.dict.TryGetValue(itemName.GetStableHashCode(), out template))
+                if (slot < player.guildWarehouseStorageItems && ScriptableItem.dict.TryGetValue(itemName.GetDeterministicHashCode(), out template))
                 {
                     Item item 					= new Item(template);
                     int amount 					= Convert.ToInt32(row[2]);
@@ -194,7 +194,7 @@ public partial class Database
                 int slot = row.slot;
                 ScriptableItem template;
 
-                if (slot < player.guildWarehouseStorageItems && ScriptableItem.dict.TryGetValue(itemName.GetStableHashCode(), out template))
+                if (slot < player.guildWarehouseStorageItems && ScriptableItem.dict.TryGetValue(itemName.GetDeterministicHashCode(), out template))
                 {
                     Item item = new Item(template);
                     int amount = row.amount;

@@ -194,7 +194,7 @@ public partial class UCE_AdministrationConsole : NetworkBehaviour
     protected ScriptableItem getItem(string itemName)
     {
         ScriptableItem item;
-        ScriptableItem.dict.TryGetValue(itemName.GetStableHashCode(), out item);
+        ScriptableItem.dict.TryGetValue(itemName.GetDeterministicHashCode(), out item);
         return item;
     }
 
@@ -248,7 +248,7 @@ public partial class UCE_AdministrationConsole : NetworkBehaviour
         }
         else if (type == UCE_AdminCommandArgument.UCE_AdminCommandArgumentType.ItemName)
         {
-            if (!ScriptableItem.dict.ContainsKey(argument.GetStableHashCode()))
+            if (!ScriptableItem.dict.ContainsKey(argument.GetDeterministicHashCode()))
             {
                 player.UCE_TargetAddMessage("[Sys] Invalid item name");
                 return false;

@@ -51,7 +51,7 @@ public partial struct MailMessage
         {
             if (string.IsNullOrEmpty(itemName)) return null;
             ScriptableItem itemData;
-            if (ScriptableItem.dict.TryGetValue(itemName.GetStableHashCode(), out itemData))
+            if (ScriptableItem.dict.TryGetValue(itemName.GetDeterministicHashCode(), out itemData))
                 return itemData;
             return null;
         }

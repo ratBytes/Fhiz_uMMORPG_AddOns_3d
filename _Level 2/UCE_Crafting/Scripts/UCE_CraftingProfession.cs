@@ -98,7 +98,7 @@ public struct UCE_CraftingProfession
     // -----------------------------------------------------------------------------------
     public UCE_CraftingProfessionTemplate template
     {
-        get { return UCE_CraftingProfessionTemplate.dict[templateName.GetStableHashCode()]; }
+        get { return UCE_CraftingProfessionTemplate.dict[templateName.GetDeterministicHashCode()]; }
     }
 
     // -----------------------------------------------------------------------------------

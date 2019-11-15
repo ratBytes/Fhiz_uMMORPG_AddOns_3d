@@ -144,12 +144,12 @@ public partial class Player
             // active quest and not completed yet?
             if ((!UCE_quests[i].completed || !UCE_quests[i].completedAgain) &&
                 UCE_quests[i].visitTarget.Length > 0 &&
-                UCE_quests[i].visitTarget.Any(x => x.name.GetStableHashCode() == npc.name.GetStableHashCode()) &&
-                !UCE_quests[i].visitedTarget.Any(x => x == npc.name.GetStableHashCode())
+                UCE_quests[i].visitTarget.Any(x => x.name.GetDeterministicHashCode() == npc.name.GetDeterministicHashCode()) &&
+                !UCE_quests[i].visitedTarget.Any(x => x == npc.name.GetDeterministicHashCode())
                 )
             {
                 int index = i;
-                Cmd_UCE_IncreaseQuestNpcCounterFor(index, npc.name.GetStableHashCode());
+                Cmd_UCE_IncreaseQuestNpcCounterFor(index, npc.name.GetDeterministicHashCode());
             }
         }
     }
@@ -165,7 +165,7 @@ public partial class Player
         bool bChanged = false;
         for (int j = 0; j < UCE_quests[index].visitTarget.Length; ++j)
         {
-            if (UCE_quests[index].visitTarget[j].name.GetStableHashCode() == hash &&
+            if (UCE_quests[index].visitTarget[j].name.GetDeterministicHashCode() == hash &&
                 quest.visitedTarget[j] != hash
                 )
             {
@@ -544,7 +544,7 @@ public partial class Player
 
             UCE_ScriptableQuest newQuest;
 
-            if (UCE_ScriptableQuest.dict.TryGetValue(questName.GetStableHashCode(), out newQuest))
+            if (UCE_ScriptableQuest.dict.TryGetValue(questName.GetDeterministicHashCode(), out newQuest))
             {
 
                 if (UCE_CanAcceptQuest(newQuest))

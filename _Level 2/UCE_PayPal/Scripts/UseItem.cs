@@ -19,7 +19,7 @@ public class UseItem : MonoBehaviour
 
         if (product != null)
         {
-            player.Cmd_UCE_PayPal_PurchaseCoins(product.name.GetStableHashCode());
+            player.Cmd_UCE_PayPal_PurchaseCoins(product.name.GetDeterministicHashCode());
         }
     }
 }

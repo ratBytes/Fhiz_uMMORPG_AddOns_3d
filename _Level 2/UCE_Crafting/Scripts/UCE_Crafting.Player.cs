@@ -219,7 +219,7 @@ public partial class Player
 
         // -- validation (in case something changed during the craft duration)
 
-        if (UCE_selectedWorkbench && UCE_Tmpl_Recipe.dict.TryGetValue(recipeName.GetStableHashCode(), out UCE_myRecipe))
+        if (UCE_selectedWorkbench && UCE_Tmpl_Recipe.dict.TryGetValue(recipeName.GetDeterministicHashCode(), out UCE_myRecipe))
         {
             if (UCE_Crafting_CraftValidation(UCE_myRecipe, amount, boost))
             {

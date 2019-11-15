@@ -86,7 +86,7 @@ public partial class Database
         {
             string questName = (string)row[0];
             UCE_ScriptableQuest questData;
-            if (UCE_ScriptableQuest.dict.TryGetValue(questName.GetStableHashCode(), out questData))
+            if (UCE_ScriptableQuest.dict.TryGetValue(questName.GetDeterministicHashCode(), out questData))
             {
                 UCE_Quest quest 		= new UCE_Quest(questData);
 
@@ -113,7 +113,7 @@ public partial class Database
         {
             string questName = row.name;
             UCE_ScriptableQuest questData;
-            if (UCE_ScriptableQuest.dict.TryGetValue(questName.GetStableHashCode(), out questData))
+            if (UCE_ScriptableQuest.dict.TryGetValue(questName.GetDeterministicHashCode(), out questData))
             {
                 UCE_Quest quest = new UCE_Quest(questData);
 

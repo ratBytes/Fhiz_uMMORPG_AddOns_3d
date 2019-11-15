@@ -67,8 +67,8 @@ public partial class Entity
     // -------------------------------------------------------------------------------
     public void UCE_setRealm(UCE_Tmpl_Realm newRealm, UCE_Tmpl_Realm newAlly)
     {
-        int newRealmHash = (newRealm != null) ? newRealm.name.GetStableHashCode() : 0;
-        int newAllyHash = (newAlly != null) ? newAlly.name.GetStableHashCode() : 0;
+        int newRealmHash = (newRealm != null) ? newRealm.name.GetDeterministicHashCode() : 0;
+        int newAllyHash = (newAlly != null) ? newAlly.name.GetDeterministicHashCode() : 0;
         UCE_setRealm(newRealmHash, newAllyHash);
     }
 
@@ -81,14 +81,14 @@ public partial class Entity
         if (newRealmHash != 0 && UCE_Tmpl_Realm.dict.TryGetValue(newRealmHash, out realmData))
         {
             Realm = realmData;
-            hashRealm = realmData.name.GetStableHashCode();
+            hashRealm = realmData.name.GetDeterministicHashCode();
         }
 
         UCE_Tmpl_Realm allyData;
         if (newAllyHash != 0 && UCE_Tmpl_Realm.dict.TryGetValue(newAllyHash, out allyData))
         {
             Ally = allyData;
-            hashAlly = allyData.name.GetStableHashCode();
+            hashAlly = allyData.name.GetDeterministicHashCode();
         }
     }
 

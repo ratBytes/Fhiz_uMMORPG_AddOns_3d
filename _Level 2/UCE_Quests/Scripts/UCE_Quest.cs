@@ -40,7 +40,7 @@ public partial struct UCE_Quest
     // -------------------------------------------------------------------------------
     public UCE_Quest(UCE_ScriptableQuest data)
     {
-        hash = data.name.GetStableHashCode();
+        hash = data.name.GetDeterministicHashCode();
         completed = false;
         completedAgain = false;
         pvpedTarget = new int[10];
@@ -311,7 +311,7 @@ public partial struct UCE_Quest
             tmpString = headerVisitTarget + visitedCount.ToString() + "/" + visitTarget.Length + "\n";
             foreach (Npc npc in visitTarget)
             {
-                string done = visitedTarget.Any(x => x == npc.name.GetStableHashCode()) ? " [ok]" : " [x]";
+                string done = visitedTarget.Any(x => x == npc.name.GetDeterministicHashCode()) ? " [ok]" : " [x]";
                 tmpString += " - " + npc.name + done + "\n";
             }
         }

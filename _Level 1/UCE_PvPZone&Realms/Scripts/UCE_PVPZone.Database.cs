@@ -65,11 +65,11 @@ public partial class Database
 #if _MYSQL
             string realm = (string)row[0];
             string ally = (string)row[1];
-            player.UCE_setRealm(realm.GetStableHashCode(), ally.GetStableHashCode());
+            player.UCE_setRealm(realm.GetDeterministicHashCode(), ally.GetDeterministicHashCode());
 #elif _SQLITE
             string realm = row.realm;
             string ally = row.alliedrealm;
-            player.UCE_setRealm(realm.GetStableHashCode(), ally.GetStableHashCode());
+            player.UCE_setRealm(realm.GetDeterministicHashCode(), ally.GetDeterministicHashCode());
 #endif 
         }
 #endif

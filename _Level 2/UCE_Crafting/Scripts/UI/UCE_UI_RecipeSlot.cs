@@ -29,7 +29,7 @@ public class UCE_UI_RecipeSlot : MonoBehaviour
 
         UCE_Tmpl_Recipe recipe;
 
-        UCE_Tmpl_Recipe.dict.TryGetValue(recipeName.GetStableHashCode(), out recipe);
+        UCE_Tmpl_Recipe.dict.TryGetValue(recipeName.GetDeterministicHashCode(), out recipe);
 
         nameText.text = recipe.name;
         image.sprite = recipe.image;

@@ -50,7 +50,7 @@ public partial class NetworkManagerMMO
 #if _SQLITE
             string itemName = row.item;
 
-            if (((UCE_Item_PlaceableObject)ScriptableItem.dict[itemName.GetStableHashCode()]).placementObject)
+            if (((UCE_Item_PlaceableObject)ScriptableItem.dict[itemName.GetDeterministicHashCode()]).placementObject)
             {
                 Vector3 v = new Vector3(row.x, row.y, row.z);
                 Quaternion rotation = Quaternion.Euler(row.xRot, row.yRot, row.zRot);
@@ -58,7 +58,7 @@ public partial class NetworkManagerMMO
 #elif _MYSQL
             string itemName = (string)row[9];
 
-            if (((UCE_Item_PlaceableObject)ScriptableItem.dict[itemName.GetStableHashCode()]).placementObject)
+            if (((UCE_Item_PlaceableObject)ScriptableItem.dict[itemName.GetDeterministicHashCode()]).placementObject)
             {
                 Vector3 v = new Vector3(
                                 (float)row[2],
@@ -67,7 +67,7 @@ public partial class NetworkManagerMMO
 
                 Quaternion rotation = Quaternion.Euler((float)row[5], (float)row[6], (float)row[7]);
 #endif
-                GameObject go = (GameObject)Instantiate(((UCE_Item_PlaceableObject)ScriptableItem.dict[itemName.GetStableHashCode()]).placementObject, v, rotation);
+                GameObject go = (GameObject)Instantiate(((UCE_Item_PlaceableObject)ScriptableItem.dict[itemName.GetDeterministicHashCode()]).placementObject, v, rotation);
                 UCE_PlaceableObject po = go.GetComponent<UCE_PlaceableObject>();
 
                 if (po)

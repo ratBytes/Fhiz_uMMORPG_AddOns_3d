@@ -41,7 +41,7 @@ public partial struct UCE_HonorShopCurrency
         set
         {
             if (value != null)
-                hash = value.name.GetStableHashCode();
+                hash = value.name.GetDeterministicHashCode();
             else
                 hash = 0;
         }

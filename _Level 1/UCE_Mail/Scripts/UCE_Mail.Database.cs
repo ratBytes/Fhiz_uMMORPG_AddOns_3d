@@ -88,7 +88,7 @@ public partial class Database
 		message.deleted = (long)row[colNum++];
 
 		string name = (string)row[colNum++];
-		if (ScriptableItem.dict.TryGetValue(name.GetStableHashCode(), out ScriptableItem itemData))
+		if (ScriptableItem.dict.TryGetValue(name.GetDeterministicHashCode(), out ScriptableItem itemData))
         	message.item = itemData;
 
         return message;
@@ -114,7 +114,7 @@ public partial class Database
         message.deleted = row.deleted;
 
         string item = row.item;
-        if (ScriptableItem.dict.TryGetValue(item.GetStableHashCode(), out ScriptableItem itemData))
+        if (ScriptableItem.dict.TryGetValue(item.GetDeterministicHashCode(), out ScriptableItem itemData))
             message.item = itemData;
 
         return message;

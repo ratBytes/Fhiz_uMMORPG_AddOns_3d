@@ -98,7 +98,7 @@ public struct UCE_HarvestingProfession
     // -----------------------------------------------------------------------------------
     public UCE_HarvestingProfessionTemplate template
     {
-        get { return UCE_HarvestingProfessionTemplate.dict[templateName.GetStableHashCode()]; }
+        get { return UCE_HarvestingProfessionTemplate.dict[templateName.GetDeterministicHashCode()]; }
     }
 
     // -----------------------------------------------------------------------------------

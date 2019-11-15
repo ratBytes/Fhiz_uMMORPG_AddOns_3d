@@ -111,7 +111,7 @@ public partial class Database
 				int slot 			= Convert.ToInt32(row[1]);
 				ScriptableItem template;
 
-				if (slot < player.playerWarehouseStorageItems && ScriptableItem.dict.TryGetValue(itemName.GetStableHashCode(), out template)) {
+				if (slot < player.playerWarehouseStorageItems && ScriptableItem.dict.TryGetValue(itemName.GetDeterministicHashCode(), out template)) {
 					Item item 					= new Item(template);
 					int amount 					= Convert.ToInt32(row[2]);
 					item.summonedHealth 		= Convert.ToInt32(row[3]);
@@ -154,7 +154,7 @@ public partial class Database
                 int slot = row.slot;
                 ScriptableItem template;
 
-                if (slot < player.playerWarehouseStorageItems && ScriptableItem.dict.TryGetValue(itemName.GetStableHashCode(), out template))
+                if (slot < player.playerWarehouseStorageItems && ScriptableItem.dict.TryGetValue(itemName.GetDeterministicHashCode(), out template))
                 {
                     Item item = new Item(template);
                     int amount = row.amount;

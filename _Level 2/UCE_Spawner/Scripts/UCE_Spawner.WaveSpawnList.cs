@@ -236,7 +236,7 @@ public partial class UCE_WaveSpawnList
 
         foreach (UCE_WaveSpawnableEntity spawnableEntity in spawnablePrefabs)
         {
-            if (spawnableEntity.entity != null && spawnableEntity.amount > 0 && spawnableEntity.entity.name.GetStableHashCode() == nameHash)
+            if (spawnableEntity.entity != null && spawnableEntity.amount > 0 && spawnableEntity.entity.name.GetDeterministicHashCode() == nameHash)
             {
                 idx++;
                 spawnablePrefabs[idx].amount--;

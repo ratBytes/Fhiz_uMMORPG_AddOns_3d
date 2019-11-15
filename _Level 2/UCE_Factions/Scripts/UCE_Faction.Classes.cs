@@ -21,7 +21,7 @@ public struct UCE_Faction
         get
         {
             UCE_Tmpl_Faction _data;
-            UCE_Tmpl_Faction.dict.TryGetValue(name.GetStableHashCode(), out _data);
+            UCE_Tmpl_Faction.dict.TryGetValue(name.GetDeterministicHashCode(), out _data);
             return _data;
         }
     }

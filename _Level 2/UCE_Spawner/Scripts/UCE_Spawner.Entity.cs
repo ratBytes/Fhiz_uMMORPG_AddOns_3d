@@ -22,7 +22,7 @@ public partial class Entity
     private void OnDeath_UCE_WaveSpawnerEntity()
     {
         if (UCE_parentSpawnArea == null) return;
-        UCE_parentSpawnArea.updateMemberPopulation(name.GetStableHashCode(), UCE_parentWaveIndex);
+        UCE_parentSpawnArea.updateMemberPopulation(name.GetDeterministicHashCode(), UCE_parentWaveIndex);
         UCE_parentSpawnArea = null;
     }
 

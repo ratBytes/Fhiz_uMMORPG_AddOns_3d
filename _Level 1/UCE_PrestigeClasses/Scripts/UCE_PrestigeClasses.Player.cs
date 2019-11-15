@@ -30,7 +30,7 @@ public partial class Player : Entity
     // -----------------------------------------------------------------------------------
     private void UCE_setPrestigeClass(UCE_PrestigeClassTemplate prestigeClass)
     {
-        UCE_hashPrestigeClass = prestigeClass.name.GetStableHashCode();
+        UCE_hashPrestigeClass = prestigeClass.name.GetDeterministicHashCode();
         _UCE_prestigeClass = prestigeClass;
     }
 

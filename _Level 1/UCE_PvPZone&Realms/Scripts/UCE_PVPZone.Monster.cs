@@ -27,10 +27,10 @@ public partial class Monster
     private void Awake_UCE_PvPZone()
     {
         if (Realm != null)
-            hashRealm = Realm.name.GetStableHashCode();
+            hashRealm = Realm.name.GetDeterministicHashCode();
 
         if (Ally != null)
-            hashAlly = Ally.name.GetStableHashCode();
+            hashAlly = Ally.name.GetDeterministicHashCode();
 
         _originalRealm = hashRealm;
         _originalAlly = hashAlly;
