@@ -19,7 +19,7 @@ public partial class UCE_DefinesManager
     {
          UCE_AddOn addon = new UCE_AddOn();
 
-        addon.name          = "UCE Tools";
+        addon.name          = "UCE GuildWarehouse";
         addon.basis         = "uMMORPG3d V1";
         addon.define        = "_iMMOGUILDWAREHOUSE";
         addon.author        = "Fhiz";
