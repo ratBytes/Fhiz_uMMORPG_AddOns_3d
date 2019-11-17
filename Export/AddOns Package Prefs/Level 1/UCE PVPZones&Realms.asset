@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9ffcddffb3b4dd45a23f21c475ac27b, type: 3}
-  m_Name: New Package Pref 28
+  m_Name: UCE PVPZones&Realms
   m_EditorClassIdentifier: 
   m_PackageName: New Package
   m_ExportPath: Assets

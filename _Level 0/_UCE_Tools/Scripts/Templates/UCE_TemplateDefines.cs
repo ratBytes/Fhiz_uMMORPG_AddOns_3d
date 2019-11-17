@@ -21,11 +21,11 @@ public partial class UCE_TemplateDefines : ScriptableObject
 {
 
     static UCE_TemplateDefines _instance;
-
+#if UNITY_EDITOR
     [SerializeField]
     [Header("(Change list size to force refresh)")]
     public List<UCE_AddOn> addons = new List<UCE_AddOn>();
-
+#endif
     // -----------------------------------------------------------------------------------
     // OnValidate
     // -----------------------------------------------------------------------------------
@@ -62,6 +62,7 @@ public partial class UCE_TemplateDefines : ScriptableObject
     // -----------------------------------------------------------------------------------
     public void UpdateDefines()
     {
+#if UNITY_EDITOR
         for (int i = 0; i < addons.Count(); ++i)
         {
             if (addons[i].define == "_iMMOTOOLS" && addons[i].define == "_iMMOCORE") continue;
@@ -71,6 +72,7 @@ public partial class UCE_TemplateDefines : ScriptableObject
             else
                 UCE_EditorTools.AddScriptingDefine(addons[i].define);
         }
+#endif
     }
 
     // -----------------------------------------------------------------------------------
