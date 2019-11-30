@@ -80,6 +80,7 @@ public class UCE_UI_Popup : MonoBehaviour
     // -----------------------------------------------------------------------------------
     protected void Hide()
     {
+        popupSoundEffect = null;
         panel.SetActive(false);
     }
 
