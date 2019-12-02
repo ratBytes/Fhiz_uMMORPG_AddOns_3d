@@ -55,6 +55,10 @@ public partial class Player
 
                         break;
                     }
+
+#if _iMMOUMA
+                    return; //Vanishing Bar Fix
+#endif
                 }
                 else
                 {

@@ -36,6 +36,7 @@ public partial class NetworkManagerMMO : NetworkManager
                 // OnEquipmentChanged won't be called unless spawned, we
                 // need to refresh manually
                 player.RefreshLocation(i);
+                player.UpdateUma();
             }
         }
 

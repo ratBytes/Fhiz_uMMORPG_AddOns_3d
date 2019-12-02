@@ -1666,29 +1666,24 @@ MonoBehaviour:
   CharacterCreated:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UMA.UMADataEvent, UMA_Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   CharacterBegun:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UMA.UMADataEvent, UMA_Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   CharacterDestroyed:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UMA.UMADataEvent, UMA_Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   CharacterUpdated:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UMA.UMADataEvent, UMA_Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   CharacterDnaUpdated:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UMA.UMADataEvent, UMA_Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   RecipeUpdated:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UMA.UMADataEvent, UMA_Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   hide: 0
   loadBlendShapes: 0
+  keepAvatar: 0
   activeRace:
     name: HumanMale
   defaultChangeRaceOptions: 14
@@ -3180,8 +3175,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: Stunned!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3218,7 +3211,6 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 3
   m_textAlignment: 514
-  m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -3245,6 +3237,7 @@ MonoBehaviour:
   m_verticalMapping: 0
   m_uvLineOffset: 0
   m_geometrySortingOrder: 0
+  m_VertexBufferAutoSizeReduction: 1
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
@@ -3259,12 +3252,9 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
-  m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 4047685768493088635}
   m_subTextObjects:
@@ -4072,8 +4062,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4110,7 +4098,6 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_textAlignment: 514
-  m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -4137,6 +4124,7 @@ MonoBehaviour:
   m_verticalMapping: 0
   m_uvLineOffset: 0
   m_geometrySortingOrder: 0
+  m_VertexBufferAutoSizeReduction: 1
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
@@ -4151,12 +4139,9 @@ MonoBehaviour:
     lineCount: 0
     pageCount: 0
     materialCount: 1
-  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
-  m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 8746328453934001876}
   m_subTextObjects:
@@ -4317,6 +4302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6705c6fca6a841a3b356d0bfc685b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
   syncInterval: 0.1
   agent: {fileID: 7014222573104628836}
   entity: {fileID: 7014222573095986026}
@@ -4344,9 +4330,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 587ba4e2210854080997af9ebf15b816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
   syncInterval: 0.1
-  interactAudio: {fileID: 0}
-  questAudio: {fileID: 0}
+  _cannotCast: 0
+  attachedChilds: []
+  _blockFactor:
+    baseValue: 0
+    bonusPerLevel: 0
+  _criticalFactor:
+    baseValue: 0
+    bonusPerLevel: 0
+  _drainHealthFactor:
+    baseValue: 0
+    bonusPerLevel: 0
+  _drainManaFactor:
+    baseValue: 0
+    bonusPerLevel: 0
+  _reflectDamageFactor:
+    baseValue: 0
+    bonusPerLevel: 0
+  _defenseBreakFactor:
+    baseValue: 0
+    bonusPerLevel: 0
+  _blockBreakFactor:
+    baseValue: 0
+    bonusPerLevel: 0
+  _criticalEvasion:
+    baseValue: 0
+    bonusPerLevel: 0
+  _accuracy:
+    baseValue: 0
+    bonusPerLevel: 0
+  _resistance:
+    baseValue: 0
+    bonusPerLevel: 0
+  _absorbHealthFactor:
+    baseValue: 0
+    bonusPerLevel: 0
+  _absorbManaFactor:
+    baseValue: 0
+    bonusPerLevel: 0
+  iconOverlay: {fileID: 0}
+  isElite: 0
+  isBoss: 0
+  deathSkill:
+    deathSkill: []
+    deathSkillMinLevel: 1
+    deathSkillMaxLevel: 2
+    deathSkillChance: 1
+  tombstone:
+    tombstone: []
+    tombstoneChance: 1
+    tombstoneFallHeight: 0.5
+  elementalResistances: []
+  Realm: {fileID: 0}
+  Ally: {fileID: 0}
+  hashRealm: 0
+  hashAlly: 0
+  LookDirection: {x: 0, y: 0, z: 1}
+  blueprints: []
+  factionModifiers: []
+  currencyDrops: []
+  _moraleRecovery: 1
+  _moraleRecoveryRate:
+    baseValue: 1
+    bonusPerLevel: 0
+  _moraleMax:
+    baseValue: 100
+    bonusPerLevel: 0
+  UCE_parentSpawnArea: {fileID: 0}
+  UCE_parentWaveIndex: 0
+  _staminaRecovery: 1
+  _staminaRecoveryRate:
+    baseValue: -1
+    bonusPerLevel: 0
+  _staminaMax:
+    baseValue: 100
+    bonusPerLevel: 0
+  _healthRecovery: 1
+  _manaRecovery: 1
+  _invincible: 0
+  healingPopupPrefab: {fileID: 0}
   agent: {fileID: 7014222573104628836}
   proxchecker: {fileID: 7014222573095977316}
   animator: {fileID: 7014222573094730124}
@@ -4358,15 +4422,12 @@ MonoBehaviour:
   _healthMax:
     baseValue: 100
     bonusPerLevel: 10
-  invincible: 0
-  healthRecovery: 1
   _healthRecoveryRate:
     baseValue: 1
     bonusPerLevel: 0
   _manaMax:
     baseValue: 100
     bonusPerLevel: 10
-  manaRecovery: 1
   _manaRecoveryRate:
     baseValue: 1
     bonusPerLevel: 0
@@ -4398,7 +4459,112 @@ MonoBehaviour:
   _gold: 150
   stunnedOverlay: {fileID: 4651110472946831773}
   inSafeZone: 0
-  umaDna: 
+  UCE_myExploration: {fileID: 0}
+  help:
+    command: 
+    identifierOut: (Help)
+    identifierIn: (Help)
+    textPrefab: {fileID: 0}
+  jumpHeight: 3
+  maxDistanceJump: 5
+  levelUpNotice:
+    message: Default Message
+    iconId: 0
+    soundId: 0
+  startingScene:
+    sceneAsset: {fileID: 0}
+    sceneName: 
+  playerWarehouse: {fileID: 0}
+  warehouseActionDone: 0
+  skillExpOnLevelUp:
+    baseValue: 0
+    bonusPerLevel: 0
+  UCE_myTimegate: {fileID: 0}
+  travelroutePopup:
+    message: Default Message
+    iconId: 0
+    soundId: 0
+  UCE_myTravelrouteArea: {fileID: 0}
+  UCE_myBindpoint:
+    name: 
+    SceneName: 
+    position: {x: 0, y: 0, z: 0}
+  isSeated: 0
+  currentChair: {fileID: 0}
+  DailyRewards: {fileID: 0}
+  ReturnRewards: {fileID: 0}
+  dailyRewardCounter: -1
+  dailyRewardReset: 0
+  clickedPartyIndex: 0
+  equipmentStances: []
+  UCE_skillbar:
+  - reference: 
+    hotKey: 49
+  - reference: 
+    hotKey: 50
+  - reference: 
+    hotKey: 51
+  - reference: 
+    hotKey: 52
+  - reference: 
+    hotKey: 53
+  - reference: 
+    hotKey: 54
+  - reference: 
+    hotKey: 55
+  - reference: 
+    hotKey: 56
+  - reference: 
+    hotKey: 57
+  - reference: 
+    hotKey: 48
+  UCE_skillbarIndex: 0
+  _inventorySize: 30
+  mailSettings: {fileID: 0}
+  inAreaOpenPvp: 0
+  inAreaRealmPvp: 0
+  inAreaPartyPvp: 0
+  inAreaGuildPvp: 0
+  autoRetaliation: 0
+  skillIndex: 0
+  UCE_SecondsPassed: 0
+  isTaming: 0
+  tamingTime: 2
+  randomizeTime: 0.5
+  baseTamingSuccessRate: 0.1
+  addedTamingSuccessRate: 0
+  UCE_usageAreaId: 0
+  weightSystem:
+    burdenedBuff: {fileID: 0}
+    weightAttribute: {fileID: 0}
+    carryPerPoint: 0
+    maxBurdenLevel: 0
+  UCE_adminLevel: 0
+  autoAttack: 0
+  startingFactions: []
+  messageFactionModified: ''' alignment shifted by '
+  friendshipTemplate: {fileID: 0}
+  guildWarehouse: {fileID: 0}
+  guildWarehouseLock: 0
+  guildWarehouseActionDone: 0
+  UCE_mounted: 0
+  UCE_activeQuestLimit: 100
+  shareQuestMessage: 'Quest shared: '
+  questCompletePopup:
+    message: Default Message
+    iconId: 0
+    soundId: 0
+  UCE_myPlaceableObjectItem: {fileID: 0}
+  UCE_myPlaceableObject: {fileID: 0}
+  exhaustedBuff: {fileID: 0}
+  maxExhaustedBuffLevel: 1
+  UCE_TraitPoints: 0
+  tabTargetMultiplier: 6
+  guildUpgrades: {fileID: 0}
+  logoutWarningTime: 30
+  logoutKickTime: 60
+  targetButtonPressed: 0
+  patreonIntervalSeconds: 3600
   chat: {fileID: 7014222573095887138}
   avatarCamera: {fileID: 6998293549615404660}
   rubberbanding: {fileID: 6972286402592198514}
@@ -4424,7 +4590,6 @@ MonoBehaviour:
   skillExperience: 0
   indicatorPrefab: {fileID: 120922, guid: 95fc72c38103b4c928f9e12db60c9f8e, type: 3}
   indicator: {fileID: 0}
-  inventorySize: 30
   defaultItems: []
   inventorySplitKeys: 300100002f010000
   trash:
@@ -4435,63 +4600,79 @@ MonoBehaviour:
       summonedLevel: 0
       summonedExperience: 0
     amount: 0
-    level: 0
-    experience: 0
   equipmentInfo:
-  - requiredCategory: WeaponBow
+  - nakedModel: {fileID: 0}
+    nakedLocation: {fileID: 0}
+    mesh: []
+    requiredCategory: Unused
     location: {fileID: 8799455954877040903}
     defaultItem:
       item: {fileID: 11400000, guid: ed9584898ad0e4ecc93ae9e3c257edc7, type: 2}
       amount: 1
-      level: 1
-  - requiredCategory: Head
+  - nakedModel: {fileID: 0}
+    nakedLocation: {fileID: 0}
+    mesh: []
+    requiredCategory: Head
     location: {fileID: 0}
     defaultItem:
       item: {fileID: 0}
       amount: 0
-      level: 0
-  - requiredCategory: Chest
+  - nakedModel: {fileID: 0}
+    nakedLocation: {fileID: 0}
+    mesh: []
+    requiredCategory: Chest
     location: {fileID: 0}
     defaultItem:
       item: {fileID: 11400000, guid: 5570618a929d842a182f7dbed42c0109, type: 2}
       amount: 1
-      level: 0
-  - requiredCategory: Legs
+  - nakedModel: {fileID: 0}
+    nakedLocation: {fileID: 0}
+    mesh: []
+    requiredCategory: Legs
     location: {fileID: 0}
     defaultItem:
       item: {fileID: 0}
       amount: 0
-      level: 0
-  - requiredCategory: Ammo
+  - nakedModel: {fileID: 0}
+    nakedLocation: {fileID: 0}
+    mesh: []
+    requiredCategory: Ammo
     location: {fileID: 0}
     defaultItem:
       item: {fileID: 11400000, guid: d43d0b6708c5248fb97ce9e77e9ce1ef, type: 2}
       amount: 100
-      level: 0
-  - requiredCategory: Shoulders
+  - nakedModel: {fileID: 0}
+    nakedLocation: {fileID: 0}
+    mesh: []
+    requiredCategory: Shoulders
     location: {fileID: 0}
     defaultItem:
       item: {fileID: 0}
       amount: 0
-      level: 0
-  - requiredCategory: Hands
+  - nakedModel: {fileID: 0}
+    nakedLocation: {fileID: 0}
+    mesh: []
+    requiredCategory: Hands
     location: {fileID: 0}
     defaultItem:
       item: {fileID: 0}
       amount: 0
-      level: 0
-  - requiredCategory: Feet
+  - nakedModel: {fileID: 0}
+    nakedLocation: {fileID: 0}
+    mesh: []
+    requiredCategory: Feet
     location: {fileID: 0}
     defaultItem:
       item: {fileID: 0}
       amount: 0
-      level: 0
-  - requiredCategory: Shield
+  - nakedModel: {fileID: 0}
+    nakedLocation: {fileID: 0}
+    mesh: []
+    requiredCategory: WeaponBow
     location: {fileID: 1473443140773927378}
     defaultItem:
       item: {fileID: 11400000, guid: 8383cafc85a494a16b426cb11e5efa49, type: 2}
       amount: 1
-      level: 1
   skillbar:
   - reference: 
     hotKey: 49
@@ -4565,7 +4746,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f98afe75dce041e7a2345a056f73328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
   syncInterval: 0.1
+  global:
+    command: /a
+    identifierOut: (global)
+    identifierIn: (global)
+    textPrefab: {fileID: 0}
+  globalChatItem: {fileID: 0}
+  globalChatLevel: 1
+  rateLimit: 1
+  errorTooSoon: Must wait at least {RATELIMIT} seconds between messages.
+  errorLevelTooLow: Must be at least level {MINLEVEL} before using global chat.
+  errorMissingItem: You must have purchased {CHATITEM} before you can use global chat.
+  wordFilter: {fileID: 0}
   player: {fileID: 7014222573095986026}
   whisper:
     command: /w
@@ -4621,6 +4815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c68a5308094a8c746b26bd483c618126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
   syncInterval: 0.1
 --- !u!114 &7014222573095977316
 MonoBehaviour:
@@ -4634,6 +4829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a89e192f1fcf4f888374a5aeb19eb29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
   syncInterval: 0.1
   visUpdateInterval: 1
   forceHidden: 0
@@ -4888,8 +5084,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4926,7 +5120,6 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_textAlignment: 514
-  m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -4953,6 +5146,7 @@ MonoBehaviour:
   m_verticalMapping: 0
   m_uvLineOffset: 0
   m_geometrySortingOrder: 0
+  m_VertexBufferAutoSizeReduction: 1
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
@@ -4967,12 +5161,9 @@ MonoBehaviour:
     lineCount: 0
     pageCount: 0
     materialCount: 1
-  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
-  m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 1335573316996528347}
   m_subTextObjects:
