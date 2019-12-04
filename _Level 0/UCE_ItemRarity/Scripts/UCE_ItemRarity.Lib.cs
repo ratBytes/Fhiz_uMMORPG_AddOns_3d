@@ -23,7 +23,7 @@ public partial class UCE_DefinesManager
         addon.basis         = "uMMORPG3d V1";
         addon.define        = "_iMMOITEMRARITY";
         addon.author        = "Obscured Crow";
-        addon.version       = "2019.201";
+        addon.version       = "2019.202";
         addon.dependencies  = "none";
         addon.comments      = "none";
         addon.active        = true;
