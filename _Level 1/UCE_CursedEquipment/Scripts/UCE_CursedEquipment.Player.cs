@@ -45,8 +45,18 @@ public partial class Player
     [DevExtMethods("OnDragAndDrop")]
     private void OnDragAndDrop_EquipmentSlot_InventorySlot(int[] slotIndices)
     {
-        // slotIndices[0] = slotFrom; slotIndices[1] = slotTo
-        CmdSwapEquipInventory(slotIndices[0], slotIndices[1]);
+        // merge? check Equals because name AND dynamic variables matter (petLevel etc.)
+        // => merge is important when dragging more arrows into an arrow slot!
+        if (equipment[slotIndices[0]].amount > 0 && inventory[slotIndices[1]].amount > 0 &&
+            equipment[slotIndices[0]].item.Equals(inventory[slotIndices[1]].item))
+        {
+            CmdMergeEquipInventory(slotIndices[0], slotIndices[1]);
+        }
+        // swap?
+        else
+        {
+            CmdSwapInventoryEquip(slotIndices[1], slotIndices[0]); // reversed
+        }
     }
 
     // -----------------------------------------------------------------------------------
