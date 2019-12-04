@@ -23,7 +23,7 @@ public partial class UCE_DefinesManager
         addon.basis         = "uMMORPG3d V1";
         addon.define        = "_iMMOQUESTS";
         addon.author        = "Fhiz";
-        addon.version       = "2019.203";
+        addon.version       = "2019.204";
         addon.dependencies  = "none";
         addon.comments      = "none";
         addon.active        = true;
