@@ -11,7 +11,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract partial class Entity : NetworkBehaviour
+public partial class Entity
 {
     protected float _levitateHeight = 0;
 
