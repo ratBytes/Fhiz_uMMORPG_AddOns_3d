@@ -15,7 +15,7 @@ public partial class UCE_DefinesManager
 {
 
     [DevExtMethods("Constructor")]
-    public static void Constructor_UCE_UsageRequirements()
+    public static void Constructor_UCE_WeightSystem()
     {
        
         UCE_AddOn addon = new UCE_AddOn();
