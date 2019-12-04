@@ -10,7 +10,7 @@ using UnityEngine;
 
 // SCRIPTABLE ITEM
 
-public partial class ScriptableItem : ScriptableObject
+public partial class ScriptableItem
 {
     [Header("[-=-=- UCE WEIGHT SYSTEM -=-=-]")]
     public int weight;
