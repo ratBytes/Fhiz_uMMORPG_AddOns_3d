@@ -8,7 +8,7 @@
 // =======================================================================================
 using UnityEngine;
 
-public abstract partial class ScriptableSkill : ScriptableObject
+public abstract partial class ScriptableSkill
 {
     [Header("-=-=- UCE USAGE REQUIREMENTS -=-=-")]
     public UCE_Requirements usageRequirements;
