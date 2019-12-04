@@ -8,7 +8,7 @@
 // =======================================================================================
 using UnityEngine;
 
-public abstract partial class ScriptableSkill : ScriptableObject
+public abstract partial class ScriptableSkill
 {
 
 #if _iMMOSTAMINA
