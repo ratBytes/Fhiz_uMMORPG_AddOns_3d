@@ -116,8 +116,11 @@ public partial class UISkillbar : MonoBehaviour
                         // try use the skill or walk closer if needed
                         player.TryUseSkill(skillIndex);
                     });
+                    // only build tooltip while it's actually shown. this
+                    // avoids MASSIVE amounts of StringBuilder allocations.
                     slot.tooltip.enabled = true;
-                    slot.tooltip.text = skill.ToolTip();
+                    if (slot.tooltip.IsVisible())
+                        slot.tooltip.text = skill.ToolTip();
                     slot.dragAndDropable.dragable = true;
                     slot.image.color = Color.white;
                     slot.image.sprite = skill.image;
@@ -136,8 +139,11 @@ public partial class UISkillbar : MonoBehaviour
                     {
                         player.CmdUseInventoryItem(inventoryIndex);
                     });
+                    // only build tooltip while it's actually shown. this
+                    // avoids MASSIVE amounts of StringBuilder allocations.
                     slot.tooltip.enabled = true;
-                    slot.tooltip.text = itemSlot.ToolTip();
+                    if (slot.tooltip.IsVisible())
+                        slot.tooltip.text = itemSlot.ToolTip();
                     slot.dragAndDropable.dragable = true;
                     slot.image.color = Color.white;
                     slot.image.sprite = itemSlot.item.image;
@@ -152,8 +158,11 @@ public partial class UISkillbar : MonoBehaviour
 
                     // refresh equipment slot
                     slot.button.onClick.RemoveAllListeners();
+                    // only build tooltip while it's actually shown. this
+                    // avoids MASSIVE amounts of StringBuilder allocations.
                     slot.tooltip.enabled = true;
-                    slot.tooltip.text = itemSlot.ToolTip();
+                    if (slot.tooltip.IsVisible())
+                        slot.tooltip.text = itemSlot.ToolTip();
                     slot.dragAndDropable.dragable = true;
                     slot.image.color = Color.white;
                     slot.image.sprite = itemSlot.item.image;
