@@ -229,7 +229,6 @@ public partial class Player
                 }
 
                 UCE_quests[index] = quest;
-                UCE_quests.Dirty(i);
                 if (bChanged) UCE_checkQuestCompletion(index);
             }
         }
@@ -264,7 +263,6 @@ public partial class Player
                 }
 
                 UCE_quests[index] = quest;
-                UCE_quests.Dirty(i);
                 UCE_checkQuestCompletion(index);
             }
         }
@@ -386,7 +384,6 @@ public partial class Player
                 }
 
                 UCE_quests[i] = quest;
-                UCE_quests.Dirty(i);
                 if (bChanged) UCE_checkQuestCompletion(i);
             }
         }
@@ -424,7 +421,6 @@ public partial class Player
                 }
 
                 UCE_quests[i] = quest;
-                UCE_quests.Dirty(i);
                 if (bChanged) UCE_checkQuestCompletion(i);
             }
         }
@@ -463,7 +459,6 @@ public partial class Player
                 }
 
                 UCE_quests[i] = quest;
-                UCE_quests.Dirty(i);
                 if (bChanged) UCE_checkQuestCompletion(i);
             }
         }
