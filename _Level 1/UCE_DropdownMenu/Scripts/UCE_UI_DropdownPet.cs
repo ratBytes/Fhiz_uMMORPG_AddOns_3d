@@ -67,7 +67,7 @@ public class UCE_UI_DropdownPet : MonoBehaviour
             activeButtons[0].GetComponentInChildren<Text>().fontStyle = pet.autoAttack ? FontStyle.Bold : FontStyle.Normal;
             activeButtons[0].onClick.SetListener(() =>
             {
-                player.CmdPetSetAutoAttack(!pet.autoAttack);
+                pet.CmdSetAutoAttack(!pet.autoAttack);
                 petDropdown.SetActive(false);
             });
 
@@ -75,7 +75,7 @@ public class UCE_UI_DropdownPet : MonoBehaviour
             activeButtons[1].GetComponentInChildren<Text>().fontStyle = pet.defendOwner ? FontStyle.Bold : FontStyle.Normal;
             activeButtons[1].onClick.SetListener(() =>
             {
-                player.CmdPetSetDefendOwner(!pet.defendOwner);
+                pet.CmdSetDefendOwner(!pet.defendOwner);
                 petDropdown.SetActive(false);
             });
 
