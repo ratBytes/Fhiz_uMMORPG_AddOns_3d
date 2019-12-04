@@ -73,7 +73,7 @@ public partial class Player
     // -----------------------------------------------------------------------------------
     // OnUCE_FriendListChanged
     // -----------------------------------------------------------------------------------
-    private void OnUCE_FriendListChanged(SyncListUCE_Friend.Operation op, int itemIndex, UCE_Friend slot)
+    private void OnUCE_FriendListChanged(SyncListUCE_Friend.Operation op, int itemIndex, UCE_Friend oldSlot, UCE_Friend newSlot)
     {
         Player player = Player.localPlayer;
         if (!player) return;
