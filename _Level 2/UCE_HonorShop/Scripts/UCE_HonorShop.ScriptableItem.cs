@@ -8,7 +8,7 @@
 // =======================================================================================
 using UnityEngine;
 
-public partial class ScriptableItem : ScriptableObject
+public partial class ScriptableItem
 {
     [Header("-=-=-=- UCE HONOR SHOP -=-=-=-")]
     public UCE_HonorShopCurrencyCost[] currencyCosts;
