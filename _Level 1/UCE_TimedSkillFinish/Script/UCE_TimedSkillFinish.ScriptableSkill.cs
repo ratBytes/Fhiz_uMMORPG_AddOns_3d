@@ -11,7 +11,7 @@ using Mirror;
 
 // SCRIPTABLE SKILL
 
-public abstract partial class ScriptableSkill : ScriptableObject
+public abstract partial class ScriptableSkill
 {
     [Header("[UCE Timed Skill Finish]")]
     public float applySkillEarlier = 0;
