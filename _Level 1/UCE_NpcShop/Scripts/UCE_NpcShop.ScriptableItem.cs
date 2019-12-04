@@ -8,7 +8,7 @@
 // =======================================================================================
 using UnityEngine;
 
-public partial class ScriptableItem : ScriptableObject
+public partial class ScriptableItem
 {
     public string itemCategory;
 }
