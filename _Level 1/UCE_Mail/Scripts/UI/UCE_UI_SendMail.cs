@@ -122,7 +122,6 @@ public partial class UCE_UI_SendMail : MonoBehaviour
                 {
                     if (NetworkTime.time >= player.nextRiskyActionTime)
                     {
-                        player.nextRiskyActionTime = NetworkTime.time + player.mailSettings.mailWaitSeconds;
                         //prepare and send search request, get response
                         sending = true;
                         search.interactable = false;
@@ -144,7 +143,6 @@ public partial class UCE_UI_SendMail : MonoBehaviour
                 {
                     if (NetworkTime.time >= player.nextRiskyActionTime)
                     {
-                        player.nextRiskyActionTime = NetworkTime.time + player.mailSettings.mailWaitSeconds;
                         sending = true;
                         dialogMessage.text = "Sending Mail...";
                         dialog.SetActive(true);

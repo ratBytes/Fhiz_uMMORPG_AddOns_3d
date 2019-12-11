@@ -97,6 +97,8 @@ public partial class Player
         {
             TargetMail_SendResults(connectionToClient, errors, false);
         }
+
+        nextRiskyActionTime = NetworkTime.time + mailSettings.mailWaitSeconds;
     }
 
     // -----------------------------------------------------------------------------------
@@ -170,6 +172,8 @@ public partial class Player
         }
 
         TargetMail_SearchResults(connectionToClient, String.Join("&", serialized));
+
+        nextRiskyActionTime = NetworkTime.time + mailSettings.mailWaitSeconds;
     }
 
     // -----------------------------------------------------------------------------------
@@ -253,6 +257,8 @@ public partial class Player
             mailMessages.RemoveAt(index);
             Database.singleton.Mail_UpdateMessage(message);
         }
+
+        nextRiskyActionTime = NetworkTime.time + mailSettings.mailWaitSeconds;
     }
 
     // -----------------------------------------------------------------------------------

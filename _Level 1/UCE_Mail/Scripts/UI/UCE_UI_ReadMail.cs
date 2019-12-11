@@ -58,8 +58,6 @@ public partial class UCE_UI_ReadMail : MonoBehaviour
         {
             if (NetworkTime.time >= player.nextRiskyActionTime)
             {
-                player.nextRiskyActionTime = NetworkTime.time + player.mailSettings.mailWaitSeconds;
-
                 readingIndex = -1;
 
                 for (int i = 0; i < messagesContent.childCount; ++i)
