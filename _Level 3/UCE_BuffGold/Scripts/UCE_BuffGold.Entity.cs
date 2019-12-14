@@ -24,7 +24,7 @@ public partial class Entity
         {
 #if _iMMOBUFFGOLD
             float fGoldFactor = buffs.Sum(x => x.boostGold);
-            if (fGoldFactor != 0 && value != _gold)
+            if (fGoldFactor != 0 && value > _gold)
             {
                 long diff = Math.Max(value, _gold) - Math.Min(value, _gold);
                 diff = _gold + (long)Mathf.Round(diff * fGoldFactor);
