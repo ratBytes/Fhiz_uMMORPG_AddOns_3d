@@ -25,7 +25,7 @@ public partial class Player
 #if _iMMOBUFFEXPERIENCE
             float fExpFactor = buffs.Sum(x => x.boostExperience);
 
-            if (fExpFactor != 0 && value != _experience)
+            if (fExpFactor != 0 && value > _experience)
             {
                 long diff = Math.Max(value, _experience) - Math.Min(value, _experience);
                 value = _experience + (long)Mathf.Round(diff * fExpFactor);
