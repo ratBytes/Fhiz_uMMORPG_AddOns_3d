@@ -76,6 +76,15 @@ public partial class UCE_ActivateableObject : NetworkBehaviour
     private void UCE_SlowUpdate()
     {
         activateableObject.SetActive(_visible);
+	//Works, made it default invisible. Added code to make its mesh enabled. Seems bug
+	if (_visible == true)
+        {
+            var Mesh = activateableObject.GetComponent<MeshRenderer>();
+            if (Mesh != null)
+            {
+                Mesh.enabled = true;
+            }
+        }
     }
 
     // -----------------------------------------------------------------------------------
