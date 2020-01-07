@@ -76,6 +76,14 @@ public partial class UCE_ActivateableObject : NetworkBehaviour
     private void UCE_SlowUpdate()
     {
         activateableObject.SetActive(_visible);
+	if (_visible == true)
+        {
+            var Mesh = activateableObject.GetComponent<MeshRenderer>();
+            if (Mesh != null)
+            {
+                Mesh.enabled = true;
+            }
+        }
     }
 
     // -----------------------------------------------------------------------------------
